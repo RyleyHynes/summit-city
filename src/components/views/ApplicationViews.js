@@ -1,5 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom"
-import { ActivityList } from "../activities/ActivityList"
+import { ClimbList } from "../activities/ClimbList"
+import { HikeList } from "../activities/HikeList"
+
 
 
 
@@ -11,7 +13,8 @@ export const ApplicationViews = () => {
             <Outlet />
             </>
         }>
-            <Route path="activities" element={<ActivityList />} />
+            <Route path="hikes" element={<HikeList />} />
+            <Route path="climbs" element={<ClimbList />} />
         </Route>
     </Routes>
 }

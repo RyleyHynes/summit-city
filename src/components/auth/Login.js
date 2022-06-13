@@ -6,7 +6,7 @@ import "./Login.css"
 export const Login = () => {
     const [email, set] = useState("")
     const navigate = useNavigate()
-    
+
 //function that handles clicking on the login button
     const handleLogin = (e) => {
         e.preventDefault()
@@ -22,7 +22,7 @@ export const Login = () => {
                         id: user.id
                     }))
 
-                    navigate("/")
+                    navigate("/") 
                 }
                 else {
                     window.alert("Invalid login")

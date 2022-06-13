@@ -1,1 +1,1 @@
-# summitCity
+# summit-city

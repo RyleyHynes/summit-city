@@ -4,6 +4,9 @@ export const NavBar = () => {
     const navigate = useNavigate()
     return <ul className="navbar">
         <li className="navbar__item active">
+            <Link className="navbar__link" to="/profile">Profile</Link>
+        </li>
+        <li className="navbar__item active">
             <Link className="navbar__link" to="/hikes">Hikes</Link>
         </li>
         <li className="navbar__item active">

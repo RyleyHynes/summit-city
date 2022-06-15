@@ -11,10 +11,10 @@ export const ClimbList = () => {
 
     return <>
     <h2>Climbs</h2>
-
+    
     {
         climbs.map(
-            climb => <section className="climb">
+            climb => <section className="climb" key={climb.id}>
                 <div className="climb__name">Name: {climb.name}</div>
                 <div className="climb__type">Type: {climb.type}</div>
                 <div className="climb__grade">Grade: {climb.grade}</div>

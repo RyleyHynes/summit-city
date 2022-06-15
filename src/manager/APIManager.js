@@ -1,4 +1,3 @@
-
 //GET requests
 export const getClimbs = () => {
     return fetch(`http://localhost:8088/climbs`)
@@ -6,8 +5,13 @@ export const getClimbs = () => {
     
 }
 
-export const getHikes = () => {
-    return fetch(`http://localhost:8088/hikes`)
+export const getHikes = (hikeId) => {
+    return fetch(`http://localhost:8088/hikes/${hikeId}`)
+    .then(response => response.json())
+}
+
+export const getHikesBySkillLevel = (hike) => {
+    return fetch(`http://localhost:8088/hikes?skillLevel=${hike.skillLevel}`)
     .then(response => response.json())
 }
 
@@ -27,4 +31,16 @@ export const saveUsersEdit = (profile) => {
         body: JSON.stringify(profile)
     })
         .then(response => response.json())
+}
+
+//Post Requests
+export const saveHike = (ticketToSendToApi) => {
+    return fetch(`http://localhost:8088/hikes`, {
+        method: "Post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(ticketToSendToApi)
+    })
+    .then(response => response.json())
 }

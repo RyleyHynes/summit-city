@@ -8,10 +8,10 @@ import { ApplicationViews } from "./views/ApplicationViews"
 
 
 export const SummitCity = () => {
-	return <BrowserRouter>
-		<Routes>
+	return <Routes>
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
+			
 			<Route path="*" element={
 				<Authorized>
 					<>
@@ -21,5 +21,4 @@ export const SummitCity = () => {
 				</Authorized>
 			} />
 		</Routes>
-	</BrowserRouter>
 }

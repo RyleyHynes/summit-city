@@ -15,6 +15,7 @@ export const ApplicationViews = () => {
             <Outlet />
             </>
         }>
+            {/* <Route path="hikes" element={<HikeForm />} */}
             <Route path="profile" element={<Profile />} />
             <Route path="hikes" element={<HikeList />} />
             <Route path="climbs" element={<ClimbList />} />

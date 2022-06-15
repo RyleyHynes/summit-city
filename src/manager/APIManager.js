@@ -1,5 +1,3 @@
-import { response } from "express"
-
 //GET requests
 export const getClimbs = () => {
     return fetch(`http://localhost:8088/climbs`)
@@ -7,8 +5,8 @@ export const getClimbs = () => {
     
 }
 
-export const getHikes = () => {
-    return fetch(`http://localhost:8088/hikes`)
+export const getHikes = (hikeId) => {
+    return fetch(`http://localhost:8088/hikes/${hikeId}`)
     .then(response => response.json())
 }
 

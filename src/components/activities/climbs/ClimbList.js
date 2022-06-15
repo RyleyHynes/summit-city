@@ -11,7 +11,7 @@ export const ClimbList = () => {
 
     return <>
     <h2>Climbs</h2>
-
+    
     {
         climbs.map(
             climb => <section className="climb" key={climb.id}>

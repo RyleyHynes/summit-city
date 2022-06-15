@@ -1,4 +1,3 @@
-
 //GET requests
 export const getClimbs = () => {
     return fetch(`http://localhost:8088/climbs`)
@@ -7,7 +6,12 @@ export const getClimbs = () => {
 }
 
 export const getHikes = () => {
-    return fetch(`http://localhost:8088/hikes`)
+    return fetch(`http://localhost:8088/hikes/`)
+    .then(response => response.json())
+}
+
+export const getHikesBySkillLevel = (hike) => {
+    return fetch(`http://localhost:8088/skillLevel`)
     .then(response => response.json())
 }
 
@@ -15,6 +19,8 @@ export const getUsers = () => {
     return fetch(`http://localhost:8088/users`)
     .then(response => response.json())
 }
+
+
 
 
 //Put Requests

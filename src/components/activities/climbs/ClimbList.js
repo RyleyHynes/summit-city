@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getClimbs } from "../../manager/APIManager"
+import { getClimbs } from "../../../manager/APIManager"
 
 
 export const ClimbList = () => {
@@ -14,7 +14,7 @@ export const ClimbList = () => {
 
     {
         climbs.map(
-            climb => <section className="climb">
+            climb => <section className="climb" key={climb.id}>
                 <div className="climb__name">Name: {climb.name}</div>
                 <div className="climb__type">Type: {climb.type}</div>
                 <div className="climb__grade">Grade: {climb.grade}</div>
@@ -26,5 +26,5 @@ export const ClimbList = () => {
     </>
 }
 
-//for date 
-{/* <div className="journal__date">{new Date(journal.datePurchased).toLocaleDateString()}</div> */}
+// //for date 
+// {/* <div className="journal__date">{new Date(journal.datePurchased).toLocaleDateString()}</div> */}

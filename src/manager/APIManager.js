@@ -28,3 +28,16 @@ export const saveUsersEdit = (profile) => {
     })
         .then(response => response.json())
 }
+
+
+//Post Requests
+export const saveHike = (hikeToSendToAPI) => {
+    return fetch(`http://localhost:8088/hikes`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(hikeToSendToAPI)
+    })
+        .then(response => response.json())
+}

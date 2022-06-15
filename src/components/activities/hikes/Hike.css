@@ -1,0 +1,15 @@
+.hike {
+    display: flex;
+    flex-direction: column;
+}
+
+.hike {
+    background-color: rgb(221, 195, 245);
+    border: dotted 1px darkmagenta;
+    padding: 0.7rem;
+    margin: 0.5rem;
+}
+
+button { 
+    margin: 1em 1em 0 0;
+}

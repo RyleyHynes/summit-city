@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
-import { getHikes } from "../../../manager/APIManager"
+import { Link } from "react-router-dom"
+import "./Hike.css"
+// import { getHikes } from "../../../manager/APIManager"
 
 
 export const HikeList = ({ searchTermState }) => {
@@ -8,6 +10,8 @@ export const HikeList = ({ searchTermState }) => {
     const [hikes, setHikes] = useState([])
     //we do not want to modify the array of hikes from the api, but we still want to display a list of hikes. creating another variable of filteredHikes
     const [filteredHikes, setFilteredHikes] = useState([])
+    //added the useNavigate hook for the user Added hike button 
+    const navigate = useNavigate()
 
 
 
@@ -17,50 +21,78 @@ export const HikeList = ({ searchTermState }) => {
     const summitUserObject = JSON.parse(localSummitUser)
 
 
-    //added the useNavigate hook for the user Added hike button 
-    const navigate = useNavigate()
 
     //declared function to run the fetch and now we can invoke the function whenever we want. have to pass the function to the props
 
-    useEffect(() => {
-        getHikes()
-            .then(setHikes)
-    },
-        []
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/hikes`)
+                .then(response => response.json())
+                .then((hikesArray) => {
+                    setHikes(hikesArray)//passes what you want the new value to be
+                })
+        },
+        [] //when this array is empty, you are observing initial component state
 
     )
 
     useEffect(
         () => {
-            const myHikes = hikes.filter(hike => hike.UserId === summitUserObject)
-            setFilteredHikes(myHikes)
+            fetch(`http://localhost:8088/hikes`)
+                .then(response => response.json())
+                .then((hikesArray) => {
+                    setFilteredHikes(hikesArray)//passes what you want the new value to be
+                })
         },
         [hikes]
     )
 
-    
+
+    useEffect(
+        () => {
+            const searchedHikes = hikes.filter(hike => {
+                return hike.name.toLowerCase().includes(searchTermState.toLowerCase()) ||
+                    hike.skillLevel.toLowerCase().startsWith(searchTermState.toLowerCase()) ||
+                    hike.distance.toLowerCase().includes(searchTermState.toLowerCase()) ||
+                    hike.location.toLowerCase().includes(searchTermState.toLowerCase())
+            })
+            setFilteredHikes(searchedHikes)
+        },
+        [searchTermState]
+    )
+
 
 
 
     return <>
-
+        <button onClick={() => navigate("/hikes")}>View All Hikes</button>
         <button onClick={() => navigate("/hike/create")}>Add Hike</button>
 
-        <h2>Hikes</h2>
+        <h2>List of Hikes</h2>
         <article className="hikes">
-            {
-                hikes.map(
-                    hike => <section className="hike" key={hike.id}>
-                        <div className="hike__name">Name: {hike.name}</div>
-                        <div className="hike__skillLevel">Skill Level: {hike.skillLevel}</div>
-                        <div className="hike__distance">Distance: {hike.distance}</div>
-                        <div className="hike__location">Location:{hike.location}</div>
-                        <div className="hike__estLength">Estimated Length of Hike: {hike.estLength}</div>
-                        <div className="hike__description">Description: {hike.description}</div>
-                        <div className="hike__attractions">Attractions: {hike.attractions}</div>
-                    </section>
-                )
-            }
+            <ul>
+                {
+                    filteredHikes.map
+                        ((hike) => {
+                            return <>
+                                <section className="hike_list" key={`session--${hike.id}`}>
+                                    <div className="name">Name: {hike.name}</div>
+                                    <div className="location">Location: {hike.location}</div>
+                                    <div className="skillLevel">Skill Level: {hike.skillLevel}</div>
+                                    <div className="distance">Distance: {hike.distance}</div>
+                                    <div className="estLength">Estimated Completion Time: {hike.estLength}</div>
+                                    <div className="description">description: {hike.description}</div>
+                                </section>
+                                <footer>
+                                    <Link to={`/hikes/${hike.id}/edit`}><button className="edit_btn">EDIT Hike</button></Link>
+                                </footer>
+                            </>
+                        })
+
+                }
+
+            </ul>
         </article>
+
     </>
 }

@@ -4,7 +4,7 @@
 
 export const HikeSearch = ({setterFunction}) => {
     return (
-        <div>
+        <div className="searchBar">
             <input 
                 onChange={
                     (changeEvent) => {

@@ -47,3 +47,23 @@ export const saveHike = (hikeToSendToAPI) => {
     })
         .then(response => response.json())
 }
+
+
+export const saveClimb = (climbToSendToAPI) => {
+    return fetch(`http://localhost:8088/climbs`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(climbToSendToAPI)
+    })
+        .then(response => response.json())
+}
+
+
+//Delete Requests
+export const deleteHike = (hikeObject) => {
+    return fetch(`http://localhost:8088/hikes/${hikeObject.id}`, {
+        method: "DELETE",
+    })
+}

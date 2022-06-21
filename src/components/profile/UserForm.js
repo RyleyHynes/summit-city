@@ -1,4 +1,3 @@
-import { click } from "@testing-library/user-event/dist/click"
 import { useEffect, useState } from "react"
 import { getUsers, saveUsersEdit } from "../../manager/APIManager"
 

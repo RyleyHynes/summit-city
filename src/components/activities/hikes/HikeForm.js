@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { saveHike } from "../../../manager/APIManager"
 
 export const HikeForm = () => {
 
@@ -8,23 +7,33 @@ export const HikeForm = () => {
     const [hike, setHike] = useState({
         name: "",
         location: "",
-        skillLevel: "",
-        distance: "",
+        skillLevelId: 0,
+        distance: 0,
         description: "",
+        attractions: "",
+        completed: false,
+        scheduleDate: "",
+        userId: 0
     })
 
     //invoking useNavigate and assigning its return value to a variable 
     const navigate = useNavigate()
 
-    //get summitUser out of local storage
-    // const localSummitUser = localStorage.getItem("summit_user")
-    // const summitUserObject = JSON.parse(localSummitUser)
+    const [skillLevels, setSkillLevels] = useState([])
+
+
+    // get summitUser out of local storage
+    const localSummitUser = localStorage.getItem("summit_user")
+    const summitUserObject = JSON.parse(localSummitUser)
+    const userId = summitUserObject
+
+
 
     useEffect(() => {
-        fetch(`http://localhost:8088/hikes`)
+        fetch(`http://localhost:8088/skillLevels`)
             .then((response) => response.json())
-            .then((hikeArray) => {
-                setHike(hikeArray)
+            .then((skillLevelArray) => {
+                setSkillLevels(skillLevelArray)
             })
     },
         []
@@ -34,21 +43,33 @@ export const HikeForm = () => {
         event.preventDefault()
 
         //create an object to be saved to the API 
-        const hikeToSendToApi = {
+        const hikeToSendToAPI = {
             name: hike.name,
             location: hike.location,
-            skillLevel: hike.skillLevel,
             distance: hike.distance,
-            description: hike.description
-            // scheduleDate: ""
+            description: hike.description,
+            attractions: hike.attractions,
+            skillLevelId: parseInt(hike.skillLevelId),
+            completed: hike.completed,
+            scheduleDate: hike.scheduleDate,
+            userId: userId.id
         }
         //Perform the fetch() to POST the object to the API
         //copied the url of the hikes from the API, second argument is to fetch is options, that is in the {} after the url, added method of POST with the header, for body, turned the object hikeToSendToApi into a string. When JSON serve response the user will be directed back to the ticket page via navigate("/hikes)")
-        saveHike(hikeToSendToApi)
+        //Post request to JSON server, when completed, navigate user back to session list - route found in application views.js
+
+        return fetch(`http://localhost:8088/hikes`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(hikeToSendToAPI),
+        })
+            .then((response) => response.json())
             .then(() => {
-                navigate("/hikes")
+                navigate("/hikes"); //same as shown in application views
             })
-    }
+    };
 
     // onChange event will update the hike properties when changed.  updating state each time it is changed and it will update the copy and property listed. in the callback function in the onChange, parameter of event, and set a target. 
     // Then calling the update function to change the new state
@@ -96,26 +117,7 @@ export const HikeForm = () => {
 
             <fieldset>
                 <div className="form_group" key={hike.id}>
-                    <label htmlFor="Name">Skill Level:</label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control"
-                        placeholder="Hike Skill Level"
-                        value={hike.skillLevel}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.skillLevel = event.target.value
-                                setHike(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="Name">Distance:</label>
+                    <label htmlFor="Name">Distance(miles):</label>
                     <input
                         required autoFocus
                         type="text"
@@ -125,7 +127,7 @@ export const HikeForm = () => {
                         onChange={
                             (event) => {
                                 const copy = { ...hike }
-                                copy.distance = event.target.value
+                                copy.distance = parseInt(event.target.value)
                                 setHike(copy)
                             }}
                     />
@@ -150,20 +152,42 @@ export const HikeForm = () => {
                         } />
                 </div>
             </fieldset>
-
-            {/* <select value={hike.skillLevel}
+            <fieldset>
+                <div>
+                    <label htmlFor="attractions">Attractions:</label>
+                    <input
+                        required autoFocus
+                        type="text"
+                        className="form-control"
+                        placeholder="Hike Attractions"
+                        value={hike.attractions}
                         onChange={
                             (event) => {
                                 const copy = { ...hike }
-                                copy.skillLevel = event.target.value
-                                updateHike(copy)
+                                copy.attractions = event.target.value
+                                setHike(copy)
                             }
-                        }><option value="0">Select Skill Level</option>
-                        {HikeSearch.map((hike) => {
-return <option key = {hike.id}>{hike.skillLevel}</option>
-                        })}
-                    </select> */}
-
+                        } />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="skillLevel">Skill Level: </label>
+                    <select
+                        onChange={(evt) => {
+                            const copy = { ...hike }; //created a copy of existing state
+                            copy.skillLevelId = parseInt(evt.target.value) //to modify
+                            setHike(copy)
+                        }}
+                    >
+                        <option key={0}>Select Skill Level</option>
+                        {
+                            skillLevels.map((skillLevel) => {
+                                return <option key={skillLevel.id} value={skillLevel.id}>{skillLevel.level}</option>
+                            })}
+                    </select>
+                </div>
+            </fieldset>
 
             <button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">

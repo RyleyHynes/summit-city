@@ -7,10 +7,11 @@ export const ClimbForm = () => {
     const [climb, setClimb] = useState({
         name: "",
         location: "",
-        typeId:0,
+        typeId: 0,
         gradeId: 0,
         description: "",
         completed: false,
+        bucketList: false,
         scheduleDate: "",
         userId: 0
     })
@@ -84,6 +85,7 @@ export const ClimbForm = () => {
     // Then calling the update function to change the new state
     // added onclick to the submit button, passed clickEvent into the argument for the handleSaveButtonFunction
     return (
+        <>
         <form className="climbForm">
             <h2 className="climbForm__title">New Climb</h2>
             <fieldset>
@@ -166,7 +168,7 @@ export const ClimbForm = () => {
                     <select
                         onChange={(evt) => {
                             const copy = { ...climb }; //created a copy of existing state
-                            copy.gradeId = parseInt(evt.target.value) //to modify
+                            copy.gradeId = parseFloat(evt.target.value,2) //to modify
                             setClimb(copy)
                         }}
                     >
@@ -178,12 +180,57 @@ export const ClimbForm = () => {
                     </select>
                 </div>
             </fieldset>
+            <fieldset>
+                <div className="req-form-group">
+                    <span>Completed:</span>
+                    <input  type="radio" className="req-form-control"
+                        name="completed" value={true}
+                        onChange={
+                            (event) => {
+                                const copy = { ...climb }
+                                copy.completed = true
+                                setClimb(copy)
+                            }} />
+                    <label htmlFor="yes">True</label>
+                    <input  type="radio" className="req-form-control"
+                        name="completed" value={false}  onChange={
+                            (event) => {
+                                const copy = { ...climb }
+                                copy.completed = false
+                                setClimb(copy)
+                            }} />
+                    <label htmlFor="false">False</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="req-form-group">
+                    <span>Bucket List:</span>
+                    <input  type="radio" className="req-form-control"
+                        name="bucketList" value={true}
+                        onChange={
+                            (event) => {
+                                const copy = { ...climb }
+                                copy.bucketList = true
+                                setClimb(copy)
+                            }} />
+                    <label htmlFor="true">True</label>
+                    <input  type="radio" className="req-form-control"
+                        name="bucketList" value={false}  onChange={
+                            (event) => {
+                                const copy = { ...climb }
+                                copy.bucketList = false
+                                setClimb(copy)
+                            }} />
+                    <label htmlFor="false">False</label>
+                </div>
+            </fieldset>
 
             <button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">
                 Submit Climb
             </button>
         </form >
+        </>
     )
 
 }

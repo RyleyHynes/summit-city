@@ -6,8 +6,10 @@ export const ClimbEdit = () => {
         name: "",
         location: "",
         typeId: "",
-        gradeId: "",
-        description: ""
+        gradeId: 0,
+        description: "",
+        completed: false,
+        bucketList: false
     })
 
     const { climbId } = useParams()
@@ -130,14 +132,14 @@ export const ClimbEdit = () => {
                         value={climb.gradeId}
                         onChange={(evt) => {
                             const copy = { ...climb }; //created a copy of existing state
-                            copy.gradeId = parseInt(evt.target.value) //to modify
+                            copy.gradeId = parseFloat(evt.target.value,2) //to modify
                             editClimb(copy)
                         }}
                     >
                         <option value="0">Select Skill Level</option>
                         {
                             grades.map((grade) => {
-                                return <option key={grade.id} value={grade.id}>{grade.level}</option>
+                                return <option key={grade.id} value={grade.id}>{grade.rating}</option>
                             })}
                     </select>
                 </div>
@@ -159,6 +161,51 @@ export const ClimbEdit = () => {
                                 editClimb(copy)
                             }
                         } />
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="req-form-group">
+                    <span>Completed:</span>
+                    <input  type="radio" className="req-form-control"
+                        name="completed" value={true}
+                        onChange={
+                            (event) => {
+                                const copy = { ...climb }
+                                copy.completed = true
+                                editClimb(copy)
+                            }} />
+                    <label htmlFor="yes">True</label>
+                    <input  type="radio" className="req-form-control"
+                        name="completed" value={false}  onChange={
+                            (event) => {
+                                const copy = { ...climb }
+                                copy.completed = false
+                                editClimb(copy)
+                            }} />
+                    <label htmlFor="false">False</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="req-form-group">
+                    <span>Bucket List:</span>
+                    <input  type="radio" className="req-form-control"
+                        name="bucketList" value={true}
+                        onChange={
+                            (event) => {
+                                const copy = { ...climb }
+                                copy.bucketList = true
+                                editClimb(copy)
+                            }} />
+                    <label htmlFor="true">True</label>
+                    <input  type="radio" className="req-form-control"
+                        name="bucketList" value={false}  onChange={
+                            (event) => {
+                                const copy = { ...climb }
+                                copy.bucketList = false
+                                editClimb(copy)
+                            }} />
+                    <label htmlFor="false">False</label>
                 </div>
             </fieldset>
             <button

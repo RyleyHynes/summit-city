@@ -8,10 +8,11 @@ export const HikeForm = () => {
         name: "",
         location: "",
         skillLevelId: 0,
-        distance: 0,
+        distance:"",
         description: "",
         attractions: "",
         completed: false,
+        bucketList: false,
         scheduleDate: "",
         userId: 0
     })
@@ -46,7 +47,7 @@ export const HikeForm = () => {
         const hikeToSendToAPI = {
             name: hike.name,
             location: hike.location,
-            distance: hike.distance,
+            distance: parseFloat(hike.distance,2),
             description: hike.description,
             attractions: hike.attractions,
             skillLevelId: parseInt(hike.skillLevelId),
@@ -81,7 +82,7 @@ export const HikeForm = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="Name">Name:</label>
                     <input
-                        required autoFocus
+                        
                         type="text"
                         className="form-control"
                         placeholder="Hike Name"
@@ -120,14 +121,14 @@ export const HikeForm = () => {
                     <label htmlFor="Name">Distance(miles):</label>
                     <input
                         required autoFocus
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Hike Distance"
                         value={hike.distance}
                         onChange={
                             (event) => {
                                 const copy = { ...hike }
-                                copy.distance = parseInt(event.target.value)
+                                copy.distance = parseFloat(event.target.value,2)
                                 setHike(copy)
                             }}
                     />
@@ -186,6 +187,50 @@ export const HikeForm = () => {
                                 return <option key={skillLevel.id} value={skillLevel.id}>{skillLevel.level}</option>
                             })}
                     </select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="req-form-group">
+                    <span>Completed:</span>
+                    <input  type="radio" className="req-form-control"
+                        name="completed" value={true}
+                        onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.completed = true
+                                setHike(copy)
+                            }} />
+                    <label htmlFor="yes">True</label>
+                    <input  type="radio" className="req-form-control"
+                        name="completed" value={false}  onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.completed = false
+                                setHike(copy)
+                            }} />
+                    <label htmlFor="false">False</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="req-form-group">
+                    <span>Bucket List:</span>
+                    <input  type="radio" className="req-form-control"
+                        name="bucketList" value={true}
+                        onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.bucketList = true
+                                setHike(copy)
+                            }} />
+                    <label htmlFor="true">True</label>
+                    <input  type="radio" className="req-form-control"
+                        name="bucketList" value={false}  onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.bucketList = false
+                                setHike(copy)
+                            }} />
+                    <label htmlFor="false">False</label>
                 </div>
             </fieldset>
 

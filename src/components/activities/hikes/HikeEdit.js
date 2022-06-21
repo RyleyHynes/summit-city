@@ -8,7 +8,9 @@ export const HikeEdit = () => {
         skillLevelId: "",
         distance: "",
         description: "",
-        attractions: ""
+        attractions: "",
+        completed: false,
+        bucketList: false
     })
 
     const { hikeId } = useParams()
@@ -119,14 +121,14 @@ export const HikeEdit = () => {
                     <label htmlFor="distance">Distance:</label>
                     <input
                         required autoFocus
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Hike Distance"
                         value={hike.distance}
                         onChange={
                             (event) => {
                                 const copy = { ...hike }
-                                copy.distance = event.target.value
+                                copy.distance = parseFloat(event.target.value,2)
                                 editHike(copy)
                             }}
                     />
@@ -169,6 +171,51 @@ export const HikeEdit = () => {
                     />
                 </div>
             </fieldset>
+            <fieldset>
+                <div className="req-form-group">
+                    <span>Completed:</span>
+                    <input  type="radio" className="req-form-control"
+                        name="completed" value={true}
+                        onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.completed = true
+                                editHike(copy)
+                            }} />
+                    <label htmlFor="yes">True</label>
+                    <input  type="radio" className="req-form-control"
+                        name="completed" value={false}  onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.completed = false
+                                editHike(copy)
+                            }} />
+                    <label htmlFor="false">False</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="req-form-group">
+                    <span>Bucket List:</span>
+                    <input  type="radio" className="req-form-control"
+                        name="bucketList" value={true}
+                        onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.bucketList = true
+                                editHike(copy)
+                            }} />
+                    <label htmlFor="true">True</label>
+                    <input  type="radio" className="req-form-control"
+                        name="bucketList" value={false}  onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.bucketList = false
+                                editHike(copy)
+                            }} />
+                    <label htmlFor="false">False</label>
+                </div>
+            </fieldset>
+
             <button
                 onClick={(clickEvent) => editButtonClick(clickEvent)}
                 className="edit-btn">

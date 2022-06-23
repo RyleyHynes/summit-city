@@ -22,8 +22,9 @@ export const Register = (props) => {
                     localStorage.setItem("summit_user", JSON.stringify({
                         id: createdUser.id
                     }))
-
-                    navigate("/")
+/*After registering this will bring me back to the login page where I will 
+then sign in*/
+                    navigate("/login")
                 }
             })
     }

@@ -8,6 +8,7 @@ import { HikeContainer } from "../activities/hikes/HikeContainer"
 import { HikeEdit } from "../activities/hikes/HikeEdit"
 import { HikeForm } from "../activities/hikes/HikeForm"
 import { HikeSearch } from "../activities/hikes/HikeSearch"
+import { Home } from "../homeScreen/home"
 import { Profile } from "../profile/Profile"
 
 
@@ -22,6 +23,7 @@ export const ApplicationViews = () => {
                 <Outlet />
             </>
         }>
+            <Route path="home" element={<Home />} />
             <Route path="profile" element={<Profile />} />
             <Route path="hike/create" element={<HikeForm />} />
             <Route path="hikes" element={<HikeContainer />} />

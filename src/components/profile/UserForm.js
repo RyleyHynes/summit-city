@@ -1,3 +1,4 @@
+import { Avatar } from "@mui/material"
 import { useEffect, useState } from "react"
 import { getUsers, saveUsersEdit } from "../../manager/APIManager"
 
@@ -61,6 +62,7 @@ export const UserForm = () => {
         </div>
         <form className="profile">
             <h2 className="profile__title">Update User Information</h2>
+        <Avatar alt="Ryley Hynes" src="/images/summit.jpg" sx={{width:200,height:200}} />
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="specialty">Name</label>

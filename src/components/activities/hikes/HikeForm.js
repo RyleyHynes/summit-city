@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom"
 export const HikeForm = () => {
 
     //set initial hike state (updateHike is the function that changes the state.)
-    const [hike, setHike] = useState({
+    const [hike, addHike] = useState({
         name: "",
         location: "",
         skillLevelId: 0,
-        distance:"",
+        distance: "",
         description: "",
         attractions: "",
         completed: false,
@@ -47,7 +47,7 @@ export const HikeForm = () => {
         const hikeToSendToAPI = {
             name: hike.name,
             location: hike.location,
-            distance: parseFloat(hike.distance,2),
+            distance: parseFloat(hike.distance, 2),
             description: hike.description,
             attractions: hike.attractions,
             skillLevelId: parseInt(hike.skillLevelId),
@@ -82,7 +82,7 @@ export const HikeForm = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="Name">Name:</label>
                     <input
-                        
+
                         type="text"
                         className="form-control"
                         placeholder="Hike Name"
@@ -91,7 +91,7 @@ export const HikeForm = () => {
                             (event) => {
                                 const copy = { ...hike }
                                 copy.name = event.target.value
-                                setHike(copy)
+                                addHike(copy)
                             }}
                     />
                 </div>
@@ -110,7 +110,7 @@ export const HikeForm = () => {
                             (event) => {
                                 const copy = { ...hike }
                                 copy.location = event.target.value
-                                setHike(copy)
+                                addHike(copy)
                             }}
                     />
                 </div>
@@ -128,8 +128,8 @@ export const HikeForm = () => {
                         onChange={
                             (event) => {
                                 const copy = { ...hike }
-                                copy.distance = parseFloat(event.target.value,2)
-                                setHike(copy)
+                                copy.distance = parseFloat(event.target.value, 2)
+                                addHike(copy)
                             }}
                     />
                 </div>
@@ -148,7 +148,7 @@ export const HikeForm = () => {
                             (event) => {
                                 const copy = { ...hike }
                                 copy.description = event.target.value
-                                setHike(copy)
+                                addHike(copy)
                             }
                         } />
                 </div>
@@ -166,7 +166,7 @@ export const HikeForm = () => {
                             (event) => {
                                 const copy = { ...hike }
                                 copy.attractions = event.target.value
-                                setHike(copy)
+                                addHike(copy)
                             }
                         } />
                 </div>
@@ -178,7 +178,7 @@ export const HikeForm = () => {
                         onChange={(evt) => {
                             const copy = { ...hike }; //created a copy of existing state
                             copy.skillLevelId = parseInt(evt.target.value) //to modify
-                            setHike(copy)
+                            addHike(copy)
                         }}
                     >
                         <option key={0}>Select Skill Level</option>
@@ -192,21 +192,21 @@ export const HikeForm = () => {
             <fieldset>
                 <div className="req-form-group">
                     <span>Completed:</span>
-                    <input  type="radio" className="req-form-control"
+                    <input type="radio" className="req-form-control"
                         name="completed" value={true}
                         onChange={
                             (event) => {
                                 const copy = { ...hike }
                                 copy.completed = true
-                                setHike(copy)
+                                addHike(copy)
                             }} />
                     <label htmlFor="yes">True</label>
-                    <input  type="radio" className="req-form-control"
-                        name="completed" value={false}  onChange={
+                    <input type="radio" className="req-form-control"
+                        name="completed" value={false} onChange={
                             (event) => {
                                 const copy = { ...hike }
                                 copy.completed = false
-                                setHike(copy)
+                                addHike(copy)
                             }} />
                     <label htmlFor="false">False</label>
                 </div>
@@ -214,30 +214,49 @@ export const HikeForm = () => {
             <fieldset>
                 <div className="req-form-group">
                     <span>Bucket List:</span>
-                    <input  type="radio" className="req-form-control"
+                    <input type="radio" className="req-form-control"
                         name="bucketList" value={true}
                         onChange={
                             (event) => {
                                 const copy = { ...hike }
                                 copy.bucketList = true
-                                setHike(copy)
+                                addHike(copy)
                             }} />
                     <label htmlFor="true">True</label>
-                    <input  type="radio" className="req-form-control"
-                        name="bucketList" value={false}  onChange={
+                    <input type="radio" className="req-form-control"
+                        name="bucketList" value={false} onChange={
                             (event) => {
                                 const copy = { ...hike }
                                 copy.bucketList = false
-                                setHike(copy)
+                                addHike(copy)
                             }} />
                     <label htmlFor="false">False</label>
                 </div>
             </fieldset>
-
+            <fieldset>
+                <div className="req-form-group">
+                    <label className="label" htmlFor="description">Photo URL: </label>
+                    <input
+                        required autoFocus
+                        type="text"
+                        className="form-control-site"
+                        placeholder="Insert Photo of Hike"
+                        value={hike.url}
+                        onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.url = event.target.value
+                                addHike(copy)
+                            }
+                        } />
+                </div>
+            </fieldset>
             <button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">
                 Submit Hike
             </button>
+
+            <button onClick={() => navigate("/hikes")}>Cancel</button>
         </form >
     )
 

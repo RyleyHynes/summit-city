@@ -14,7 +14,8 @@ export const HikeForm = () => {
         completed: false,
         bucketList: false,
         scheduleDate: "",
-        userId: 0
+        userId: 0,
+        url:""
     })
 
     //invoking useNavigate and assigning its return value to a variable 
@@ -53,7 +54,8 @@ export const HikeForm = () => {
             skillLevelId: parseInt(hike.skillLevelId),
             completed: hike.completed,
             scheduleDate: hike.scheduleDate,
-            userId: userId.id
+            userId: userId.id,
+            url: hike.url
         }
         //Perform the fetch() to POST the object to the API
         //copied the url of the hikes from the API, second argument is to fetch is options, that is in the {} after the url, added method of POST with the header, for body, turned the object hikeToSendToApi into a string. When JSON serve response the user will be directed back to the ticket page via navigate("/hikes)")

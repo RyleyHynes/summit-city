@@ -1,23 +1,28 @@
 import { useNavigate } from "react-router-dom"
+import "./home.css"
 
 export const Home = () => {
-    
+
     const navigate = useNavigate()
 
     return <>
-        <h2>Summit</h2>
+        <div className="home">
+            <h2 className="subTitle">Select Your Activity</h2>
 
-        
+
             <>
                 {
-                    <button onClick={() => navigate("/hikes")}>Hiking</button>
+                    <button className="alterButton" onClick={() => navigate("/hikes")}>Hiking</button>
                 }
                 {
-                    <button onClick={() => navigate("/climbs")}>Rock Climbing</button>
+                    <button className="alterButton" onClick={() => navigate("/climbs")}>Rock Climbing</button>
                 }
             </>
-            
+        </div>
+
+
     </>
+
 
 }
 

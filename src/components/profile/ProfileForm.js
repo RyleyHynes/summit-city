@@ -62,10 +62,10 @@ export const UserForm = () => {
         </div>
         <form className="profile">
             <h2 className="profile__title">Update User Information</h2>
-        <Avatar alt="Ryley Hynes" src="/images/summit.jpg" sx={{width:200,height:200}} />
+        <Avatar alt="Ryley Hynes" src={summitUserObject.url} sx={{width:200,height:200}} />
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="specialty">Name</label>
+                    <label className="profileField" htmlFor="name">Name</label>
                     <input
                         required autoFocus
                         type="text"
@@ -82,8 +82,8 @@ export const UserForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
+                <div className="profile">
+                    <label className="profileField" htmlFor="email">Email</label>
                     <input type="text"
                         className="form-control"
                         value={profile.email}

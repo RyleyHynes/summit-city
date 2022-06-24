@@ -99,10 +99,7 @@ export const ClimbList = ({ searchTermState }) => {
                     .includes(searchTermState.toLowerCase()) ||
                 climb.type.name
                     .toLowerCase()
-                    .startsWith(searchTermState.toLowerCase()) ||
-                climb.grade.rating
-                    .toLowerCase()
-                    .startsWith(searchTermState.toLowerCase()) ||
+                    .includes(searchTermState.toLowerCase()) ||
                 climb.description
                     .toLowerCase()
                     .includes(searchTermState.toLowerCase())
@@ -114,21 +111,21 @@ export const ClimbList = ({ searchTermState }) => {
 
     return (
         <>
-            <button onClick={() => navigate("/climb/create")}>
+            <button className="alterButton" onClick={() => navigate("/climb/create")}>
                 Add New Climb
             </button>
-            <button onClick={
+            <button className="alterButton" onClick={
                 () => {
                     setBucketListClimbs(false)
                     setCompletedClimbs(false)
                 }
             }>Show All Climbs</button>
-            <button onClick={
+            <button className="alterButton" onClick={
                 () => {
                     setCompletedClimbs(true)
                 }
             }>Completed Climbs</button>
-            <button onClick={
+            <button className="alterButton" onClick={
                 () => {
                     setBucketListClimbs(true)
                 }
@@ -144,6 +141,7 @@ export const ClimbList = ({ searchTermState }) => {
                                     className="climb_list"
                                     key={`climb--${climb.id}`}
                                 >
+                                    <img src={climb.url} alt='climb'></img>
                                     <div className="name">
                                         Climb Name: {climb.name}
                                     </div>
@@ -158,10 +156,10 @@ export const ClimbList = ({ searchTermState }) => {
                                 <footer className="bucketList">Bucket List: {climb.bucketList ? "✅" : "No"}</footer>
                                 <footer>
                                     <Link to={`/climbs/${climb.id}/edit`}>
-                                        <button className="edit-btn">EDIT Climb</button>
+                                        <button className="alterButton">EDIT Climb</button>
                                     </Link>
                                     <button
-                                        className="delete-btn"
+                                        className="alterButton"
                                         onClick={() => {
                                             fetch(`http://localhost:8088/climbs/${climb.id}`, {
                                                 method: "DELETE",

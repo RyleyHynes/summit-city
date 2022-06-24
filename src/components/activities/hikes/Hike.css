@@ -1,15 +1,18 @@
-.hike {
-    display: flex;
-    flex-direction: column;
+.alterButton {
+    background-color: #7FFFD4;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 16px;
+    display: inline-block;
+    color: #000000;
+    padding: 15px 32px;
+    text-align: center;
+    transition: all 0.5s;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 12px;
 }
 
-.hike {
-    background-color: rgb(221, 195, 245);
-    border: dotted 1px darkmagenta;
-    padding: 0.7rem;
-    margin: 0.5rem;
-}
-
-button { 
-    margin: 1em 1em 0 0;
+.category{
+font-weight: bold;
 }

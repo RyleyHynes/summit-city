@@ -1,0 +1,57 @@
+html {
+    text-align: center;
+    color:black;
+    background-position: center;
+  }
+
+.home{
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/d/d0/Barns_grand_tetons.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+    height: 1500px;
+}
+/* #root {
+    text-align: center;
+  
+} */
+
+/* button {
+    background-color: #7FFFD4;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 32px;
+    display: inline-block;
+    color: #000000;
+    padding: 15px 32px;
+    text-align: center;
+    transition: all 0.5s;
+    height: 10%;
+    width: 20%;
+    border-radius: 12px;
+} */
+/* 
+button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    vertical-align: middle
+} */
+
+/* button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+} */
+
+/* button:hover span {
+    padding-right: 25px;
+} */
+
+/* button:hover span:after {
+    opacity: 1;
+    right: 0;
+} */

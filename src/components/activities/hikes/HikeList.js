@@ -98,21 +98,21 @@ export const HikeList = ({ searchTermState }) => {
 
     return (
         <>
-            <button onClick={() => navigate("/hike/create")}>
+            <button className="alterButton" onClick={() => navigate("/hike/create")}>
                 Add New Hike
             </button>
-            <button onClick={
+            <button className="alterButton" onClick={
                 () => {
                     setBucketListHikes(false)
                     setCompletedHikes(false)
                 }
             }>Show All Hikes</button>
-            <button onClick={
+            <button className="alterButton" onClick={
                 () => {
                     setCompletedHikes(true)
                 }
             }>Completed Hikes</button>
-            <button onClick={
+            <button className="alterButton" onClick={
                 () => {
                     setBucketListHikes(true)
                 }
@@ -128,10 +128,11 @@ export const HikeList = ({ searchTermState }) => {
                                     className="hike_list"
                                     key={`hike--${hike.id}`}
                                 >
+                                    <img src={hike.url} alt='Hike'></img>
                                     <div className="name">
-                                        Hike Name: {hike.name}
+                                        <div className="category">Hike Name:{hike.name}</div>
                                     </div>
-                                    <div className="skillLevel">Skill Level: {hike?.skillLevel?.level}</div>
+                                    <div className="skillLevel"><div className="category">Skill Level:</div> {hike?.skillLevel?.level}</div>
                                     <div className="distance">Distance: {hike?.distance?.toFixed(2)}</div>
                                     <div className="location">
                                         Location: {hike.location}
@@ -142,10 +143,10 @@ export const HikeList = ({ searchTermState }) => {
                                 <footer className="bucketList">Bucket List: {hike.bucketList ? "✅" : "No"}</footer>
                                 <footer>
                                     <Link to={`/hikes/${hike.id}/edit`}>
-                                        <button className="edit-btn">EDIT Hike</button>
+                                        <button className="alterButton">EDIT Hike</button>
                                     </Link>
                                     <button
-                                        className="delete-btn"
+                                        className="alterButton"
                                         onClick={() => {
                                             fetch(`http://localhost:8088/hikes/${hike.id}`, {
                                                 method: "DELETE",

@@ -1,12 +1,14 @@
+
 .navbar {
     display: flex;
-    flex-wrap: nowrap;
-}
-.navbar__item {
-    flex-basis: 20%;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
     list-style-type: none;
-}
-.navbar__logout {
-    position: relative;
+    color: black;
+    background-color: #7FFFD4;
+    height: 60px;
+    border-radius: 1em;
+
 }
 

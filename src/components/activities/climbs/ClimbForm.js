@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 export const ClimbForm = () => {
 
     //set initial climb state (updateClimb is the function that changes the state.)
-    const [climb, setClimb] = useState({
+    const [climb, addClimb] = useState({
         name: "",
         location: "",
         typeId: 0,
@@ -13,7 +13,8 @@ export const ClimbForm = () => {
         completed: false,
         bucketList: false,
         scheduleDate: "",
-        userId: 0
+        userId: 0,
+        url:""
     })
 
     //invoking useNavigate and assigning its return value to a variable 
@@ -62,7 +63,8 @@ export const ClimbForm = () => {
             description: climb.description,
             completed: climb.completed,
             scheduleDate: climb.scheduleDate,
-            userId: userId.id
+            userId: userId.id,
+            url: climb.url
         }
         //Perform the fetch() to POST the object to the API
         //copied the url of the climbs from the API, second argument is to fetch is options, that is in the {} after the url, added method of POST with the header, for body, turned the object climbToSendToApi into a string. When JSON serve response the user will be directed back to the ticket page via navigate("/climbs)")
@@ -101,7 +103,7 @@ export const ClimbForm = () => {
                             (event) => {
                                 const copy = { ...climb }
                                 copy.name = event.target.value
-                                setClimb(copy)
+                                addClimb(copy)
                             }}
                     />
                 </div>
@@ -120,12 +122,11 @@ export const ClimbForm = () => {
                             (event) => {
                                 const copy = { ...climb }
                                 copy.location = event.target.value
-                                setClimb(copy)
+                                addClimb(copy)
                             }}
                     />
                 </div>
             </fieldset>
-
             <fieldset>
                 <div>
                     <label htmlFor="description">Description:</label>
@@ -139,7 +140,7 @@ export const ClimbForm = () => {
                             (event) => {
                                 const copy = { ...climb }
                                 copy.description = event.target.value
-                                setClimb(copy)
+                                addClimb(copy)
                             }
                         } />
                 </div>
@@ -151,7 +152,7 @@ export const ClimbForm = () => {
                         onChange={(evt) => {
                             const copy = { ...climb }; //created a copy of existing state
                             copy.typeId = parseInt(evt.target.value) //to modify
-                            setClimb(copy)
+                            addClimb(copy)
                         }}
                     >
                         <option key={0}>Select Skill Level</option>
@@ -169,7 +170,7 @@ export const ClimbForm = () => {
                         onChange={(evt) => {
                             const copy = { ...climb }; //created a copy of existing state
                             copy.gradeId = parseFloat(evt.target.value,2) //to modify
-                            setClimb(copy)
+                            addClimb(copy)
                         }}
                     >
                         <option key={0}>Select Climbing Grade: </option>
@@ -189,7 +190,7 @@ export const ClimbForm = () => {
                             (event) => {
                                 const copy = { ...climb }
                                 copy.completed = true
-                                setClimb(copy)
+                                addClimb(copy)
                             }} />
                     <label htmlFor="yes">True</label>
                     <input  type="radio" className="req-form-control"
@@ -197,7 +198,7 @@ export const ClimbForm = () => {
                             (event) => {
                                 const copy = { ...climb }
                                 copy.completed = false
-                                setClimb(copy)
+                                addClimb(copy)
                             }} />
                     <label htmlFor="false">False</label>
                 </div>
@@ -211,7 +212,7 @@ export const ClimbForm = () => {
                             (event) => {
                                 const copy = { ...climb }
                                 copy.bucketList = true
-                                setClimb(copy)
+                                addClimb(copy)
                             }} />
                     <label htmlFor="true">True</label>
                     <input  type="radio" className="req-form-control"
@@ -219,9 +220,27 @@ export const ClimbForm = () => {
                             (event) => {
                                 const copy = { ...climb }
                                 copy.bucketList = false
-                                setClimb(copy)
+                                addClimb(copy)
                             }} />
                     <label htmlFor="false">False</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="req-form-group">
+                    <label className="label" htmlFor="description">Photo URL: </label>
+                    <input
+                        required autoFocus
+                        type="text"
+                        className="form-control-site"
+                        placeholder="Insert Photo of Hike"
+                        value={climb.url}
+                        onChange={
+                            (event) => {
+                                const copy = { ...climb }
+                                copy.url = event.target.value
+                                addClimb(copy)
+                            }
+                        } />
                 </div>
             </fieldset>
 

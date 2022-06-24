@@ -10,6 +10,7 @@ import { HikeForm } from "../activities/hikes/HikeForm"
 import { HikeSearch } from "../activities/hikes/HikeSearch"
 import { Home } from "../homeScreen/home"
 import { Profile } from "../profile/Profile"
+import "./ApplicationViews.css"
 
 
 

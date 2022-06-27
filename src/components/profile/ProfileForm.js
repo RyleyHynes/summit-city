@@ -9,7 +9,7 @@ import { getUsers, saveUsersEdit } from "../../manager/APIManager"
 // fetch call is a put- which means replace, it has to be targeted directly, for the put operation to replace the values changed in the request. 
 // for the put, we are passing thru the state variable of profile
 
-export const UserForm = () => {
+export const ProfileForm = () => {
 
     // TODO: Provide initial state for profile
     const [profile, updateProfile] = useState({

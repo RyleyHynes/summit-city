@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom"
 import { Authorized } from "./auth/Authorized"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
-// import { LandingPage } from "./homeScreen/landingPage"
 import { NavBar } from "./nav/NavBar"
 import { ApplicationViews } from "./views/ApplicationViews"
 

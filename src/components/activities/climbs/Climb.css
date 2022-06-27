@@ -1,7 +1,5 @@
-.alterButton {
-    background-color: #7FFFD4;
-    cursor: pointer;
-    text-transform: uppercase;
+.climbAlterButton {
+    text-transform: lowercase;
     font-size: 16px;
     display: inline-block;
     color: #000000;

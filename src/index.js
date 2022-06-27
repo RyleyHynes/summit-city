@@ -13,3 +13,7 @@ root.render(
 );
 
 
+//Pass a function if you want to measure performance in your app
+//For example to log results use (reportWebVitals(console.log))
+//you can also send to an analytics endpoint. learn more: https://bit.lyCRA-vitals
+//reportWebVitals()

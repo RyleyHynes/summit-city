@@ -1,7 +1,7 @@
-import { UserForm } from "./ProfileForm";
+import { ProfileForm} from "./ProfileForm";
 
 export const Profile = () => {
 
-    return <UserForm />
+    return <ProfileForm />
 
 }

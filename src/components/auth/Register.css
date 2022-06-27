@@ -1,0 +1,49 @@
+.registerButton {
+    background: linear-gradient(315deg, #485461 0%, #28313b 74%);
+    border-radius: 12px;
+    border: 1px solid rgb(72, 86, 97);
+    color: rgb(208, 198, 198);
+    font-size: 18px;
+    padding: 0.2rem;
+    font-family: Copperplate, fantasy;
+    letter-spacing: 1px;
+    width: 13rem;
+}
+
+.form--login {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pleaseRegister {
+    text-align: center;
+    font-family: Copperplate, fantasy;
+    color: black;
+    font-size: 2.5rem;
+}
+
+.name {
+    font-family: Copperplate, fantasy;
+    font-size: large;
+}
+
+.email {
+    font-family: Copperplate, fantasy;
+    font-size: large;
+}
+
+form {
+    width: 500px;
+    overflow: hidden;
+}
+
+input {
+    width: 100%;
+}
+
+span {
+    overflow: hidden;
+    padding-right: 10px;
+}

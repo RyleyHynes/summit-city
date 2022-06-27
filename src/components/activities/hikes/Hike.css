@@ -1,11 +1,10 @@
-.alterButton {
-    background-color: #7FFFD4;
-    cursor: pointer;
-    text-transform: uppercase;
+.hikeAlterButton {
+    background-color: white;
+    text-transform: unset;
     font-size: 16px;
     display: inline-block;
     color: #000000;
-    padding: 15px 32px;
+    padding: 10px 25px;
     text-align: center;
     transition: all 0.5s;
     height: fit-content;
@@ -13,6 +12,9 @@
     border-radius: 12px;
 }
 
-.category{
-font-weight: bold;
+.picture {
+    height: 22rem;
+    width: 22rem;
 }
+
+

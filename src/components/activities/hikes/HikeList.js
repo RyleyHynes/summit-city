@@ -98,21 +98,21 @@ export const HikeList = ({ searchTermState }) => {
 
     return (
         <>
-            <button className="alterButton" onClick={() => navigate("/hike/create")}>
+            <button className="hikeAlterButton" onClick={() => navigate("/hike/create")}>
                 Add New Hike
             </button>
-            <button className="alterButton" onClick={
+            <button className="hikeAlterButton" onClick={
                 () => {
                     setBucketListHikes(false)
                     setCompletedHikes(false)
                 }
             }>Show All Hikes</button>
-            <button className="alterButton" onClick={
+            <button className="hikeAlterButton" onClick={
                 () => {
                     setCompletedHikes(true)
                 }
             }>Completed Hikes</button>
-            <button className="alterButton" onClick={
+            <button className="hikeAlterButton" onClick={
                 () => {
                     setBucketListHikes(true)
                 }
@@ -128,7 +128,7 @@ export const HikeList = ({ searchTermState }) => {
                                     className="hike_list"
                                     key={`hike--${hike.id}`}
                                 >
-                                    <img src={hike.url} alt='Hike'></img>
+                                    <img className="picture" src={hike.url} alt='Hike'></img>
                                     <div className="name">
                                         <div className="category">Hike Name:{hike.name}</div>
                                     </div>
@@ -143,10 +143,10 @@ export const HikeList = ({ searchTermState }) => {
                                 <footer className="bucketList">Bucket List: {hike.bucketList ? "✅" : "No"}</footer>
                                 <footer>
                                     <Link to={`/hikes/${hike.id}/edit`}>
-                                        <button className="alterButton">EDIT Hike</button>
+                                        <button className="hikeAlterButton">EDIT Hike</button>
                                     </Link>
                                     <button
-                                        className="alterButton"
+                                        className="hikeAlterButton"
                                         onClick={() => {
                                             fetch(`http://localhost:8088/hikes/${hike.id}`, {
                                                 method: "DELETE",

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import "./Login.css"
+import "./Register.css"
 
 export const Register = (props) => {
     const [customer, setCustomer] = useState({
@@ -53,24 +53,30 @@ then sign in*/
 
     return (
         <main style={{ textAlign: "center" }}>
+            <div> <img
+                className="logo"
+                src={"/images/Summit.jpeg"}
+                alt="logo"
+            />
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register for Summit City</h1>
+                <h1 className="pleaseRegister">Please Register for Summit City</h1>
                 <fieldset>
-                    <label htmlFor="name"> Full Name </label>
+                    <label className="name" htmlFor="name"> Full Name </label>
                     <input onChange={updateCustomer}
                         type="text" id="name" className="form-control"
                         placeholder="Enter your name" required autoFocus />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="email"> Email address </label>
+                    <label className="email" htmlFor="email"> Email address </label>
                     <input onChange={updateCustomer}
                         type="email" id="email" className="form-control"
                         placeholder="Email address" required />
                 </fieldset>
                 <fieldset>
-                    <button type="submit"> Register </button>
+                    <button className="registerButton"> Register </button>
                 </fieldset>
             </form>
+            </div>
         </main>
     )
 }

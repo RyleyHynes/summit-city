@@ -1,57 +1,59 @@
-html {
-    text-align: center;
-    color:black;
-    background-position: center;
-  }
-
-.home{
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/d/d0/Barns_grand_tetons.jpg");
+body {
+    background-image: url("");
     background-repeat: no-repeat;
-    background-size: auto;
-    height: 1500px;
+    background-size: cover;
+    background-color: white;
+
 }
-/* #root {
-    text-align: center;
-  
-} */
 
-/* button {
-    background-color: #7FFFD4;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 32px;
-    display: inline-block;
-    color: #000000;
-    padding: 15px 32px;
-    text-align: center;
-    transition: all 0.5s;
-    height: 10%;
-    width: 20%;
+.hikingButton{
+    background: linear-gradient(315deg, #485461 0%, #28313b 74%);
     border-radius: 12px;
-} */
-/* 
-button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-    vertical-align: middle
-} */
+    border: 1px solid rgb(72, 86, 97);
+    color: rgb(208, 198, 198);
+    font-size: 18px;
+    padding: 0.2rem;
+    font-family: Copperplate, fantasy;
+    letter-spacing: 1px;
+    width: 31rem;
+}
 
-/* button span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-} */
-
-/* button:hover span {
-    padding-right: 25px;
-} */
-
-/* button:hover span:after {
-    opacity: 1;
-    right: 0;
-} */
+.climbingButton{
+    background: linear-gradient(315deg, #485461 0%, #28313b 74%);
+    border-radius: 12px;
+    border: 1px solid rgb(72, 86, 97);
+    color: rgb(208, 198, 198);
+    font-size: 18px;
+    padding: 0.2rem;
+    font-family: Copperplate, fantasy;
+    letter-spacing: 1px;
+    width: 31rem;
+}
+.subTitle{
+    margin-left: auto;
+    margin-right: auto;
+    width: 18rem;
+    padding-top: 2rem;
+}
+.buttonsAndPictures{
+    display: flex;
+    flex: wrap;
+    justify-content: center;
+    justify-content: space-around;
+    position: block;
+    margin: 10rem;
+}
+.meadows{
+    display: flex;
+    flex: wrap;
+    height: 500px;
+    width: 500px;
+    border-radius: 1rem;
+}
+.bellyRoll{
+    display: flex;
+    flex: wrap;
+    height: 500px;
+    width: 500px;
+    border-radius: 1rem;
+}

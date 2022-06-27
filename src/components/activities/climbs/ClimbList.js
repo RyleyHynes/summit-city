@@ -111,21 +111,21 @@ export const ClimbList = ({ searchTermState }) => {
 
     return (
         <>
-            <button className="alterButton" onClick={() => navigate("/climb/create")}>
+            <button className="climbAlterButton" onClick={() => navigate("/climb/create")}>
                 Add New Climb
             </button>
-            <button className="alterButton" onClick={
+            <button className="climbAlterButton" onClick={
                 () => {
                     setBucketListClimbs(false)
                     setCompletedClimbs(false)
                 }
             }>Show All Climbs</button>
-            <button className="alterButton" onClick={
+            <button className="climbAlterButton" onClick={
                 () => {
                     setCompletedClimbs(true)
                 }
             }>Completed Climbs</button>
-            <button className="alterButton" onClick={
+            <button className="climbAlterButton" onClick={
                 () => {
                     setBucketListClimbs(true)
                 }
@@ -156,10 +156,10 @@ export const ClimbList = ({ searchTermState }) => {
                                 <footer className="bucketList">Bucket List: {climb.bucketList ? "✅" : "No"}</footer>
                                 <footer>
                                     <Link to={`/climbs/${climb.id}/edit`}>
-                                        <button className="alterButton">EDIT Climb</button>
+                                        <button className="climbAlterButton">EDIT Climb</button>
                                     </Link>
                                     <button
-                                        className="alterButton"
+                                        className="climbAlterButton"
                                         onClick={() => {
                                             fetch(`http://localhost:8088/climbs/${climb.id}`, {
                                                 method: "DELETE",

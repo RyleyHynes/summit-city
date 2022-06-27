@@ -1,0 +1,64 @@
+.helpfulLinksContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    
+}
+
+
+.gear {
+    background-color: grey;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: .25rem;
+
+}
+
+.contactInformation {
+    background-color: grey;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: .25rem;
+}
+
+.rangerHelp {
+    background-color: grey;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: .25rem;
+}
+
+.camping {
+    background-color: grey;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: .25rem;
+}
+
+.climbing {
+    background-color: grey;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: .25rem;
+}
+
+.weather {
+    background-color: grey;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: .25rem;
+}
+
+.socialMedia {
+    background-color: grey;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: .25rem;
+}
+
+.photography {
+    background-color: grey;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: .25rem;
+
+}

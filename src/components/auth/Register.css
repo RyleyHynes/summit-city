@@ -12,7 +12,7 @@
 
 .form--login {
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -20,23 +20,21 @@
 .pleaseRegister {
     text-align: center;
     font-family: Copperplate, fantasy;
-    color: black;
+    color: white;
     font-size: 2.5rem;
 }
 
-.name {
+.registerName {
     font-family: Copperplate, fantasy;
     font-size: large;
+    width: 100%;
 }
 
-.email {
+.registerEmail {
     font-family: Copperplate, fantasy;
     font-size: large;
-}
-
-form {
-    width: 500px;
-    overflow: hidden;
+    font-weight: bolder;
+    width: 100%;
 }
 
 input {

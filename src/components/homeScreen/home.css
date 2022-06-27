@@ -1,8 +1,6 @@
 body {
-    background-image: url("");
-    background-repeat: no-repeat;
     background-size: cover;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
 
 }
 
@@ -34,11 +32,11 @@ body {
     margin-right: auto;
     width: 18rem;
     padding-top: 2rem;
+
 }
 .buttonsAndPictures{
     display: flex;
     flex: wrap;
-    justify-content: center;
     justify-content: space-around;
     position: block;
     margin: 10rem;

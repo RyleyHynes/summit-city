@@ -98,26 +98,27 @@ export const HikeList = ({ searchTermState }) => {
 
     return (
         <>
-            <button className="hikeAlterButton" onClick={() => navigate("/hike/create")}>
-                Add New Hike
-            </button>
-            <button className="hikeAlterButton" onClick={
-                () => {
-                    setBucketListHikes(false)
-                    setCompletedHikes(false)
-                }
-            }>Show All Hikes</button>
-            <button className="hikeAlterButton" onClick={
-                () => {
-                    setCompletedHikes(true)
-                }
-            }>Completed Hikes</button>
-            <button className="hikeAlterButton" onClick={
-                () => {
-                    setBucketListHikes(true)
-                }
-            }>Bucket List Hikes</button>
-
+            <div className="hikeButtons">
+                <button className="hikeAlterButton" onClick={() => navigate("/hike/create")}>
+                    Add New Hike
+                </button>
+                <button className="hikeAlterButton" onClick={
+                    () => {
+                        setBucketListHikes(false)
+                        setCompletedHikes(false)
+                    }
+                }>Show All Hikes</button>
+                <button className="hikeAlterButton" onClick={
+                    () => {
+                        setCompletedHikes(true)
+                    }
+                }>Completed Hikes</button>
+                <button className="hikeAlterButton" onClick={
+                    () => {
+                        setBucketListHikes(true)
+                    }
+                }>Bucket List Hikes</button>
+            </div>
             <h2 className="hikeForm_title">Hikes in Grand Teton National Park</h2>
             <article className="hikes">
                 <ul>
@@ -128,19 +129,22 @@ export const HikeList = ({ searchTermState }) => {
                                     className="hike_list"
                                     key={`hike--${hike.id}`}
                                 >
-                                    <img className="picture" src={hike.url} alt='Hike'></img>
+                                    <div className="imageContainer">
+                                    <img className="hikePicture" src={hike.url} alt='Hike'></img></div>
+                                    <div className="textContainer">
                                     <div className="name">
-                                        <div className="category">Hike Name:{hike.name}</div>
-                                    </div>
-                                    <div className="skillLevel"><div className="category">Skill Level:</div> {hike?.skillLevel?.level}</div>
-                                    <div className="distance">Distance: {hike?.distance?.toFixed(2)}</div>
+                                        <b>Hike Name:</b>  {hike.name}</div>
+                                    
+                                    <div className="skillLevel"><b>Skill Level:</b> {hike?.skillLevel?.level}</div>
+                                    <div className="distance"><b>Distance:</b>  {hike?.distance?.toFixed(2)}</div>
                                     <div className="location">
-                                        Location: {hike.location}
+                                        <b>Location:</b>  {hike.location}
                                     </div>
-                                    <div className="description">Description: {hike.description}</div>
+                                    <div className="description"><b>Description:</b> {hike.description}</div>
+                                    </div>
                                 </section>
-                                <footer className="Completed">Completed: {hike.completed ? "✅" : "No"}</footer>
-                                <footer className="bucketList">Bucket List: {hike.bucketList ? "✅" : "No"}</footer>
+                                <footer className="Completed"><b>Completed:</b> {hike.completed ? "✅" : "No"}</footer>
+                                <footer className="bucketList"><b>Bucket List:</b> {hike.bucketList ? "✅" : "No"}</footer>
                                 <footer>
                                     <Link to={`/hikes/${hike.id}/edit`}>
                                         <button className="hikeAlterButton">EDIT Hike</button>

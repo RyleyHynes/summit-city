@@ -11,7 +11,7 @@ export const HikeSearch = ({setterFunction}) => {
                         setterFunction(changeEvent.target.value)
                     }
                 }
-            type="text" placeholder="Enter search terms" />
+            type="text" placeholder="Search by name, skill level, location, description" />
         </div>
     )
 }

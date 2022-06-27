@@ -111,6 +111,7 @@ export const ClimbList = ({ searchTermState }) => {
 
     return (
         <>
+        <div className="climbButtons">
             <button className="climbAlterButton" onClick={() => navigate("/climb/create")}>
                 Add New Climb
             </button>
@@ -130,6 +131,7 @@ export const ClimbList = ({ searchTermState }) => {
                     setBucketListClimbs(true)
                 }
             }>Bucket List Climbs</button>
+            </div>
 
             <h2 className="climbForm_title">Climbs in Grand Teton National Park</h2>
             <article className="climbs">
@@ -141,19 +143,23 @@ export const ClimbList = ({ searchTermState }) => {
                                     className="climb_list"
                                     key={`climb--${climb.id}`}
                                 >
-                                    <img src={climb.url} alt='climb'></img>
+
+                                    <div className="imageContainer">
+                                        <img className="climbPicture" src={climb.url} alt='climb'></img></div>
+                                    <div className="textContainer">
                                     <div className="name">
-                                        Climb Name: {climb.name}
+                                        <b>Climb Name:</b> {climb.name}
                                     </div>
-                                    <div className="type">Type: {climb?.type?.name}</div>
-                                    <div className="grade">Grade: {climb?.grade?.rating.toFixed(2)}</div>
+                                    <div className="type"><b>Type:</b> {climb?.type?.name}</div>
+                                    <div className="grade"><b>Grade:</b> {climb?.grade?.rating.toFixed(2)}</div>
                                     <div className="location">
-                                        Location: {climb.location}
+                                        <b>Location:</b> {climb.location}
                                     </div>
-                                    <div className="description">Description: {climb.description}</div>
+                                    <div className="description"><b>Description:</b> {climb.description}</div>
+                                    </div>
                                 </section>
-                                <footer className="completed">Completed: {climb.completed ? "✅" : "No"}</footer>
-                                <footer className="bucketList">Bucket List: {climb.bucketList ? "✅" : "No"}</footer>
+                                <footer className="completed"><b>Completed:</b> {climb.completed ? "✅" : "No"}</footer>
+                                <footer className="bucketList"><b>Bucket List:</b> {climb.bucketList ? "✅" : "No"}</footer>
                                 <footer>
                                     <Link to={`/climbs/${climb.id}/edit`}>
                                         <button className="climbAlterButton">EDIT Climb</button>

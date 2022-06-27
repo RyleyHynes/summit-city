@@ -1,20 +1,54 @@
-.hikeAlterButton {
-    background-color: white;
-    text-transform: unset;
-    font-size: 16px;
-    display: inline-block;
-    color: #000000;
-    padding: 10px 25px;
-    text-align: center;
-    transition: all 0.5s;
-    height: fit-content;
-    width: fit-content;
-    border-radius: 12px;
+.hikeAlterButton { 
+        background: linear-gradient(315deg, #485461 0%, #28313b 74%);
+        border-radius: 12px;
+        border: 1px solid rgb(72, 86, 97);
+        color: rgb(208, 198, 198);
+        font-size: 18px;
+        padding: 0.2rem;
+        font-family: Copperplate,fantasy;
+        letter-spacing: 1px;
+        width: 12rem;
+        margin: .25rem;
 }
 
-.picture {
-    height: 22rem;
-    width: 22rem;
+.hikeButtons{
+    display: flex;
+    justify-content: center;
 }
 
+.hike_list{
+    display: flex;
+    flex:1;
+    flex-direction: row;
+    
+}
+.imageContainer{
+     display: flex;
+    flex-direction: column;
+}
 
+.textContainer{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.hikePicture {
+    border-radius: 2rem;
+}
+
+.hikeForm_title{
+    display: flex;
+    flex: wrap;
+    justify-content: center;
+    padding:2rem;
+}
+
+.searchBar{
+    display: flex;
+    flex: wrap;
+    justify-content: center;
+    padding: 2rem;
+}

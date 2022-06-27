@@ -10,7 +10,7 @@ export const NavBar = () => {
                 <img
                     onClick={() => navigate("/home")}
                     className="logo"
-                    src={"/images/Summit.jpeg"}
+                    src={"/images/Summit.png"}
                     alt="logo"
                 />
                 <ul className="navbar">

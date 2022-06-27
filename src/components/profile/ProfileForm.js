@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material"
 import { useEffect, useState } from "react"
 import { getUsers, saveUsersEdit } from "../../manager/APIManager"
-
+import "./Profile.css"
 
 
 // form to change employee state data. 
@@ -61,7 +61,7 @@ export const ProfileForm = () => {
             {feedback}
         </div>
         <form className="profile">
-            <h2 className="profile__title">Update User Information</h2>
+            <h2 className="profileTitle">Update User Information</h2>
         <Avatar alt="Ryley Hynes" src={summitUserObject.url} sx={{width:200,height:200}} />
             <fieldset>
                 <div className="form-group">
@@ -99,7 +99,7 @@ export const ProfileForm = () => {
             </fieldset>
             <button
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
+                className="saveProfile">
                 Save Profile
             </button>
         </form>

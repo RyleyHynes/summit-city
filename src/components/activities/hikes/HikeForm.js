@@ -82,7 +82,7 @@ export const HikeForm = () => {
             <h2 className="hikeForm__title">New Hike</h2>
             <fieldset>
                 <div className="form_group" key={hike.id}>
-                    <label htmlFor="Name">Name:</label>
+                    <label htmlFor="Name"><b>Name:</b></label>
                     <input
 
                         type="text"
@@ -100,8 +100,8 @@ export const HikeForm = () => {
             </fieldset>
 
             <fieldset>
-                <div className="form-group" key={hike.id}>
-                    <label htmlFor="Name">Location:</label>
+                <div className="form_group" key={hike.id}>
+                    <label htmlFor="Name"><b>Location:</b></label>
                     <input
                         required autoFocus
                         type="text"
@@ -120,7 +120,7 @@ export const HikeForm = () => {
 
             <fieldset>
                 <div className="form_group" key={hike.id}>
-                    <label htmlFor="Name">Distance(miles):</label>
+                    <label htmlFor="Name"><b>Distance(miles):</b></label>
                     <input
                         required autoFocus
                         type="number"
@@ -138,8 +138,8 @@ export const HikeForm = () => {
             </fieldset>
 
             <fieldset>
-                <div>
-                    <label htmlFor="description">Description:</label>
+                <div className="form_group" key={hike.id}>
+                    <label htmlFor="description"><b>Description:</b></label>
                     <input
                         required autoFocus
                         type="text"
@@ -156,8 +156,8 @@ export const HikeForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div>
-                    <label htmlFor="attractions">Attractions:</label>
+                <div className="form_group" key={hike.id}>
+                    <label htmlFor="attractions"><b>Attractions:</b></label>
                     <input
                         required autoFocus
                         type="text"
@@ -174,8 +174,8 @@ export const HikeForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="skillLevel">Skill Level: </label>
+                <div className="form_group" key={hike.id}>
+                    <label htmlFor="skillLevel"><b>Skill Level:</b></label>
                     <select
                         onChange={(evt) => {
                             const copy = { ...hike }; //created a copy of existing state
@@ -192,8 +192,8 @@ export const HikeForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="req-form-group">
-                    <span>Completed:</span>
+                <div className="form_group" key={hike.id}>
+                    <span><b>Completed:</b></span>
                     <input type="radio" className="req-form-control"
                         name="completed" value={true}
                         onChange={
@@ -214,8 +214,8 @@ export const HikeForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="req-form-group">
-                    <span>Bucket List:</span>
+                <div className="form_group" key={hike.id}>
+                    <span><b>Bucket List:</b></span>
                     <input type="radio" className="req-form-control"
                         name="bucketList" value={true}
                         onChange={
@@ -236,8 +236,8 @@ export const HikeForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="req-form-group">
-                    <label className="label" htmlFor="description">Photo URL: </label>
+                <div className="form_group" key={hike.id}>
+                    <label className="label" htmlFor="description"><b>Photo URL:</b></label>
                     <input
                         required autoFocus
                         type="text"
@@ -254,11 +254,11 @@ export const HikeForm = () => {
                 </div>
             </fieldset>
             <button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
+                className="hikeAlterButton">
                 Submit Hike
             </button>
 
-            <button onClick={() => navigate("/hikes")}>Cancel</button>
+            <button className="hikeAlterButton" onClick={() => navigate("/hikes")}>Cancel</button>
         </form >
     )
 

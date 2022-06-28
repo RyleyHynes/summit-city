@@ -92,7 +92,7 @@ export const ClimbForm = () => {
             <h2 className="climbForm__title">New Climb</h2>
             <fieldset>
                 <div className="form_group" key={climb.id}>
-                    <label htmlFor="Name">Name:</label>
+                    <label htmlFor="Name"><b>Name:</b></label>
                     <input
                         required autoFocus
                         type="text"
@@ -110,8 +110,8 @@ export const ClimbForm = () => {
             </fieldset>
 
             <fieldset>
-                <div className="form-group" key={climb.id}>
-                    <label htmlFor="Name">Location:</label>
+                <div className="form_group" key={climb.id}>
+                    <label htmlFor="Name"><b>Location:</b></label>
                     <input
                         required autoFocus
                         type="text"
@@ -128,8 +128,8 @@ export const ClimbForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div>
-                    <label htmlFor="description">Description:</label>
+                <div className="form_group" key={climb.id}>
+                    <label htmlFor="description"><b>Description:</b></label>
                     <input
                         required autoFocus
                         type="text"
@@ -146,8 +146,8 @@ export const ClimbForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="type">Type: </label>
+                <div className="form_group" key={climb.id}>
+                    <label htmlFor="type"><b>Type:</b></label>
                     <select
                         onChange={(evt) => {
                             const copy = { ...climb }; //created a copy of existing state
@@ -155,7 +155,7 @@ export const ClimbForm = () => {
                             addClimb(copy)
                         }}
                     >
-                        <option key={0}>Select Skill Level</option>
+                        <option key={0}>Select Type of Climb</option>
                         {
                             types.map((type) => {
                                 return <option key={type.id} value={type.id}>{type.name}</option>
@@ -164,8 +164,8 @@ export const ClimbForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="grade">Grade: </label>
+                <div className="form_group" key={climb.id}>
+                    <label htmlFor="grade"><b>Grade:</b></label>
                     <select
                         onChange={(evt) => {
                             const copy = { ...climb }; //created a copy of existing state
@@ -182,8 +182,8 @@ export const ClimbForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="req-form-group">
-                    <span>Completed:</span>
+                <div className="form_group" key={climb.id}>
+                    <span><b>Completed:</b></span>
                     <input  type="radio" className="req-form-control"
                         name="completed" value={true}
                         onChange={
@@ -204,8 +204,8 @@ export const ClimbForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="req-form-group">
-                    <span>Bucket List:</span>
+                <div className="form_group" key={climb.id}>
+                    <span><b>Bucket List:</b></span>
                     <input  type="radio" className="req-form-control"
                         name="bucketList" value={true}
                         onChange={
@@ -226,8 +226,8 @@ export const ClimbForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="req-form-group">
-                    <label className="label" htmlFor="description">Photo URL: </label>
+                <div className="form_group" key={climb.id}>
+                    <label className="label" htmlFor="description"><b>Photo URL:</b></label>
                     <input
                         required autoFocus
                         type="text"
@@ -245,7 +245,7 @@ export const ClimbForm = () => {
             </fieldset>
 
             <button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="btn btn-primary">
+                className="climbAlterButton">
                 Submit Climb
             </button>
         </form >

@@ -11,6 +11,7 @@ body {
     color: rgb(208, 198, 198);
     font-size: 18px;
     padding: 0.2rem;
+    margin-left: 3rem;
     font-family: Copperplate, fantasy;
     letter-spacing: 1px;
     width: 31rem;
@@ -39,11 +40,12 @@ body {
     flex: wrap;
     justify-content: space-around;
     position: block;
-    margin: 10rem;
+    margin: 2rem;
 }
 .meadows{
     display: flex;
     flex: wrap;
+    margin-left: 3rem;
     height: 500px;
     width: 500px;
     border-radius: 1rem;
@@ -51,6 +53,7 @@ body {
 .bellyRoll{
     display: flex;
     flex: wrap;
+    margin-right: 3rem;
     height: 500px;
     width: 500px;
     border-radius: 1rem;

@@ -1,33 +1,42 @@
-.hikeAlterButton { 
-        background: linear-gradient(315deg, #485461 0%, #28313b 74%);
-        border-radius: 12px;
-        border: 1px solid rgb(72, 86, 97);
-        color: rgb(208, 198, 198);
-        font-size: 18px;
-        padding: 0.2rem;
-        font-family: Copperplate,fantasy;
-        letter-spacing: 1px;
-        width: 12rem;
-        margin: .25rem;
+.hikeAlterButton {
+    background: linear-gradient(315deg, #485461 0%, #28313b 74%);
+    border-radius: 12px;
+    border: 1px solid rgb(72, 86, 97);
+    color: rgb(208, 198, 198);
+    font-size: 18px;
+    padding: 0.2rem;
+    font-family: Copperplate, fantasy;
+    letter-spacing: 1px;
+    width: 12rem;
+    margin: .25rem;
 }
 
-.hikeButtons{
+.hikeContainer {
+    margin-bottom: 2rem;
+}
+
+.hikeButtons {
     display: flex;
     justify-content: center;
 }
 
-.hike_list{
+.individualHike{
+    margin-bottom:2rem;
+}
+.hike_list {
     display: flex;
-    flex:1;
+    flex: 1;
     flex-direction: row;
     
+
 }
-.imageContainer{
-     display: flex;
+
+.imageContainer {
+    display: flex;
     flex-direction: column;
 }
 
-.textContainer{
+.textContainer {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -39,16 +48,21 @@
     border-radius: 2rem;
 }
 
-.hikeForm_title{
-    display: flex;
-    flex: wrap;
-    justify-content: center;
-    padding:2rem;
-}
-
-.searchBar{
+.hikeForm_title {
     display: flex;
     flex: wrap;
     justify-content: center;
     padding: 2rem;
+    margin: 2rem;
+}
+
+.searchBar {
+    display: flex;
+    flex: wrap;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.form_group {
+    margin: 2rem;
 }

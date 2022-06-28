@@ -1,64 +1,60 @@
 .helpfulLinksContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    /* justify-content: space-evenly; */
+    margin: 2rem;
 }
 
 
-.gear {
-    background-color: grey;
-    border-radius: 1rem;
-    padding: 2rem;
-    margin: .25rem;
-
+/* flipcards */
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect, removed border */
+.card {
+    background-color: transparent;
+    width: 400px;
+    height: 300px;
+    perspective: 1000px;
+    margin-bottom: 3rem;
 }
 
-.contactInformation {
-    background-color: grey;
-    border-radius: 1rem;
-    padding: 2rem;
-    margin: .25rem;
+/* This container is needed to position the front and back side */
+.content {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    /* text-align: center; */
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: .25rem;
 }
 
-.rangerHelp {
-    background-color: grey;
+.flipCardPicture {
+    width: 400px;
+    height: 300px;
     border-radius: 1rem;
-    padding: 2rem;
-    margin: .25rem;
 }
 
-.camping {
-    background-color: grey;
-    border-radius: 1rem;
-    padding: 2rem;
-    margin: .25rem;
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.card:hover .content {
+    transform: rotateY(180deg);
 }
 
-.climbing {
-    background-color: grey;
+/* Position the front and back side */
+.front,
+.back {
     border-radius: 1rem;
-    padding: 2rem;
-    margin: .25rem;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    /* Safari */
+    backface-visibility: hidden;
 }
 
-.weather {
-    background-color: grey;
-    border-radius: 1rem;
-    padding: 2rem;
-    margin: .25rem;
-}
-
-.socialMedia {
-    background-color: grey;
-    border-radius: 1rem;
-    padding: 2rem;
-    margin: .25rem;
-}
-
-.photography {
-    background-color: grey;
-    border-radius: 1rem;
-    padding: 2rem;
-    margin: .25rem;
-
+/* Style the back side */
+.back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
+    padding: 0 0.25rem;
+    width: 400px;
+    height: 300px;
 }

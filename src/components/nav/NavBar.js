@@ -14,6 +14,12 @@ export const NavBar = () => {
                     alt="logo"
                 />
                 <ul className="navbar">
+                {
+                        <li className="navbar__item active">
+                            <Link className="navbar" to="/home">Home</Link>
+
+                        </li>
+                    }
                     {
                         <li className="navbar__item active">
                             <Link className="navbar" to="/profile">Profile</Link>

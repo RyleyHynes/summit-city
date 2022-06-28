@@ -11,9 +11,14 @@
     margin: .25rem;
 }
 
+
 .climbButtons{
     display: flex;
     justify-content: center;
+}
+
+.individualClimb{
+    margin-bottom: 2rem;
 }
 
 .climb_list{

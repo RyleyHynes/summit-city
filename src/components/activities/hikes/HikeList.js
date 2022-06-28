@@ -121,31 +121,31 @@ export const HikeList = ({ searchTermState }) => {
             </div>
             <h2 className="hikeForm_title">Hikes in Grand Teton National Park</h2>
             <article className="hikes">
-                <ul>
+                <ul className="hikeContainer">
                     {filteredHikes.map((hike) => {
                         return (
-                            <div key={`hike-${hike.id}`}>
+                            <div className="individualHike" key={`hike-${hike.id}`}>
                                 <section
                                     className="hike_list"
                                     key={`hike--${hike.id}`}
                                 >
                                     <div className="imageContainer">
-                                    <img className="hikePicture" src={hike.url} alt='Hike'></img></div>
+                                        <img className="hikePicture" src={hike.url} alt='Hike'></img></div>
                                     <div className="textContainer">
-                                    <div className="name">
-                                        <b>Hike Name:</b>  {hike.name}</div>
-                                    
-                                    <div className="skillLevel"><b>Skill Level:</b> {hike?.skillLevel?.level}</div>
-                                    <div className="distance"><b>Distance:</b>  {hike?.distance?.toFixed(2)}</div>
-                                    <div className="location">
-                                        <b>Location:</b>  {hike.location}
-                                    </div>
-                                    <div className="description"><b>Description:</b> {hike.description}</div>
+                                        <div className="name">
+                                            <b>Hike Name:</b>  {hike.name}</div>
+
+                                        <div className="skillLevel"><b>Skill Level:</b> {hike?.skillLevel?.level}</div>
+                                        <div className="distance"><b>Distance:</b>  {hike?.distance?.toFixed(2)}</div>
+                                        <div className="location">
+                                            <b>Location:</b>  {hike.location}
+                                        </div>
+                                        <div className="description"><b>Description:</b> {hike.description}</div>
+                                    <div><b>Completed:</b> {hike.completed ? "✅" : "No"}</div>
+                                    <div><b>Bucket List:</b> {hike.bucketList ? "✅" : "No"}</div>
                                     </div>
                                 </section>
-                                <footer className="Completed"><b>Completed:</b> {hike.completed ? "✅" : "No"}</footer>
-                                <footer className="bucketList"><b>Bucket List:</b> {hike.bucketList ? "✅" : "No"}</footer>
-                                <footer>
+                                <section>
                                     <Link to={`/hikes/${hike.id}/edit`}>
                                         <button className="hikeAlterButton">EDIT Hike</button>
                                     </Link>
@@ -161,7 +161,7 @@ export const HikeList = ({ searchTermState }) => {
                                     >
                                         DELETE
                                     </button>
-                                </footer>
+                                </section>
                             </div>
                         );
                     })}

@@ -111,26 +111,26 @@ export const ClimbList = ({ searchTermState }) => {
 
     return (
         <>
-        <div className="climbButtons">
-            <button className="climbAlterButton" onClick={() => navigate("/climb/create")}>
-                Add New Climb
-            </button>
-            <button className="climbAlterButton" onClick={
-                () => {
-                    setBucketListClimbs(false)
-                    setCompletedClimbs(false)
-                }
-            }>Show All Climbs</button>
-            <button className="climbAlterButton" onClick={
-                () => {
-                    setCompletedClimbs(true)
-                }
-            }>Completed Climbs</button>
-            <button className="climbAlterButton" onClick={
-                () => {
-                    setBucketListClimbs(true)
-                }
-            }>Bucket List Climbs</button>
+            <div className="climbButtons">
+                <button className="climbAlterButton" onClick={() => navigate("/climb/create")}>
+                    Add New Climb
+                </button>
+                <button className="climbAlterButton" onClick={
+                    () => {
+                        setBucketListClimbs(false)
+                        setCompletedClimbs(false)
+                    }
+                }>Show All Climbs</button>
+                <button className="climbAlterButton" onClick={
+                    () => {
+                        setCompletedClimbs(true)
+                    }
+                }>Completed Climbs</button>
+                <button className="climbAlterButton" onClick={
+                    () => {
+                        setBucketListClimbs(true)
+                    }
+                }>Bucket List Climbs</button>
             </div>
 
             <h2 className="climbForm_title">Climbs in Grand Teton National Park</h2>
@@ -138,29 +138,28 @@ export const ClimbList = ({ searchTermState }) => {
                 <ul>
                     {filteredClimbs.map((climb) => {
                         return (
-                            <div key={`climb-${climb.id}`}>
+                            <div className="individualClimb" key={`climb-${climb.id}`}>
                                 <section
                                     className="climb_list"
                                     key={`climb--${climb.id}`}
                                 >
-
                                     <div className="imageContainer">
                                         <img className="climbPicture" src={climb.url} alt='climb'></img></div>
                                     <div className="textContainer">
-                                    <div className="name">
-                                        <b>Climb Name:</b> {climb.name}
-                                    </div>
-                                    <div className="type"><b>Type:</b> {climb?.type?.name}</div>
-                                    <div className="grade"><b>Grade:</b> {climb?.grade?.rating.toFixed(2)}</div>
-                                    <div className="location">
-                                        <b>Location:</b> {climb.location}
-                                    </div>
-                                    <div className="description"><b>Description:</b> {climb.description}</div>
+                                        <div className="name">
+                                            <b>Climb Name:</b> {climb.name}
+                                        </div>
+                                        <div className="type"><b>Type:</b> {climb?.type?.name}</div>
+                                        <div className="grade"><b>Grade:</b> {climb?.grade?.rating.toFixed(2)}</div>
+                                        <div className="location">
+                                            <b>Location:</b> {climb.location}
+                                        </div>
+                                        <div className="description"><b>Description:</b> {climb.description}</div>
+                                    <div ><b>Completed:</b> {climb.completed ? "✅" : "No"}</div>
+                                    <div ><b>Bucket List:</b> {climb.bucketList ? "✅" : "No"}</div>
                                     </div>
                                 </section>
-                                <footer className="completed"><b>Completed:</b> {climb.completed ? "✅" : "No"}</footer>
-                                <footer className="bucketList"><b>Bucket List:</b> {climb.bucketList ? "✅" : "No"}</footer>
-                                <footer>
+                                <section>
                                     <Link to={`/climbs/${climb.id}/edit`}>
                                         <button className="climbAlterButton">EDIT Climb</button>
                                     </Link>
@@ -176,7 +175,7 @@ export const ClimbList = ({ searchTermState }) => {
                                     >
                                         DELETE
                                     </button>
-                                </footer>
+                                </section>
                             </div>
                         );
                     })}

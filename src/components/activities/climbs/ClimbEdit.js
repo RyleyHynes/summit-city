@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 
+
 export const ClimbEdit = () => {
+    /* */
+    /*state created for climb which is equal to a object with 7 properties*/
     const [climb, editClimb] = useState({
         name: "",
         location: "",
@@ -11,13 +14,25 @@ export const ClimbEdit = () => {
         completed: false,
         bucketList: false
     })
-
+    /*The useParams hook returns an object of key/value pairs of the dynamic params 
+    from the current URL that were matched by the <Route path>. Child routes inherit 
+    all params from their parent routes. (invoking useParams and assigning its return 
+    value to climbId */
     const { climbId } = useParams()
+    /*invoking useNavigate and assigning its return value to navigate*/
     const navigate = useNavigate()
-
+    
+    /*Creating an initial state of grades which is equal to an empty array. 
+    setGrades is the function that will alter the state of grades*/
     const [grades, setGrades] = useState([])
+    /*Creating an intial state of types which is equal to an empty array.
+    setTypes is the function that will alter the state of types*/
     const [types, setTypes] = useState([])
 
+
+    /*useEffect to fetch all of the climbs by climbId then store that data into 
+    a data array. The editClimb function is invoked with data as an input
+    and the state of climb is changed. We are also observing climbId*/
     useEffect(() => {
         fetch(`http://localhost:8088/climbs/${climbId}`)
             .then(response => response.json())
@@ -28,6 +43,9 @@ export const ClimbEdit = () => {
         [climbId]
     )
 
+    /*useEffect to fetch the types, we then store that data in a typeArray 
+    and then invoke the setTypes function with typeArray as an input which then 
+    changes the types state*/
     useEffect(() => {
         fetch(`http://localhost:8088/types`)
             .then((response) => response.json())
@@ -37,7 +55,9 @@ export const ClimbEdit = () => {
     },
         []
     )
-
+    /*useEffect to fetch the grades, store those grades in the gradeArray, and then
+    invoke the setGrades function with gradeArray as an input to change the grades
+    state*/
     useEffect(() => {
         fetch(`http://localhost:8088/grades`)
             .then((response) => response.json())
@@ -48,6 +68,7 @@ export const ClimbEdit = () => {
         []
     )
 
+    
     const editButtonClick = (event) => {
         event.preventDefault()
 
@@ -216,7 +237,7 @@ export const ClimbEdit = () => {
 
             <button onClick={() => navigate("/climbs")}
                 className="climbAlterButton">
-                    Cancel</button>
+                Cancel</button>
         </form>
     </>
 }

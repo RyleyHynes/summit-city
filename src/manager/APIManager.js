@@ -1,8 +1,13 @@
+/*Get Requests*/
 export const getUsers = () => {
     return fetch(`http://localhost:8088/users`)
     .then(response => response.json())
 }
 
+export const getAllEmployees = () => {
+    return fetch(`http://localhost:8088/users?isStaff=true`)
+        .then(res => res.json())
+}
 
 //Put Requests
 export const saveUsersEdit = (profile) => {

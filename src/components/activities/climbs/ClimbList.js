@@ -51,7 +51,7 @@ export const ClimbList = ({ searchTermState }) => {
 
 
     const getAllClimbs = () => {
-        fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type&userId=${summitUserObject.id}`)
+        fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type`)
             .then((response) => response.json())
             .then((climbsArray) => {
                 setClimbs(climbsArray);
@@ -66,7 +66,7 @@ export const ClimbList = ({ searchTermState }) => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type&userId=${summitUserObject.id}`)
+        fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type`)
             .then((response) => response.json())
             .then((climbArray) => {
                 setFilteredClimbs(climbArray);

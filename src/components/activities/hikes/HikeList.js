@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { Link } from "react-router-dom"
+import { getAllEmployees } from "../../../manager/APIManager";
 import "./Hike.css"
 
+
+/* added prop of searchTermState, the key is searchTermState and the value is the actual state*/
 export const HikeList = ({ searchTermState }) => {
-
+    /* */
+    /*creating a state variable for hikes and setting it equal to an empty array*/
     const [hikes, setHikes] = useState([])
-    //we do not want to modify the array of hikes from the api, but we still want to display a list of hikes. creating another variable of filteredHikes
+    /*creating a state variable for filteredHikes and setting it equal to an 
+    empty array*/
     const [filteredHikes, setFilteredHikes] = useState([])
-    //added the useNavigate hook for the user Added hike button
+    /*creating a state variable fo completedHikes and setting it equal to false 
+    because initially we want to see all hikes and then when we click the button 
+    we change that state to true to see the completedHikes*/
     const [completedHikes, setCompletedHikes] = useState(false)
-
-
+    /*creating a state variable fo bucketListHikes and setting it equal to false 
+    because initially we want to see all hikes and then when we click the button 
+    we change that state to true to see the bucketListHikes*/
     const [bucketListHikes, setBucketListHikes] = useState(false)
 
-
-
-
+    
     useEffect(
         () => {
             if (completedHikes) {
@@ -44,15 +50,20 @@ export const HikeList = ({ searchTermState }) => {
         [bucketListHikes]
     )
 
+    /*Invoking useNavigate and assigning its return value to navigate*/
     const navigate = useNavigate()
 
-    // get summitUser out of local storage
+    /*get summit_User out of local storage and assign its return value to 
+    summitUserObject*/
     const localSummitUser = localStorage.getItem("summit_user")
+    /*converting summit_user from a string to an object*/
     const summitUserObject = JSON.parse(localSummitUser)
 
 
+    /*Declaring a function to fetch hikes by skillLevel and userId. We can now
+    invoke this function whenever we want. We have to pass the function tp the props*/
     const getAllHikes = () => {
-        fetch(`http://localhost:8088/hikes?_expand=skillLevel&userId=${summitUserObject.id}`)
+        fetch(`http://localhost:8088/hikes?_expand=skillLevel`)
             .then((response) => response.json())
             .then((hikesArray) => {
                 setHikes(hikesArray);
@@ -67,7 +78,7 @@ export const HikeList = ({ searchTermState }) => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:8088/hikes?_expand=skillLevel&userId=${summitUserObject.id}`)
+        fetch(`http://localhost:8088/hikes?_expand=skillLevel`)
             .then((response) => response.json())
             .then((hikeArray) => {
                 setFilteredHikes(hikeArray);
@@ -132,17 +143,17 @@ export const HikeList = ({ searchTermState }) => {
                                     <div className="imageContainer">
                                         <img className="hikePicture" src={hike.url} alt='Hike'></img></div>
                                     <div className="textContainer">
-                                        <div className="name">
+                                        <div className="category">
                                             <b>Hike Name:</b>  {hike.name}</div>
 
-                                        <div className="skillLevel"><b>Skill Level:</b> {hike?.skillLevel?.level}</div>
-                                        <div className="distance"><b>Distance:</b>  {hike?.distance?.toFixed(2)}</div>
-                                        <div className="location">
+                                        <div className="category"><b>Skill Level:</b> {hike?.skillLevel?.level}</div>
+                                        <div className="category"><b>Distance:</b>  {hike?.distance?.toFixed(2)}</div>
+                                        <div className="category">
                                             <b>Location:</b>  {hike.location}
                                         </div>
-                                        <div className="description"><b>Description:</b> {hike.description}</div>
-                                    <div><b>Completed:</b> {hike.completed ? "✅" : "No"}</div>
-                                    <div><b>Bucket List:</b> {hike.bucketList ? "✅" : "No"}</div>
+                                        <div className="category"><b>Description:</b> {hike.description}</div>
+                                    <div className="category"><b>Completed:</b> {hike.completed ? "✅" : "No"}</div>
+                                    <div className="category"><b>Bucket List:</b> {hike.bucketList ? "✅" : "No"}</div>
                                     </div>
                                 </section>
                                 <section>

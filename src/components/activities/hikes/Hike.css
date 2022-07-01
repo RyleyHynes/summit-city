@@ -1,3 +1,5 @@
+/*Button for Add New Hike, Show All Hikes, Completed Hikes, Bucket List Hikes, 
+Edit Hike, and Delete*/
 .hikeAlterButton {
     background: linear-gradient(315deg, #485461 0%, #28313b 74%);
     border-radius: 12px;
@@ -42,6 +44,7 @@
     flex: 1;
     padding-left: 1rem;
     padding-right: 1rem;
+    margin: 1rem
 }
 
 .hikePicture {
@@ -64,5 +67,17 @@
 }
 
 .form_group {
-    margin: 2rem;
+    margin: 0rem;
+}
+
+.hikeForm{
+    padding:1rem;
+}
+.category{
+    padding-top: .5rem;
+}
+
+.radio{
+    display: inline;
+    justify-items: left;
 }

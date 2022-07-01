@@ -172,9 +172,9 @@ export const HikeEdit = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form_group" key={hike.id}>
+                <div className="radio" key={hike.id}>
                     <span><b>Completed:</b></span>
-                    <input  type="radio" className="req-form-control"
+                    <input  type="radio" className="radio"
                         name="completed" value={true}
                         onChange={
                             (event) => {
@@ -183,7 +183,7 @@ export const HikeEdit = () => {
                                 editHike(copy)
                             }} />
                     <label htmlFor="yes">True</label>
-                    <input  type="radio" className="req-form-control"
+                    <input  type="radio" className="radio"
                         name="completed" value={false}  onChange={
                             (event) => {
                                 const copy = { ...hike }
@@ -194,9 +194,9 @@ export const HikeEdit = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form_group" key={hike.id}>
+                <div className="radio" key={hike.id}>
                     <span><b>Bucket List:</b></span>
-                    <input  type="radio" className="req-form-control"
+                    <input  type="radio" className="radio"
                         name="bucketList" value={true}
                         onChange={
                             (event) => {
@@ -205,7 +205,7 @@ export const HikeEdit = () => {
                                 editHike(copy)
                             }} />
                     <label htmlFor="true">True</label>
-                    <input  type="radio" className="req-form-control"
+                    <input  type="radio" className="radio"
                         name="bucketList" value={false}  onChange={
                             (event) => {
                                 const copy = { ...hike }

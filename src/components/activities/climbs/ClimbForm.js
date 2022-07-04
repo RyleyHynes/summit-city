@@ -248,6 +248,7 @@ export const ClimbForm = () => {
                 className="climbAlterButton">
                 Submit Climb
             </button>
+            <button className="hikeAlterButton" onClick={() => navigate("/climbs")}>Cancel</button>
         </form >
         </>
     )

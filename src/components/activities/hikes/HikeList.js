@@ -89,6 +89,9 @@ export const HikeList = ({ searchTermState }) => {
                     .includes(searchTermState.toLowerCase()) ||
                 hike.description
                     .toLowerCase()
+                    .includes(searchTermState.toLowerCase()) ||
+                hike.attractions
+                    .toLowerCase()
                     .includes(searchTermState.toLowerCase())
             );
         });
@@ -141,8 +144,9 @@ export const HikeList = ({ searchTermState }) => {
                                             <b>Location:</b>  {hike.location}
                                         </div>
                                         <div className="description"><b>Description:</b> {hike.description}</div>
-                                    <div><b>Completed:</b> {hike.completed ? "✅" : "No"}</div>
-                                    <div><b>Bucket List:</b> {hike.bucketList ? "✅" : "No"}</div>
+                                        <div className="attractions"><b>Attractions:</b> {hike.attractions}</div>
+                                        <div><b>Completed:</b> {hike.completed ? "✅" : "No"}</div>
+                                        <div><b>Bucket List:</b> {hike.bucketList ? "✅" : "No"}</div>
                                     </div>
                                 </section>
                                 <section>

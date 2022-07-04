@@ -42,6 +42,8 @@ flex: 1;
 
 .climbPicture {
 border-radius: 2rem;
+max-height: 35rem;
+max-width: 35rem;
 }
 
 .climbForm_title{

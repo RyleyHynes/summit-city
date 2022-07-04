@@ -22,8 +22,9 @@ export const Login = () => {
                     /*if it is a valid login and a valid email in localStorage then 
                     I am setting the item of summit_user*/
                     localStorage.setItem("summit_user", JSON.stringify({
-                        /*honey_user has two properties ID Staff*/
-                        id: user.id
+                        /*honey_user has two properties ID and Staff*/
+                        id: user.id,
+                        staff: user.isStaff
                     }))
 
                     navigate("/home")

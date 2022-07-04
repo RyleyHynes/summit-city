@@ -1,27 +1,94 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { Link } from "react-router-dom"
+import { getAllUserClimbs } from "../../../manager/APIManager";
 import "./Climb.css"
 
+/*creating an exportable function which will list off climbs*/
 export const ClimbList = ({ searchTermState }) => {
 
+    /*Creating an intial state of climbs which is equal to an empty array. setClimbs 
+    is the function which will alter the state*/
     const [climbs, setClimbs] = useState([])
-    //we do not want to modify the array of climbs from the api, but we still want to display a list of climbs. creating another variable of filteredClimbs
+    /*creating state for userClimbs which is equal to an empty array. setUserClimbs 
+    is the function which will alter the state*/
+    const [userClimbs, setUserClimbs] = useState([])
+
+    /*creating a new state of filtered climbs and setting it equal to an empty array.
+    setFiltered climbs is the function which will alter the state*/
     const [filteredClimbs, setFilteredClimbs] = useState([])
 
-    //completed button is a user interaction which will change the state of the component so we are going to track weather or not completed should be listed so that is why we have another state variable.
+    /*completed climbs button is a user interaction which will change the state of the component so we are going to track weather or not completed should be listed*/
     const [completedClimbs, setCompletedClimbs] = useState([false])
-
+    /*Bucket List Climbs button is a user interaction which will change the state of the component so we are going to track weather or not bucketList should be listed*/
     const [bucketListClimbs, setBucketListClimbs] = useState([false])
+
+
+    /* get the string of "summit_user" out of local storage and assigning 
+    its return value to localSummitUser*/
+    const localSummitUser = localStorage.getItem("summit_user")
+    /*converting the string into an object and assigning its 
+    return value to summitUserObject*/
+    const summitUserObject = JSON.parse(localSummitUser)
+
+    /*useEffect to fetch all of the climbs*/
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/climbs`)
+                .then(response => response.json())
+                /*storing the climbs data in the climb array*/
+                .then((climbsArray) => {
+                    /*invoking the setClimbs function with the climbsArray to change
+                    the state of climbs*/
+                    setClimbs(climbsArray)
+                })
+        },
+        []
+    )
+
+
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/userClimbs`)
+                .then(response => response.json())
+                /*storing the climbs data in the climb array*/
+                .then((userClimbsArray) => {
+                    /*invoking the setClimbs function with the climbsArray to change
+                    the state of climbs*/
+                    setClimbs(userClimbsArray)
+                })
+        },
+        []
+    )
+
+    /*useEffect to determine weather the the site should show all tickets for the staff or some tickets
+    for the current non staff user.*/
+    // useEffect(
+    //     () => {
+    //         if (summitUserObject.staff) {
+    //             /*For Employees*/
+    //             setFilteredClimbs(climbs)
+    //         }
+    //         else {
+    //             /*For Customers*/
+    //             const myClimbs = climbs.filter(climb => climb.userId === summitUserObject.id)
+    //             setFilteredClimbs(myClimbs)
+    //         }
+    //     },
+    //     [climbs]
+    // )
+     
+
+
 
     useEffect(
         () => {
             if (completedClimbs) {
-                const completedClimbs = climbs.filter(climb => climb.completed === true)
-                setFilteredClimbs(completedClimbs)
+                const completedClimbs = userClimbs.filter(userClimb => userClimb.completed === true && userClimb.userId === summitUserObject.id)
+                setUserClimbs(completedClimbs)
             }
             else {
-                setFilteredClimbs(climbs)
+                setFilteredClimbs(userClimbs)
             }
         },
         [completedClimbs]
@@ -30,34 +97,29 @@ export const ClimbList = ({ searchTermState }) => {
     useEffect(
         () => {
             if (bucketListClimbs) {
-                const bucketListClimbs = climbs.filter(climb => climb.bucketList === true)
+                const bucketListClimbs = userClimbs.filter(userClimb => userClimb.bucketList === true && userClimb.userId === summitUserObject.id)
                 setFilteredClimbs(bucketListClimbs)
             }
             else {
-                setFilteredClimbs(climbs)
+                setFilteredClimbs(userClimbs)
             }
         },
         [bucketListClimbs]
     )
 
-    //added the useNavigate hook for the user Added climb button 
+    /*added the useNavigate hook for the user Added climb button*/
     const navigate = useNavigate()
 
 
-
-    // get summitUser out of local storage
-    const localSummitUser = localStorage.getItem("summit_user")
-    const summitUserObject = JSON.parse(localSummitUser)
-
-
+/*function that fetches all the climbs with grade, type and userId*/
     const getAllClimbs = () => {
-        fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type`)
+        fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type&userId=${summitUserObject.id}`)
             .then((response) => response.json())
             .then((climbsArray) => {
                 setClimbs(climbsArray);
             })
     }
-
+/*useEffect which invokes the getAllClimbs function and observes the initial state*/
     useEffect(() => {
         getAllClimbs()
     },
@@ -65,14 +127,17 @@ export const ClimbList = ({ searchTermState }) => {
     )
 
 
+    /**/
     useEffect(() => {
-        fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type`)
+        fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type&userId=${summitUserObject.id}`)
             .then((response) => response.json())
             .then((climbArray) => {
                 setFilteredClimbs(climbArray);
             })
     }, [climbs]);
 
+
+    /**/
     useEffect(() => {
         fetch(`http://localhost:8088/types`)
             .then((response) => response.json())
@@ -80,6 +145,8 @@ export const ClimbList = ({ searchTermState }) => {
                 setFilteredClimbs(typeArray);
             })
     }, []);
+
+    /**/
     useEffect(() => {
         fetch(`http://localhost:8088/grades`)
             .then((response) => response.json())
@@ -88,6 +155,7 @@ export const ClimbList = ({ searchTermState }) => {
             })
     }, []);
 
+    /**/
     useEffect(() => {
         const searchedClimbs = climbs.filter((climb) => {
             return (
@@ -155,8 +223,8 @@ export const ClimbList = ({ searchTermState }) => {
                                             <b>Location:</b> {climb.location}
                                         </div>
                                         <div className="description"><b>Description:</b> {climb.description}</div>
-                                    <div ><b>Completed:</b> {climb.completed ? "✅" : "No"}</div>
-                                    <div ><b>Bucket List:</b> {climb.bucketList ? "✅" : "No"}</div>
+                                        <div ><b>Completed:</b> {climb.completed ? "✅" : "No"}</div>
+                                        <div ><b>Bucket List:</b> {climb.bucketList ? "✅" : "No"}</div>
                                     </div>
                                 </section>
                                 <section>

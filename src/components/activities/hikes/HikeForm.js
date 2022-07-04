@@ -61,7 +61,7 @@ export const HikeForm = () => {
         //copied the url of the hikes from the API, second argument is to fetch is options, that is in the {} after the url, added method of POST with the header, for body, turned the object hikeToSendToApi into a string. When JSON serve response the user will be directed back to the ticket page via navigate("/hikes)")
         //Post request to JSON server, when completed, navigate user back to session list - route found in application views.js
 
-        return fetch(`http://localhost:8088/hikes`, {
+        return fetch(`http://localhost:8088/userHikes`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -25,7 +25,7 @@ export const ClimbEdit = () => {
     /*Creating an initial state of grades which is equal to an empty array. 
     setGrades is the function that will alter the state of grades*/
     const [grades, setGrades] = useState([])
-    /*Creating an intial state of types which is equal to an empty array.
+    /*Creating an initial state of types which is equal to an empty array.
     setTypes is the function that will alter the state of types*/
     const [types, setTypes] = useState([])
 
@@ -68,10 +68,11 @@ export const ClimbEdit = () => {
         []
     )
 
-    
+
     const editButtonClick = (event) => {
         event.preventDefault()
-
+        
+        /*fetching all the climbs by their climbId*/
         return fetch(`http://localhost:8088/climbs/${climbId}`, {
             method: "PUT",
             headers: {

@@ -5,7 +5,8 @@ import "./Register.css"
 export const Register = (props) => {
     const [customer, setCustomer] = useState({
         email: "",
-        name: ""
+        name: "",
+        isStaff: false
     })
     let navigate = useNavigate()
     const registerNewUser = () => {
@@ -20,7 +21,8 @@ export const Register = (props) => {
             .then(createdUser => {
                 if (createdUser.hasOwnProperty("id")) {
                     localStorage.setItem("summit_user", JSON.stringify({
-                        id: createdUser.id
+                        id: createdUser.id,
+                        staff: createdUser.isStaff
                     }))
                     /*After registering this will bring me back to the login page where I will 
                     then sign in*/
@@ -77,6 +79,17 @@ export const Register = (props) => {
                             <input onChange={updateCustomer}
                                 type="email" id="email" className="form-control"
                                 placeholder="Email address" required />
+                        </fieldset>
+                        <fieldset>
+                            <fieldset>
+                                <input onChange={(evt) => {
+                                    const copy = { ...customer }
+                                    copy.isStaff = evt.target.checked
+                                    setCustomer(copy)
+                                }}
+                                    type="checkbox" id="isStaff" />
+                                <label htmlFor="email"> I am an employee </label>
+                            </fieldset>
                         </fieldset>
                         <fieldset>
                             <button className="registerButton"> Register </button>

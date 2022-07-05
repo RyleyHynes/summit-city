@@ -53,6 +53,7 @@ export const HikeForm = () => {
             attractions: hike.attractions,
             skillLevelId: parseInt(hike.skillLevelId),
             completed: hike.completed,
+            bucketList: hike.bucketList,
             scheduleDate: hike.scheduleDate,
             userId: userId.id,
             url: hike.url
@@ -204,7 +205,8 @@ export const HikeForm = () => {
                             }} />
                     <label htmlFor="yes">True</label>
                     <input type="radio" className="boolean"
-                        name="completed" value={false} onChange={
+                        name="completed" value={false} 
+                        onChange={
                             (event) => {
                                 const copy = { ...hike }
                                 copy.completed = false

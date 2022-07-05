@@ -215,6 +215,24 @@ export const HikeEdit = () => {
                     <label htmlFor="false">False</label>
                 </div>
             </fieldset>
+            <fieldset>
+                <div className="form_group" key={hike.id}>
+                    <label className="label" htmlFor="description"><b>Photo URL:</b></label>
+                    <input
+                        required 
+                        type="text"
+                        className="form-control-site"
+                        placeholder="Insert Photo of Hike"
+                        value={hike.url}
+                        onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.url = event.target.value
+                                editHike(copy)
+                            }
+                        } />
+                </div>
+            </fieldset>
 
             <button
                 onClick={(clickEvent) => editButtonClick(clickEvent)}

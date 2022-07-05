@@ -62,6 +62,7 @@ export const ClimbForm = () => {
             gradeId: parseInt(climb.gradeId),
             description: climb.description,
             completed: climb.completed,
+            bucketList:climb.bucketList,
             scheduleDate: climb.scheduleDate,
             userId: userId.id,
             url: climb.url
@@ -194,7 +195,8 @@ export const ClimbForm = () => {
                                 }} />
                         <label htmlFor="true">True</label>
                         <input type="radio" className="boolean"
-                            name="completed" value={false} onChange={
+                            name="completed" value={false} 
+                            onChange={
                                 (event) => {
                                     const copy = { ...climb }
                                     copy.completed = false

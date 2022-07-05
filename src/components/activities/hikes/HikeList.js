@@ -81,7 +81,7 @@ export const HikeList = ({ searchTermState }) => {
                 hike.name
                     .toLowerCase()
                     .includes(searchTermState.toLowerCase()) ||
-                hike.skillLevel.level
+                hike.skillLevel?.level
                     .toLowerCase()
                     .startsWith(searchTermState.toLowerCase()) ||
                 hike.location

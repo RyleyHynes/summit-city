@@ -67,12 +67,12 @@ export const ClimbEdit = () => {
 
     return <>
         <form className="climbForm">
-            <h2 className="climbForm__title">Update Climb</h2>
+            <h2 className="updateClimb">Update Climb</h2>
             <fieldset>
                 <div className="form_group" key={climb.id}>
                     <label htmlFor="name"><b>Name:</b></label>
                     <input
-                        required autoFocus
+                        required
                         type="text"
                         className="form-control"
                         placeholder="Climb Name"
@@ -91,7 +91,7 @@ export const ClimbEdit = () => {
                 <div className="form_group" key={climb.id}>
                     <label htmlFor="location"><b>Location:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Climb Location"
@@ -149,7 +149,7 @@ export const ClimbEdit = () => {
                 <div className="form_group" key={climb.id}>
                     <label htmlFor="description"><b>Description:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Climb Description"

@@ -57,12 +57,12 @@ export const HikeEdit = () => {
 
     return <>
         <form className="hikeForm">
-            <h2 className="hikeForm__title">Update Hike</h2>
+            <h2 className="updateHike">Update Hike</h2>
             <fieldset>
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="name"><b>Name:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Name"
@@ -81,7 +81,7 @@ export const HikeEdit = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="location"><b>Location:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Location"
@@ -120,7 +120,7 @@ export const HikeEdit = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="distance"><b>Distance:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="number"
                         className="form-control"
                         placeholder="Hike Distance"
@@ -139,7 +139,7 @@ export const HikeEdit = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="description"><b>Description:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Description"
@@ -157,7 +157,7 @@ export const HikeEdit = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="attractions"><b>Attractions:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Attractions"

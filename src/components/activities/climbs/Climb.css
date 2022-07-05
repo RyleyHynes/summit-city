@@ -9,6 +9,7 @@
     letter-spacing: 1px;
     width: 13rem;
     margin: .25rem;
+    margin-left: 2.5rem;
 }
 
 
@@ -58,4 +59,18 @@ display: flex;
 flex: wrap;
 justify-content: center;
 padding: 2rem;
+}
+
+.newClimb{
+    margin-left: 2rem;
+    font-size: xx-large;
+}
+
+.updateClimb{
+    margin-left: 2rem;
+    font-size: xx-large;
+}
+
+.boolean{
+    margin-left: 2rem;
 }

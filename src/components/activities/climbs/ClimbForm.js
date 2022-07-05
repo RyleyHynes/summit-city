@@ -14,7 +14,7 @@ export const ClimbForm = () => {
         bucketList: false,
         scheduleDate: "",
         userId: 0,
-        url:""
+        url: ""
     })
 
     //invoking useNavigate and assigning its return value to a variable 
@@ -88,168 +88,168 @@ export const ClimbForm = () => {
     // added onclick to the submit button, passed clickEvent into the argument for the handleSaveButtonFunction
     return (
         <>
-        <form className="climbForm">
-            <h2 className="climbForm__title">New Climb</h2>
-            <fieldset>
-                <div className="form_group" key={climb.id}>
-                    <label htmlFor="Name"><b>Name:</b></label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control"
-                        placeholder="Climb Name"
-                        value={climb.name}
-                        onChange={
-                            (event) => {
-                                const copy = { ...climb }
-                                copy.name = event.target.value
+            <form className="climbForm">
+                <h2 className="newClimb">New Climb</h2>
+                <fieldset>
+                    <div className="form_group" key={climb.id}>
+                        <label htmlFor="Name"><b>Name:</b></label>
+                        <input
+                            required autoFocus
+                            type="text"
+                            className="form-control"
+                            placeholder="Climb Name"
+                            value={climb.name}
+                            onChange={
+                                (event) => {
+                                    const copy = { ...climb }
+                                    copy.name = event.target.value
+                                    addClimb(copy)
+                                }}
+                        />
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <div className="form_group" key={climb.id}>
+                        <label htmlFor="Name"><b>Location:</b></label>
+                        <input
+                            required
+                            type="text"
+                            className="form-control"
+                            placeholder="Climb Location"
+                            value={climb.location}
+                            onChange={
+                                (event) => {
+                                    const copy = { ...climb }
+                                    copy.location = event.target.value
+                                    addClimb(copy)
+                                }}
+                        />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form_group" key={climb.id}>
+                        <label htmlFor="description"><b>Description:</b></label>
+                        <input
+                            required
+                            type="text"
+                            className="form-control"
+                            placeholder="Climb Description"
+                            value={climb.description}
+                            onChange={
+                                (event) => {
+                                    const copy = { ...climb }
+                                    copy.description = event.target.value
+                                    addClimb(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form_group" key={climb.id}>
+                        <label htmlFor="type"><b>Type:</b></label>
+                        <select
+                            onChange={(evt) => {
+                                const copy = { ...climb }; //created a copy of existing state
+                                copy.typeId = parseInt(evt.target.value) //to modify
                                 addClimb(copy)
                             }}
-                    />
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <div className="form_group" key={climb.id}>
-                    <label htmlFor="Name"><b>Location:</b></label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control"
-                        placeholder="Climb Location"
-                        value={climb.location}
-                        onChange={
-                            (event) => {
-                                const copy = { ...climb }
-                                copy.location = event.target.value
+                        >
+                            <option key={0}>Select Type of Climb</option>
+                            {
+                                types.map((type) => {
+                                    return <option key={type.id} value={type.id}>{type.name}</option>
+                                })}
+                        </select>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form_group" key={climb.id}>
+                        <label htmlFor="grade"><b>Grade:</b></label>
+                        <select
+                            onChange={(evt) => {
+                                const copy = { ...climb }; //created a copy of existing state
+                                copy.gradeId = parseFloat(evt.target.value, 2) //to modify
                                 addClimb(copy)
                             }}
-                    />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={climb.id}>
-                    <label htmlFor="description"><b>Description:</b></label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control"
-                        placeholder="Climb Description"
-                        value={climb.description}
-                        onChange={
-                            (event) => {
-                                const copy = { ...climb }
-                                copy.description = event.target.value
-                                addClimb(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={climb.id}>
-                    <label htmlFor="type"><b>Type:</b></label>
-                    <select
-                        onChange={(evt) => {
-                            const copy = { ...climb }; //created a copy of existing state
-                            copy.typeId = parseInt(evt.target.value) //to modify
-                            addClimb(copy)
-                        }}
-                    >
-                        <option key={0}>Select Type of Climb</option>
-                        {
-                            types.map((type) => {
-                                return <option key={type.id} value={type.id}>{type.name}</option>
-                            })}
-                    </select>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={climb.id}>
-                    <label htmlFor="grade"><b>Grade:</b></label>
-                    <select
-                        onChange={(evt) => {
-                            const copy = { ...climb }; //created a copy of existing state
-                            copy.gradeId = parseFloat(evt.target.value,2) //to modify
-                            addClimb(copy)
-                        }}
-                    >
-                        <option key={0}>Select Climbing Grade: </option>
-                        {
-                            grades.map((grade) => {
-                                return <option key={grade.id} value={grade.id}>{grade.rating}</option>
-                            })}
-                    </select>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={climb.id}>
-                    <span><b>Completed:</b></span>
-                    <input  type="radio" className="req-form-control"
-                        name="completed" value={true}
-                        onChange={
-                            (event) => {
-                                const copy = { ...climb }
-                                copy.completed = true
-                                addClimb(copy)
-                            }} />
-                    <label htmlFor="yes">True</label>
-                    <input  type="radio" className="req-form-control"
-                        name="completed" value={false}  onChange={
-                            (event) => {
-                                const copy = { ...climb }
-                                copy.completed = false
-                                addClimb(copy)
-                            }} />
-                    <label htmlFor="false">False</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={climb.id}>
-                    <span><b>Bucket List:</b></span>
-                    <input  type="radio" className="req-form-control"
-                        name="bucketList" value={true}
-                        onChange={
-                            (event) => {
-                                const copy = { ...climb }
-                                copy.bucketList = true
-                                addClimb(copy)
-                            }} />
-                    <label htmlFor="true">True</label>
-                    <input  type="radio" className="req-form-control"
-                        name="bucketList" value={false}  onChange={
-                            (event) => {
-                                const copy = { ...climb }
-                                copy.bucketList = false
-                                addClimb(copy)
-                            }} />
-                    <label htmlFor="false">False</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={climb.id}>
-                    <label className="label" htmlFor="description"><b>Photo URL:</b></label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control-site"
-                        placeholder="Insert Photo of Hike"
-                        value={climb.url}
-                        onChange={
-                            (event) => {
-                                const copy = { ...climb }
-                                copy.url = event.target.value
-                                addClimb(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
+                        >
+                            <option key={0}>Select Climbing Grade: </option>
+                            {
+                                grades.map((grade) => {
+                                    return <option key={grade.id} value={grade.id}>{grade.rating}</option>
+                                })}
+                        </select>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="boolean" key={climb.id}>
+                        <span><b>Completed:</b></span>
+                        <input type="radio" className="boolean"
+                            name="completed" value={true}
+                            onChange={
+                                (event) => {
+                                    const copy = { ...climb }
+                                    copy.completed = true
+                                    addClimb(copy)
+                                }} />
+                        <label htmlFor="true">True</label>
+                        <input type="radio" className="boolean"
+                            name="completed" value={false} onChange={
+                                (event) => {
+                                    const copy = { ...climb }
+                                    copy.completed = false
+                                    addClimb(copy)
+                                }} />
+                        <label htmlFor="false">False</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="boolean" key={climb.id}>
+                        <span><b>Bucket List:</b></span>
+                        <input type="radio" className="boolean"
+                            name="bucketList" value={true}
+                            onChange={
+                                (event) => {
+                                    const copy = { ...climb }
+                                    copy.bucketList = true
+                                    addClimb(copy)
+                                }} />
+                        <label  htmlFor="true">True</label>
+                        <input type="radio" className="boolean"
+                            name="bucketList" value={false} onChange={
+                                (event) => {
+                                    const copy = { ...climb }
+                                    copy.bucketList = false
+                                    addClimb(copy)
+                                }} />
+                        <label htmlFor="false">False</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form_group" key={climb.id}>
+                        <label className="label" htmlFor="description"><b>Photo URL:</b></label>
+                        <input
+                            required
+                            type="text"
+                            className="form-control-site"
+                            placeholder="Insert Photo of Hike"
+                            value={climb.url}
+                            onChange={
+                                (event) => {
+                                    const copy = { ...climb }
+                                    copy.url = event.target.value
+                                    addClimb(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
 
-            <button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="climbAlterButton">
-                Submit Climb
-            </button>
-            <button className="hikeAlterButton" onClick={() => navigate("/climbs")}>Cancel</button>
-        </form >
+                <button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
+                    className="climbAlterButton">
+                    Submit Climb
+                </button>
+                <button className="hikeAlterButton" onClick={() => navigate("/climbs")}>Cancel</button>
+            </form >
         </>
     )
 

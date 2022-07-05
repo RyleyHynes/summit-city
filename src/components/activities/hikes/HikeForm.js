@@ -79,12 +79,12 @@ export const HikeForm = () => {
     // added onclick to the submit button, passed clickEvent into the argument for the handleSaveButtonFunction
     return (
         <form className="hikeForm">
-            <h2 className="hikeForm__title">New Hike</h2>
+            <h2 className="newHike">New Hike</h2>
             <fieldset>
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="Name"><b>Name:</b></label>
                     <input
-
+                        required autoFocus
                         type="text"
                         className="form-control"
                         placeholder="Hike Name"
@@ -103,7 +103,7 @@ export const HikeForm = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="Name"><b>Location:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Location"
@@ -122,7 +122,7 @@ export const HikeForm = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="Name"><b>Distance(miles):</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="number"
                         className="form-control"
                         placeholder="Hike Distance"
@@ -141,7 +141,7 @@ export const HikeForm = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="description"><b>Description:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Description"
@@ -159,7 +159,7 @@ export const HikeForm = () => {
                 <div className="form_group" key={hike.id}>
                     <label htmlFor="attractions"><b>Attractions:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Attractions"
@@ -192,9 +192,9 @@ export const HikeForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form_group" key={hike.id}>
+                <div className="boolean" key={hike.id}>
                     <span><b>Completed:</b></span>
-                    <input type="radio" className="req-form-control"
+                    <input type="radio" className="boolean"
                         name="completed" value={true}
                         onChange={
                             (event) => {
@@ -203,7 +203,7 @@ export const HikeForm = () => {
                                 addHike(copy)
                             }} />
                     <label htmlFor="yes">True</label>
-                    <input type="radio" className="req-form-control"
+                    <input type="radio" className="boolean"
                         name="completed" value={false} onChange={
                             (event) => {
                                 const copy = { ...hike }
@@ -214,9 +214,9 @@ export const HikeForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form_group" key={hike.id}>
+                <div className="boolean" key={hike.id}>
                     <span><b>Bucket List:</b></span>
-                    <input type="radio" className="req-form-control"
+                    <input type="radio" className="boolean"
                         name="bucketList" value={true}
                         onChange={
                             (event) => {
@@ -225,7 +225,7 @@ export const HikeForm = () => {
                                 addHike(copy)
                             }} />
                     <label htmlFor="true">True</label>
-                    <input type="radio" className="req-form-control"
+                    <input type="radio" className="boolean"
                         name="bucketList" value={false} onChange={
                             (event) => {
                                 const copy = { ...hike }
@@ -239,7 +239,7 @@ export const HikeForm = () => {
                 <div className="form_group" key={hike.id}>
                     <label className="label" htmlFor="description"><b>Photo URL:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control-site"
                         placeholder="Insert Photo of Hike"

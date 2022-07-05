@@ -37,7 +37,7 @@
     width: 100%;
 }
 
-input {
+input:not([type="radio"]){
     width: 100%;
 }
 

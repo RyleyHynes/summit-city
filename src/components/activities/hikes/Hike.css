@@ -9,6 +9,7 @@
     letter-spacing: 1px;
     width: 12rem;
     margin: .25rem;
+    margin-left: 2.5rem;
 }
 
 .hikeContainer {
@@ -64,5 +65,19 @@
 }
 
 .form_group {
-    margin: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+.newHike{
+    margin-left: 2rem;
+    font-size: xx-large;
+}
+
+.updateHike{
+    margin-left: 2rem;
+    font-size: xx-large;
 }

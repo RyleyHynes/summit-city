@@ -11,6 +11,7 @@ export const SummitCity = () => {
 	return <Routes>
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
+			{/* <Route path="/" element={<LandingPage />} /> */}
 			
 			<Route path="*" element={
 				<Authorized>

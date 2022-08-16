@@ -1,0 +1,60 @@
+body {
+    background-size: cover;
+    background-color: #87CEFA;
+
+}
+
+.hikingButton{
+    background: linear-gradient(315deg, #485461 0%, #28313b 74%);
+    border-radius: 12px;
+    border: 1px solid rgb(72, 86, 97);
+    color: rgb(208, 198, 198);
+    font-size: 18px;
+    padding: 0.2rem;
+    margin-left: 3rem;
+    font-family: Copperplate, fantasy;
+    letter-spacing: 1px;
+    width: 31rem;
+}
+
+.climbingButton{
+    background: linear-gradient(315deg, #485461 0%, #28313b 74%);
+    border-radius: 12px;
+    border: 1px solid rgb(72, 86, 97);
+    color: rgb(208, 198, 198);
+    font-size: 18px;
+    padding: 0.2rem;
+    font-family: Copperplate, fantasy;
+    letter-spacing: 1px;
+    width: 31rem;
+}
+.subTitle{
+    margin-left: auto;
+    margin-right: auto;
+    width: 18rem;
+    padding-top: 2rem;
+
+}
+.buttonsAndPictures{
+    display: flex;
+    flex: wrap;
+    justify-content: space-around;
+    position: block;
+    margin: 2rem;
+}
+.meadows{
+    display: flex;
+    flex: wrap;
+    margin-left: 3rem;
+    height: 500px;
+    width: 500px;
+    border-radius: 1rem;
+}
+.bellyRoll{
+    display: flex;
+    flex: wrap;
+    margin-right: 3rem;
+    height: 500px;
+    width: 500px;
+    border-radius: 1rem;
+}

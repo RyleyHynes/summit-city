@@ -1,12 +1,35 @@
 .navbar {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
-}
-.navbar__item {
-    flex-basis: 20%;
+    justify-content: space-evenly;
+    text-decoration: none;
     list-style-type: none;
+    color: black;
+    height: 100px;
+    border-radius: 1em;
+    font-weight: bold;
+    font-family: Copperplate,fantasy;
+    font-size: x-large;
+    ;
+
 }
-.navbar__logout {
-    margin-left: auto;
+
+.navbar__item {
+    margin: 2rem;
+    padding: 0.5rem;
+    list-style: none;
+    color: #ffff;
+    text-align: right;
+    letter-spacing: 0.5px;
+    border-radius: 3px;
+}
+
+.logo {
+    position: absolute;
+    left: 0;
+    background-color: transparent;
+    top: 0;
+    width: 200px;
+    height: 100px;
+    padding: 0 10px;
+    border-radius: 2rem;
 }

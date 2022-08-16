@@ -57,12 +57,12 @@ export const HikeEdit = () => {
 
     return <>
         <form className="hikeForm">
-            <h2 className="hikeForm__title">Update Hike</h2>
+            <h2 className="updateHike">Update Hike</h2>
             <fieldset>
                 <div className="form_group" key={hike.id}>
-                    <label htmlFor="name">Name:</label>
+                    <label htmlFor="name"><b>Name:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Name"
@@ -78,10 +78,10 @@ export const HikeEdit = () => {
             </fieldset>
 
             <fieldset>
-                <div className="form-group" key={hike.id}>
-                    <label htmlFor="location">Location:</label>
+                <div className="form_group" key={hike.id}>
+                    <label htmlFor="location"><b>Location:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Location"
@@ -97,8 +97,8 @@ export const HikeEdit = () => {
             </fieldset>
 
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="skillLevel">Skill Level:</label>
+                <div className="form_group" key={hike.id}>
+                    <label htmlFor="skillLevel"><b>Skill Level:</b></label>
                     <select
                         value={hike.skillLevelId}
                         onChange={(evt) => {
@@ -118,9 +118,9 @@ export const HikeEdit = () => {
 
             <fieldset>
                 <div className="form_group" key={hike.id}>
-                    <label htmlFor="distance">Distance:</label>
+                    <label htmlFor="distance"><b>Distance:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="number"
                         className="form-control"
                         placeholder="Hike Distance"
@@ -136,10 +136,10 @@ export const HikeEdit = () => {
             </fieldset>
 
             <fieldset>
-                <div>
-                    <label htmlFor="description">Description:</label>
+                <div className="form_group" key={hike.id}>
+                    <label htmlFor="description"><b>Description:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Description"
@@ -155,9 +155,9 @@ export const HikeEdit = () => {
             </fieldset>
             <fieldset>
                 <div className="form_group" key={hike.id}>
-                    <label htmlFor="attractions">Attractions:</label>
+                    <label htmlFor="attractions"><b>Attractions:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Hike Attractions"
@@ -172,8 +172,8 @@ export const HikeEdit = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="req-form-group">
-                    <span>Completed:</span>
+                <div className="form_group" key={hike.id}>
+                    <span><b>Completed:</b></span>
                     <input  type="radio" className="req-form-control"
                         name="completed" value={true}
                         onChange={
@@ -194,8 +194,8 @@ export const HikeEdit = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="req-form-group">
-                    <span>Bucket List:</span>
+                <div className="form_group" key={hike.id}>
+                    <span><b>Bucket List:</b></span>
                     <input  type="radio" className="req-form-control"
                         name="bucketList" value={true}
                         onChange={
@@ -215,14 +215,32 @@ export const HikeEdit = () => {
                     <label htmlFor="false">False</label>
                 </div>
             </fieldset>
+            <fieldset>
+                <div className="form_group" key={hike.id}>
+                    <label className="label" htmlFor="description"><b>Photo URL:</b></label>
+                    <input
+                        required 
+                        type="text"
+                        className="form-control-site"
+                        placeholder="Insert Photo of Hike"
+                        value={hike.url}
+                        onChange={
+                            (event) => {
+                                const copy = { ...hike }
+                                copy.url = event.target.value
+                                editHike(copy)
+                            }
+                        } />
+                </div>
+            </fieldset>
 
             <button
                 onClick={(clickEvent) => editButtonClick(clickEvent)}
-                className="edit-btn">
+                className="hikeAlterButton">
                 Save
             </button>
 
-            <button onClick={() => navigate("/hikes")}>Cancel</button>
+            <button className="hikeAlterButton" onClick={() => navigate("/hikes")}>Cancel</button>
         </form>
     </>
 

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import "./Login.css"
+import "./Register.css"
 
 export const Register = (props) => {
     const [customer, setCustomer] = useState({
@@ -22,8 +22,9 @@ export const Register = (props) => {
                     localStorage.setItem("summit_user", JSON.stringify({
                         id: createdUser.id
                     }))
-
-                    navigate("/")
+                    /*After registering this will bring me back to the login page where I will 
+                    then sign in*/
+                    navigate("/login")
                 }
             })
     }
@@ -51,25 +52,38 @@ export const Register = (props) => {
     }
 
     return (
-        <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register for Summit City</h1>
-                <fieldset>
-                    <label htmlFor="name"> Full Name </label>
-                    <input onChange={updateCustomer}
-                        type="text" id="name" className="form-control"
-                        placeholder="Enter your name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Email address </label>
-                    <input onChange={updateCustomer}
-                        type="email" id="email" className="form-control"
-                        placeholder="Email address" required />
-                </fieldset>
-                <fieldset>
-                    <button type="submit"> Register </button>
-                </fieldset>
-            </form>
-        </main>
+        <>
+            <img
+                className="tetonBarn"
+                src={"/images/tetonBarn.PNG"}
+                alt="tetonBarn"
+            />
+            <main style={{ textAlign: "center" }}>
+                <div> <img onClick={() => navigate("/login")}
+                    className="logo"
+                    src={"/images/Summit.png"}
+                    alt="logo"
+                />
+                    <form className="form--login" onSubmit={handleRegister}>
+                        <h1 className="pleaseRegister">Please Register for Summit City</h1>
+                        <fieldset>
+                            <label className="registerName" htmlFor="name"> Full Name </label>
+                            <input onChange={updateCustomer}
+                                type="text" id="name" className="form-control"
+                                placeholder="Enter your name" required autoFocus />
+                        </fieldset>
+                        <fieldset>
+                            <label className="registerEmail" htmlFor="email"> Email address </label>
+                            <input onChange={updateCustomer}
+                                type="email" id="email" className="form-control"
+                                placeholder="Email address" required />
+                        </fieldset>
+                        <fieldset>
+                            <button className="registerButton"> Register </button>
+                        </fieldset>
+                    </form>
+                </div>
+            </main>
+        </>
     )
 }

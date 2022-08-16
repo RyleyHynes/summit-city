@@ -67,12 +67,12 @@ export const ClimbEdit = () => {
 
     return <>
         <form className="climbForm">
-            <h2 className="climbForm__title">Update Climb</h2>
+            <h2 className="updateClimb">Update Climb</h2>
             <fieldset>
                 <div className="form_group" key={climb.id}>
-                    <label htmlFor="name">Name:</label>
+                    <label htmlFor="name"><b>Name:</b></label>
                     <input
-                        required autoFocus
+                        required
                         type="text"
                         className="form-control"
                         placeholder="Climb Name"
@@ -88,10 +88,10 @@ export const ClimbEdit = () => {
             </fieldset>
 
             <fieldset>
-                <div className="form-group" key={climb.id}>
-                    <label htmlFor="location">Location:</label>
+                <div className="form_group" key={climb.id}>
+                    <label htmlFor="location"><b>Location:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Climb Location"
@@ -106,8 +106,8 @@ export const ClimbEdit = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="type">Type:</label>
+                <div className="form_group" key={climb.id}>
+                    <label htmlFor="type"><b>Type:</b></label>
                     <select
                         value={climb.typeId}
                         onChange={(evt) => {
@@ -126,13 +126,13 @@ export const ClimbEdit = () => {
             </fieldset>
 
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="grade">Grade:</label>
+                <div className="form_group" key={climb.id}>
+                    <label htmlFor="grade"><b>Grade:</b></label>
                     <select
                         value={climb.gradeId}
                         onChange={(evt) => {
                             const copy = { ...climb }; //created a copy of existing state
-                            copy.gradeId = parseFloat(evt.target.value,2) //to modify
+                            copy.gradeId = parseFloat(evt.target.value, 2) //to modify
                             editClimb(copy)
                         }}
                     >
@@ -146,10 +146,10 @@ export const ClimbEdit = () => {
             </fieldset>
 
             <fieldset>
-                <div>
-                    <label htmlFor="description">Description:</label>
+                <div className="form_group" key={climb.id}>
+                    <label htmlFor="description"><b>Description:</b></label>
                     <input
-                        required autoFocus
+                        required 
                         type="text"
                         className="form-control"
                         placeholder="Climb Description"
@@ -165,9 +165,9 @@ export const ClimbEdit = () => {
             </fieldset>
 
             <fieldset>
-                <div className="req-form-group">
-                    <span>Completed:</span>
-                    <input  type="radio" className="req-form-control"
+                <div className="form_group" key={climb.id}>
+                    <span><b>Completed:</b></span>
+                    <input type="radio" className="req-form-control"
                         name="completed" value={true}
                         onChange={
                             (event) => {
@@ -176,8 +176,8 @@ export const ClimbEdit = () => {
                                 editClimb(copy)
                             }} />
                     <label htmlFor="yes">True</label>
-                    <input  type="radio" className="req-form-control"
-                        name="completed" value={false}  onChange={
+                    <input type="radio" className="req-form-control"
+                        name="completed" value={false} onChange={
                             (event) => {
                                 const copy = { ...climb }
                                 copy.completed = false
@@ -187,9 +187,9 @@ export const ClimbEdit = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div className="req-form-group">
-                    <span>Bucket List:</span>
-                    <input  type="radio" className="req-form-control"
+                <div className="form_group" key={climb.id}>
+                    <span><b>Bucket List:</b></span>
+                    <input type="radio" className="req-form-control"
                         name="bucketList" value={true}
                         onChange={
                             (event) => {
@@ -198,8 +198,8 @@ export const ClimbEdit = () => {
                                 editClimb(copy)
                             }} />
                     <label htmlFor="true">True</label>
-                    <input  type="radio" className="req-form-control"
-                        name="bucketList" value={false}  onChange={
+                    <input type="radio" className="req-form-control"
+                        name="bucketList" value={false} onChange={
                             (event) => {
                                 const copy = { ...climb }
                                 copy.bucketList = false
@@ -208,14 +208,33 @@ export const ClimbEdit = () => {
                     <label htmlFor="false">False</label>
                 </div>
             </fieldset>
+            <fieldset>
+                    <div className="form_group" key={climb.id}>
+                        <label className="label" htmlFor="description"><b>Photo URL:</b></label>
+                        <input
+                            required
+                            type="text"
+                            className="form-control-site"
+                            placeholder="Insert Photo of Hike"
+                            value={climb.url}
+                            onChange={
+                                (event) => {
+                                    const copy = { ...climb }
+                                    copy.url = event.target.value
+                                    editClimb(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
             <button
                 onClick={(clickEvent) => editButtonClick(clickEvent)}
-                className="edit-btn">
+                className="climbAlterButton">
                 Save
             </button>
 
-            <button onClick={() => navigate("/climbs")}>Cancel</button>
+            <button onClick={() => navigate("/climbs")}
+                className="climbAlterButton">
+                    Cancel</button>
         </form>
     </>
-
 }

@@ -1,8 +1,7 @@
-import { UserForm } from "./UserForm";
+import { ProfileForm} from "./ProfileForm";
 
 export const Profile = () => {
-    const localSummitUser = localStorage.getItem("summit_user")
-    const summitUserObject = JSON.parse(localSummitUser)
 
-        return <UserForm />
+    return <ProfileForm />
+
 }

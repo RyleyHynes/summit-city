@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { Link } from "react-router-dom"
-import { HikeContainer } from "../hikes/HikeContainer";
 import "./Climb.css"
 
 export const ClimbList = ({ searchTermState }) => {
@@ -100,10 +99,7 @@ export const ClimbList = ({ searchTermState }) => {
                     .includes(searchTermState.toLowerCase()) ||
                 climb.type.name
                     .toLowerCase()
-                    .startsWith(searchTermState.toLowerCase()) ||
-                climb.grade.rating
-                    .toLowerCase()
-                    .startsWith(searchTermState.toLowerCase()) ||
+                    .includes(searchTermState.toLowerCase()) ||
                 climb.description
                     .toLowerCase()
                     .includes(searchTermState.toLowerCase())
@@ -115,54 +111,60 @@ export const ClimbList = ({ searchTermState }) => {
 
     return (
         <>
-            <button onClick={() => navigate("/climb/create")}>
-                Add New Climb
-            </button>
-            <button onClick={
-                () => {
-                    setBucketListClimbs(false)
-                    setCompletedClimbs(false)
-                }
-            }>Show All Climbs</button>
-            <button onClick={
-                () => {
-                    setCompletedClimbs(true)
-                }
-            }>Completed Climbs</button>
-            <button onClick={
-                () => {
-                    setBucketListClimbs(true)
-                }
-            }>Bucket List Climbs</button>
+            <div className="climbButtons">
+                <button className="climbAlterButton" onClick={() => navigate("/climb/create")}>
+                    Add New Climb
+                </button>
+                <button className="climbAlterButton" onClick={
+                    () => {
+                        setBucketListClimbs(false)
+                        setCompletedClimbs(false)
+                    }
+                }>Show All Climbs</button>
+                <button className="climbAlterButton" onClick={
+                    () => {
+                        setCompletedClimbs(true)
+                    }
+                }>Completed Climbs</button>
+                <button className="climbAlterButton" onClick={
+                    () => {
+                        setBucketListClimbs(true)
+                    }
+                }>Bucket List Climbs</button>
+            </div>
 
             <h2 className="climbForm_title">Climbs in Grand Teton National Park</h2>
             <article className="climbs">
                 <ul>
                     {filteredClimbs.map((climb) => {
                         return (
-                            <div key={`climb-${climb.id}`}>
+                            <div className="individualClimb" key={`climb-${climb.id}`}>
                                 <section
                                     className="climb_list"
                                     key={`climb--${climb.id}`}
                                 >
-                                    <div className="name">
-                                        Climb Name: {climb.name}
+                                    <div className="imageContainer">
+                                        <img className="climbPicture" src={climb.url} alt='climb'></img></div>
+                                    <div className="textContainer">
+                                        <div className="name">
+                                            <b>Climb Name:</b> {climb.name}
+                                        </div>
+                                        <div className="type"><b>Type:</b> {climb?.type?.name}</div>
+                                        <div className="grade"><b>Grade:</b> {climb?.grade?.rating.toFixed(2)}</div>
+                                        <div className="location">
+                                            <b>Location:</b> {climb.location}
+                                        </div>
+                                        <div className="description"><b>Description:</b> {climb.description}</div>
+                                    <div ><b>Completed:</b> {climb.completed ? "✅" : "No"}</div>
+                                    <div ><b>Bucket List:</b> {climb.bucketList ? "✅" : "No"}</div>
                                     </div>
-                                    <div className="type">Type: {climb?.type?.name}</div>
-                                    <div className="grade">Grade: {climb?.grade?.rating.toFixed(2)}</div>
-                                    <div className="location">
-                                        Location: {climb.location}
-                                    </div>
-                                    <div className="description">Description: {climb.description}</div>
                                 </section>
-                                <footer className="completed">Completed: {climb.completed ? "✅" : "No"}</footer>
-                                <footer className="bucketList">Bucket List: {climb.bucketList ? "✅" : "No"}</footer>
-                                <footer>
+                                <section>
                                     <Link to={`/climbs/${climb.id}/edit`}>
-                                        <button className="edit-btn">EDIT Climb</button>
+                                        <button className="climbAlterButton">EDIT Climb</button>
                                     </Link>
                                     <button
-                                        className="delete-btn"
+                                        className="climbAlterButton"
                                         onClick={() => {
                                             fetch(`http://localhost:8088/climbs/${climb.id}`, {
                                                 method: "DELETE",
@@ -173,7 +175,7 @@ export const ClimbList = ({ searchTermState }) => {
                                     >
                                         DELETE
                                     </button>
-                                </footer>
+                                </section>
                             </div>
                         );
                     })}

@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM, { createRoot } from 'react-dom/client';
-import './index.css';
+import {React} from 'react';
+import { createRoot } from 'react-dom/client';
 import { SummitCity } from './components/SummitCity';
 import { BrowserRouter } from 'react-router-dom';
+import './index.css';
 
 const container = document.getElementById("root")
 const root = createRoot(container)
@@ -13,3 +13,7 @@ root.render(
 );
 
 
+//Pass a function if you want to measure performance in your app
+//For example to log results use (reportWebVitals(console.log))
+//you can also send to an analytics endpoint. learn more: https://bit.lyCRA-vitals
+//reportWebVitals()

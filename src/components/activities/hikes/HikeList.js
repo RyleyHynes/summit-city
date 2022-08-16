@@ -81,13 +81,16 @@ export const HikeList = ({ searchTermState }) => {
                 hike.name
                     .toLowerCase()
                     .includes(searchTermState.toLowerCase()) ||
-                hike.skillLevel.level
+                hike.skillLevel?.level
                     .toLowerCase()
                     .startsWith(searchTermState.toLowerCase()) ||
                 hike.location
                     .toLowerCase()
                     .includes(searchTermState.toLowerCase()) ||
                 hike.description
+                    .toLowerCase()
+                    .includes(searchTermState.toLowerCase()) ||
+                hike.attractions
                     .toLowerCase()
                     .includes(searchTermState.toLowerCase())
             );
@@ -98,54 +101,60 @@ export const HikeList = ({ searchTermState }) => {
 
     return (
         <>
-            <button onClick={() => navigate("/hike/create")}>
-                Add New Hike
-            </button>
-            <button onClick={
-                () => {
-                    setBucketListHikes(false)
-                    setCompletedHikes(false)
-                }
-            }>Show All Hikes</button>
-            <button onClick={
-                () => {
-                    setCompletedHikes(true)
-                }
-            }>Completed Hikes</button>
-            <button onClick={
-                () => {
-                    setBucketListHikes(true)
-                }
-            }>Bucket List Hikes</button>
-
+            <div className="hikeButtons">
+                <button className="hikeAlterButton" onClick={() => navigate("/hike/create")}>
+                    Add New Hike
+                </button>
+                <button className="hikeAlterButton" onClick={
+                    () => {
+                        setBucketListHikes(false)
+                        setCompletedHikes(false)
+                    }
+                }>Show All Hikes</button>
+                <button className="hikeAlterButton" onClick={
+                    () => {
+                        setCompletedHikes(true)
+                    }
+                }>Completed Hikes</button>
+                <button className="hikeAlterButton" onClick={
+                    () => {
+                        setBucketListHikes(true)
+                    }
+                }>Bucket List Hikes</button>
+            </div>
             <h2 className="hikeForm_title">Hikes in Grand Teton National Park</h2>
             <article className="hikes">
-                <ul>
+                <ul className="hikeContainer">
                     {filteredHikes.map((hike) => {
                         return (
-                            <div key={`hike-${hike.id}`}>
+                            <div className="individualHike" key={`hike-${hike.id}`}>
                                 <section
                                     className="hike_list"
                                     key={`hike--${hike.id}`}
                                 >
-                                    <div className="name">
-                                        Hike Name: {hike.name}
+                                    <div className="imageContainer">
+                                        <img className="hikePicture" src={hike.url} alt='Hike'></img></div>
+                                    <div className="textContainer">
+                                        <div className="name">
+                                            <b>Hike Name:</b>  {hike.name}</div>
+
+                                        <div className="skillLevel"><b>Skill Level:</b> {hike?.skillLevel?.level}</div>
+                                        <div className="distance"><b>Distance:</b>  {hike?.distance?.toFixed(2)}</div>
+                                        <div className="location">
+                                            <b>Location:</b>  {hike.location}
+                                        </div>
+                                        <div className="description"><b>Description:</b> {hike.description}</div>
+                                        <div className="attractions"><b>Attractions:</b> {hike.attractions}</div>
+                                        <div><b>Completed:</b> {hike.completed ? "✅" : "No"}</div>
+                                        <div><b>Bucket List:</b> {hike.bucketList ? "✅" : "No"}</div>
                                     </div>
-                                    <div className="skillLevel">Skill Level: {hike?.skillLevel?.level}</div>
-                                    <div className="distance">Distance: {hike?.distance?.toFixed(2)}</div>
-                                    <div className="location">
-                                        Location: {hike.location}
-                                    </div>
-                                    <div className="description">Description: {hike.description}</div>
                                 </section>
-                                <footer className="Completed">Completed: {hike.completed ? "✅" : "No"}</footer>
-                                <footer className="bucketList">Bucket List: {hike.bucketList ? "✅" : "No"}</footer>
-                                <footer>
+                                <section>
                                     <Link to={`/hikes/${hike.id}/edit`}>
-                                        <button className="edit-btn">EDIT Hike</button>
+                                        <button className="hikeAlterButton">EDIT Hike</button>
                                     </Link>
                                     <button
-                                        className="delete-btn"
+                                        className="hikeAlterButton"
                                         onClick={() => {
                                             fetch(`http://localhost:8088/hikes/${hike.id}`, {
                                                 method: "DELETE",
@@ -156,7 +165,7 @@ export const HikeList = ({ searchTermState }) => {
                                     >
                                         DELETE
                                     </button>
-                                </footer>
+                                </section>
                             </div>
                         );
                     })}

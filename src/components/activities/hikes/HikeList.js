@@ -1,21 +1,44 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router"
-import { Link } from "react-router-dom"
-import "./Hike.css"
+import { useNavigate } from "react-router-dom"
+import { deleteHike, getHikes, getSearchHikes } from "../managers/HikeManager"
+// import "./List.css"
 
+//function to list off the hikes that has a prop of seStaff
 export const HikeList = ({ searchTermState }) => {
-
+    //setting initial state of hike to an empty array
     const [hikes, setHikes] = useState([])
-    //we do not want to modify the array of hikes from the api, but we still want to display a list of hikes. creating another variable of filteredHikes
+    //setting initial state of staff
+    const [staff, setStaffState] = useState()
+    const [searchTerms, setSearchTerms] = useState("")
     const [filteredHikes, setFilteredHikes] = useState([])
-    //added the useNavigate hook for the user Added hike button
     const [completedHikes, setCompletedHikes] = useState(false)
-
-
     const [bucketListHikes, setBucketListHikes] = useState(false)
 
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
+    const navigate = useNavigate()
+
+    //getting the is_staff property out of local storage for the current user and setting it to the staff state
+    useEffect(() => {
+        setStaffState(localStorage.getItem("is_staff"))
+    }, [])
+
+    //getting the hikes from the HikesManager.js file and setting that data into the hikes state
+    useEffect(() => {
+        getHikes().then(data => setHikes(data))
+    }, [])
 
 
+    useEffect(
+        () => {
+            if (searchTerms !== "") {
+                getSearchHikes(searchTerms).then(data => setFilteredHikes(data))
+            }
+            else {
+                setFilteredHikes(hikes)
+            }
+        },
+        [searchTerms, hikes]
+    )
 
     useEffect(
         () => {
@@ -44,67 +67,10 @@ export const HikeList = ({ searchTermState }) => {
         [bucketListHikes]
     )
 
-    const navigate = useNavigate()
-
-    // get summitUser out of local storage
-    const localSummitUser = localStorage.getItem("summit_user")
-    const summitUserObject = JSON.parse(localSummitUser)
-
-
-    const getAllHikes = () => {
-        fetch(`http://localhost:8088/hikes?_expand=skillLevel&userId=${summitUserObject.id}`)
-            .then((response) => response.json())
-            .then((hikesArray) => {
-                setHikes(hikesArray);
-            })
-    }
-
-    useEffect(() => {
-        getAllHikes()
-    },
-        [],
-    )
-
-
-    useEffect(() => {
-        fetch(`http://localhost:8088/hikes?_expand=skillLevel&userId=${summitUserObject.id}`)
-            .then((response) => response.json())
-            .then((hikeArray) => {
-                setFilteredHikes(hikeArray);
-            })
-    }, [hikes]);
-
-
-    useEffect(() => {
-        const searchedHikes = hikes.filter((hike) => {
-            return (
-                hike.name
-                    .toLowerCase()
-                    .includes(searchTermState.toLowerCase()) ||
-                hike.skillLevel?.level
-                    .toLowerCase()
-                    .startsWith(searchTermState.toLowerCase()) ||
-                hike.location
-                    .toLowerCase()
-                    .includes(searchTermState.toLowerCase()) ||
-                hike.description
-                    .toLowerCase()
-                    .includes(searchTermState.toLowerCase()) ||
-                hike.attractions
-                    .toLowerCase()
-                    .includes(searchTermState.toLowerCase())
-            );
-        });
-        setFilteredHikes(searchedHikes);
-    }, [searchTermState]);
-
-
+    //Displaying the HTML for the hikes that will be listed out
     return (
         <>
-            <div className="hikeButtons">
-                <button className="hikeAlterButton" onClick={() => navigate("/hike/create")}>
-                    Add New Hike
-                </button>
+            <div>
                 <button className="hikeAlterButton" onClick={
                     () => {
                         setBucketListHikes(false)
@@ -122,55 +88,75 @@ export const HikeList = ({ searchTermState }) => {
                     }
                 }>Bucket List Hikes</button>
             </div>
-            <h2 className="hikeForm_title">Hikes in Grand Teton National Park</h2>
-            <article className="hikes">
-                <ul className="hikeContainer">
+            <h2 className="showForm_title">Hikes</h2>
+            {/* if the user is staff they will be able to see a button that will bring them to the add hike form */}
+            <div className="topButtons">
+                {
+                    (staff === "true")
+                        ?
+                        <>
+                            <button className="dayButtons" onClick={() => navigate("/addHikeForm")}>Add Hike</button>
+                        </>
+                        :
+                        <>
+
+                        </>
+                }
+                <input
+                    className="input search mx-4"
+                    type="text"
+                    placeholder="Search Items"
+                    onChange={
+                        (changeEvent) => {
+                            let search = changeEvent.target.value
+                            setSearchTerms(search)
+                        }
+                    }
+                />
+            </div>
+            <article>
+                <ul className="showContainer">
+                    {/* mapping through each hike to get their image, name, genre, and description */}
                     {filteredHikes.map((hike) => {
                         return (
-                            <div className="individualHike" key={`hike-${hike.id}`}>
-                                <section
-                                    className="hike_list"
-                                    key={`hike--${hike.id}`}
-                                >
+                            <div className="individualShow" key={`hike-${hike.id}`}>
+                                <section className="showList" key={`hike-${hike.id}`}>
                                     <div className="imageContainer">
-                                        <img className="hikePicture" src={hike.url} alt='Hike'></img></div>
+                                        <img className="showPicture" src={hike?.hike_image_url} alt='show'></img>
+                                    </div>
                                     <div className="textContainer">
-                                        <div className="name">
-                                            <b>Hike Name:</b>  {hike.name}</div>
-
-                                        <div className="skillLevel"><b>Skill Level:</b> {hike?.skillLevel?.level}</div>
-                                        <div className="distance"><b>Distance:</b>  {hike?.distance?.toFixed(2)}</div>
-                                        <div className="location">
-                                            <b>Location:</b>  {hike.location}
-                                        </div>
-                                        <div className="description"><b>Description:</b> {hike.description}</div>
-                                        <div className="attractions"><b>Attractions:</b> {hike.attractions}</div>
-                                        <div><b>Completed:</b> {hike.completed ? "✅" : "No"}</div>
-                                        <div><b>Bucket List:</b> {hike.bucketList ? "✅" : "No"}</div>
+                                        <div className="showInfo"><b>Hike Name: </b>{hike.name}</div>
+                                        <div className="showInfo"><b>Skill Level: </b>{hike?.hike_skill_level?.level}</div>
+                                        <div className="showInfo"><b>Distance: </b>{hike?.distance}</div>
+                                        <div className="showInfo"><b>Estimated Length: </b>{hike.estimated_length}</div>
+                                        <div className="showInfo"><b>Location: </b>{hike.location}</div>
+                                        <div className="showInfo"><b>Description: </b>{hike.description}</div>
+                                        <div className="showInfo"><b>Completed: </b>{hike.completed}</div>
+                                        <div className="showInfo"><b>Bucket List: </b>{hike.bucket_list}</div>
                                     </div>
                                 </section>
-                                <section>
-                                    <Link to={`/hikes/${hike.id}/edit`}>
-                                        <button className="hikeAlterButton">EDIT Hike</button>
-                                    </Link>
-                                    <button
-                                        className="hikeAlterButton"
-                                        onClick={() => {
-                                            fetch(`http://localhost:8088/hikes/${hike.id}`, {
-                                                method: "DELETE",
-                                            }).then(() => {
-                                                getAllHikes();
-                                            });
-                                        }}
-                                    >
-                                        DELETE
-                                    </button>
+                                <section className="bottomButtons">
+                                    {/* if the user is staff they will have the option to edit or delete each hike */}
+                                    {
+                                        (staff === "true")
+                                            ?
+                                            <>
+                                                <button className="alterButton" onClick={() => navigate(`/hikes/${hike.id}/edit`)}>Edit</button>
+                                                <button className="alterButton" onClick={() => {
+                                                    deleteHike(hike.id).then(() => { getHikes().then(setHikes) })
+                                                }}>Delete</button>
+                                            </>
+                                            :
+                                            <>
+
+                                            </>
+                                    }
                                 </section>
                             </div>
-                        );
+                        )
                     })}
                 </ul>
             </article>
         </>
-    );
-};
+    )
+}

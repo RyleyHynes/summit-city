@@ -1,5 +1,5 @@
 /*Getter function for all profiles*/
-export const getProfiles = () => {
+export const getAllProfiles = () => {
     return fetch("http://localhost:8000/profiles", {
         headers: {
             "Authorization": `Token ${localStorage.getItem("summit_token")}`

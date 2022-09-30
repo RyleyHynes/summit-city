@@ -6,7 +6,7 @@ import { NavBar } from "./components/nav/NavBar"
 export const Groove = () => {
     //setting the initial token state to the summit_token found in local storage
     const [token, setTokenState] = useState(localStorage.getItem('summit_token'))
-    //settting the initial userId state to the userId found in local storage
+    //setting the initial userId state to the userId found in local storage
     const [userId, setUserIdState] = useState(localStorage.getItem('user_id'))
     //setting initial staff state to the is_staff property found in local storage
     const [staff, setStaffState] = useState(localStorage.getItem('is_staff'))
@@ -18,7 +18,7 @@ export const Groove = () => {
 
     const setUserId = (userId) => {
         localStorage.setItem('user_id', userId)
-        setUserId(userId)
+        setUserIdState(userId)
     }
 
     const setStaff = (staff) => {

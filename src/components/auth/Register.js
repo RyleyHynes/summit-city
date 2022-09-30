@@ -1,89 +1,130 @@
-import { useState } from "react"
+import { useRef } from "react"
+import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import "./Register.css"
+import { registerUser } from "../managers/AuthManager"
 
-export const Register = (props) => {
-    const [customer, setCustomer] = useState({
-        email: "",
-        name: ""
-    })
-    let navigate = useNavigate()
-    const registerNewUser = () => {
-        return fetch("http://localhost:8088/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(customer)
-        })
-            .then(res => res.json())
-            .then(createdUser => {
-                if (createdUser.hasOwnProperty("id")) {
-                    localStorage.setItem("summit_user", JSON.stringify({
-                        id: createdUser.id
-                    }))
-                    /*After registering this will bring me back to the login page where I will 
-                    then sign in*/
-                    navigate("/login")
-                }
-            })
-    }
+/*Register is a function that accepts two props to register new users*/
+export const Register = ({ setToken, setUserId }) => {
+    /*invoking useRef and assigning its return value to several variables
+    useRef( ) allows you to persist values between rerenders.It can be used 
+    to store a mutable value that does not cause a re-render when updated */
+    const firstName = useRef()
+    const lastName = useRef()
+    const email = useRef()
+    const username = useRef()
+    const bio = useRef()
+    const password = useRef()
+    const verifyPassword = useRef()
+    const passwordDialog = useRef()
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
+    const navigate = useNavigate()
 
+    //This function handles the registration of a new user
     const handleRegister = (e) => {
-        e.preventDefault()
-        return fetch(`http://localhost:8088/users?email=${customer.email}`)
-            .then(res => res.json())
-            .then(response => {
-                if (response.length > 0) {
-                    // Duplicate email. No good.
-                    window.alert("Account with that email address already exists")
-                }
-                else {
-                    // Good email, create user.
-                    registerNewUser()
-                }
-            })
+        e.preventDefault() //preventing browser reload/refresh
+
+        //creating new user object if the password verification matches
+        if (password.current.value === verifyPassword.current.value) {
+            const newUser = {
+                username: username.current.value,
+                first_name: firstName.current.value,
+                last_name: lastName.current.value,
+                email: email.current.value,
+                bio: bio.current.value,
+                password: password.current.value
+            }
+
+            //validating the user and setting a token and userId
+            registerUser(newUser)
+                .then(res => {
+                    if ("valid" in res && res.valid) {
+                        setToken(res.token)
+                        localStorage.setItem("is_staff", res.is_staff)
+                        setUserId(res.user_id)
+                        navigate("/home")
+                    }
+                })
+        } else {
+            passwordDialog.current.showModal() //if validation fails, this pop up triggers
+        }
     }
 
-    const updateCustomer = (evt) => {
-        const copy = { ...customer }
-        copy[evt.target.id] = evt.target.value
-        setCustomer(copy)
-    }
-
+    //HTML that user sees on the registration page
     return (
-        <>
-            <img
-                className="tetonBarn"
-                src={"/images/tetonBarn.PNG"}
-                alt="tetonBarn"
-            />
-            <main style={{ textAlign: "center" }}>
-                <div> <img onClick={() => navigate("/login")}
-                    className="logo"
-                    src={"/images/Summit.png"}
-                    alt="logo"
-                />
-                    <form className="form--login" onSubmit={handleRegister}>
-                        <h1 className="pleaseRegister">Please Register for Summit City</h1>
-                        <fieldset>
-                            <label className="registerName" htmlFor="name"> Full Name </label>
-                            <input onChange={updateCustomer}
-                                type="text" id="name" className="form-control"
-                                placeholder="Enter your name" required autoFocus />
-                        </fieldset>
-                        <fieldset>
-                            <label className="registerEmail" htmlFor="email"> Email address </label>
-                            <input onChange={updateCustomer}
-                                type="email" id="email" className="form-control"
-                                placeholder="Email address" required />
-                        </fieldset>
-                        <fieldset>
-                            <button className="registerButton"> Register </button>
-                        </fieldset>
-                    </form>
-                </div>
-            </main>
-        </>
+        <section className="columns is-centered">
+            <div className="Auth-form-container">
+                {/* When the form is submitted, the handleRegister function is triggered */}
+                <form className="Auth-form" onSubmit={handleRegister}>
+                    <div className="Auth-form-content">
+                        <h1 className="Auth-form-title">Summit City</h1>
+                        <p className="Auth-form-title">Create an account</p>
+
+                        <div className="form-group mt-3">
+                            <label>First Name</label>
+                            <div className="control">
+                                {/* ref attribute = element to access it directly in the DOM. */}
+                                <input className="form-control mt-1" type="text" placeholder="Enter First Name" ref={firstName} />
+                            </div>
+                        </div>
+
+                        <div className="form-group mt-3">
+                            <label>Last Name</label>
+                            <div className="control">
+                                <input className="form-control mt-1" type="text" placeholder="Enter Last Name" ref={lastName} />
+                            </div>
+                        </div>
+
+                        <div className="form-group mt-3">
+                            <label>Username</label>
+                            <div className="control">
+                                <input className="form-control mt-1" type="text" placeholder="Enter Username" ref={username} />
+                            </div>
+                        </div>
+
+                        <div className="form-group mt-3">
+                            <label>Email</label>
+                            <div className="control">
+                                <input className="form-control mt-1" type="email" placeholder="Enter Email" ref={email} />
+                            </div>
+                        </div>
+
+                        <div className="form-group mt-3">
+                            <label>Password</label>
+                            <div className="field-body">
+                                <div className="form-group mt-3">
+                                    <p className="control is-expanded">
+                                        <input className="form-control mt-1" type="password" placeholder="Enter Password" ref={password} />
+                                    </p>
+                                </div>
+
+                                <div className="form-group mt-3">
+                                <label>Verify Password</label>
+                                    <p className="control is-expanded">
+                                        <input className="form-control mt-1" type="password" placeholder="Re-Enter Password" ref={verifyPassword} />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="form-group mt-3">
+                            <label>Bio</label>
+                            <div className="control">
+                                <textarea className="form-control mt-1" placeholder="Tell us about yourself..." ref={bio}></textarea>
+                            </div>
+                        </div>
+
+                        <div className="field is-grouped">
+                            <div className="control">
+                                <button className="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                            <div className="control">
+                                {/* cancels registration and brings you back to login */}
+                                <Link to="/login" className="text-center mt-2">Already a member? Login</Link>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
     )
 }

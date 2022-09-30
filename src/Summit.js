@@ -3,7 +3,7 @@ import { ApplicationViews } from "./components/views/ApplicationViews"
 import { NavBar } from "./components/nav/NavBar"
 
 //function that authenticates the user
-export const Groove = () => {
+export const SummitCity = () => {
     //setting the initial token state to the summit_token found in local storage
     const [token, setTokenState] = useState(localStorage.getItem('summit_token'))
     //setting the initial userId state to the userId found in local storage

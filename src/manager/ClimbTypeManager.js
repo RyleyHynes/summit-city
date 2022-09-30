@@ -1,6 +1,6 @@
-/* Getter Functions for all tags*/
-export const getAllTags = () => {
-    return fetch("http://localhost:8000/tags", {
+/* Getter Functions for all climb types*/
+export const getAllClimbTypes = () => {
+    return fetch("http://localhost:8000/climb_types", {
         headers: {
             'Authorization': `Token ${localStorage.getItem('summit_token')}`
         }
@@ -8,9 +8,9 @@ export const getAllTags = () => {
     .then(res => res.json())
 }
 
-/* Getter Functions for single tag*/
-export const getSingleTag = (tagId) => {
-    return fetch(`http://localhost:8000/tags/${tagId}`, {
+/* Getter Functions for single climb type*/
+export const getSingleClimbType = (climbTypeId) => {
+    return fetch(`http://localhost:8000/climb_types/${climbTypeId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("summit_token")}`
         }
@@ -18,8 +18,8 @@ export const getSingleTag = (tagId) => {
         .then(response => response.json())
 }
 
-// export const getSearchTags = (search) => {
-//     return fetch(`http://localhost:8000/tags?search=${search}`, {
+// export const getSearchClimbTypes = (search) => {
+//     return fetch(`http://localhost:8000/climb_types?search=${search}`, {
 //         method: "GET",
 //         headers: {
 //             'Authorization': `Token ${localStorage.getItem('summit_token')}`
@@ -28,34 +28,34 @@ export const getSingleTag = (tagId) => {
 //         .then(res => res.json())
 // }
 
-/* POST Function for creation of new tag*/
-export const createNewTag = (tag) => {
-    return fetch("http://localhost:8000/tags", {
+/* POST Function for creation of new climb type*/
+export const createNewClimbType = (climbType) => {
+    return fetch("http://localhost:8000/climb_types", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             'Authorization': `Token ${localStorage.getItem('summit_token')}`
         },
-        body: JSON.stringify(tag)
+        body: JSON.stringify(climbType)
     })
         .then(res => res.json())
 }
 
-/* PUT Function for updating an existing tag*/
-export const updateTag = (tagId, tag) => {
-    return fetch(`http://localhost:8000/tags/${tagId}`, {
+/* PUT Function for updating an existing climb type*/
+export const updateClimbType = (climbTypeId, climbType) => {
+    return fetch(`http://localhost:8000/climb_types/${climbTypeId}`, {
         method: "PUT",
         headers: {
             "Authorization": `Token ${localStorage.getItem("summit_token")}`,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(tag)
+        body: JSON.stringify(climbType)
     })
 }
 
-/* DELETE Function for existing tag*/
-export const deleteTag = (tagId) => {
-    return fetch(`http://localhost:8000/tags/${tagId}`, {
+/* DELETE Function for existing climb*/
+export const deleteClimbType = (climbTypeId) => {
+    return fetch(`http://localhost:8000/climb_types/${climbTypeId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("summit_token")}`

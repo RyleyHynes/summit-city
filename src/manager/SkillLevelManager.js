@@ -1,4 +1,4 @@
-/* Getter Functions for all hike skill levels and single hike skill level*/
+/* Getter Functions for all hike skill levels*/
 export const getAllHikeSkillLevels = () => {
     return fetch("http://localhost:8000/hike_skill_levels", {
         headers: {

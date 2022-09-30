@@ -1,4 +1,4 @@
-/* Getter Functions for all hikes and single hike*/
+/* Getter Functions for all hikes*/
 export const getAllHikes = () => {
     return fetch("http://localhost:8000/hikes", {
         headers: {

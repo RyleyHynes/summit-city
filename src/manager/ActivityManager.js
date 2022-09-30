@@ -1,4 +1,4 @@
-/* Getter Functions for all activities and single activity*/
+/* Getter Functions for all activities*/
 export const getAllActivities = () => {
     return fetch("http://localhost:8000/activities", {
         headers: {

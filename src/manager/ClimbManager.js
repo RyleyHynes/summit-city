@@ -1,4 +1,4 @@
-/* Getter Functions for all climbs and single climb*/
+/* Getter Functions for all climbs*/
 export const getAllClimbs = () => {
     return fetch("http://localhost:8000/climbs", {
         headers: {

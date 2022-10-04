@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { getAllActivities } from "../../../manager/ActivityManager"
 import { getAllCategories } from "../../managers/CategoryManager"
 import { createPost } from "../../managers/PostManager"
 import { getSingleProfile } from "../../managers/ProfileManager"
@@ -7,6 +8,100 @@ import { getAllHikeSkillLevels } from "../../managers/SkillLevelManager"
 import { getAllTags } from "../../managers/TagManager"
 
 
+export const HikeForm = () => {
+    const [tags, setTags] = useState([])
+    const [skillLevel, setSkillLevel] = useState([])
+    /*
+        Since the input fields are bound to the values of 
+        the properties of this state variable, you need
+        to provide some default values.
+     */
+        const [hike, setHike] = useState({
+        name: "",
+        distance: "",
+        location: "",
+        estimated_length:"",
+        description: "",
+        hike_image_url:"",
+        activity: 0,
+        hike_skill_level: 0
+        })
+        
+        const navigate = useNavigate()
+
+        useEffect(()=>{
+            getAllTags().then(tagsData => setTags(tagsData))
+            getAllHikeSkillLevels().then(skillLevelData => setSkillLevel(skillLevelData))
+        },[])
+        const changeHikeState = (domEvent) => {
+            const newHike = {...hike}
+            newHike[domEvent.target.name] = domEvent.target.value
+            setHike(newHike)
+        }
+
+return (
+    <form className="hikeForm">
+        <h2 className="hikeForm__title">Register New Hike</h2>
+        <fieldset>
+            <div className="form-group">
+                <label htmlFor="name">Name: </label>
+                <input type="text" name="name" required autoFocus className="form-control"
+                value={hike.name}
+                onChange={changeHikeState} />
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div className="form-group">
+                <label htmlFor="name">Name: </label>
+                <input type="text" name="name" required autoFocus className="form-control"
+                value={hike.name}
+                onChange={changeHikeState} />
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div className="form-group">
+                <label htmlFor="name">Name: </label>
+                <input type="text" name="name" required autoFocus className="form-control"
+                value={hike.name}
+                onChange={changeHikeState} />
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div className="form-group">
+                <label htmlFor="name">Name: </label>
+                <input type="text" name="name" required autoFocus className="form-control"
+                value={hike.name}
+                onChange={changeHikeState} />
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div className="form-group">
+                <label htmlFor="name">Name: </label>
+                <input type="text" name="name" required autoFocus className="form-control"
+                value={hike.name}
+                onChange={changeHikeState} />
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <div className="form-group">
+                <label htmlFor="name">Name: </label>
+                <input type="text" name="name" required autoFocus className="form-control"
+                value={hike.name}
+                onChange={changeHikeState} />
+            </div>
+        </fieldset>
+
+        
+    </form>
+)
+
+
+}
 
 
 // import { useEffect, useState } from "react"

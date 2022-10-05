@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getAllActivities } from "../../../manager/ActivityManager"
-import { getAllCategories } from "../../managers/CategoryManager"
-import { createPost } from "../../managers/PostManager"
-import { getSingleProfile } from "../../managers/ProfileManager"
-import { getAllHikeSkillLevels } from "../../managers/SkillLevelManager"
-import { getAllTags } from "../../managers/TagManager"
+import { getAllHikeSkillLevels } from "../managers/SkillLevelManager"
+import { getAllTags } from "../managers/TagManager"
 
 
 export const HikeForm = () => {

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { loginUser } from "../managers/AuthManager"
+import { loginUser } from "../manager/AuthManager"
+
 import "./Login.css"
 
 /*Login is a function that accepts two props to register new users*/

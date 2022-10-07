@@ -17,7 +17,7 @@ export const Home = () => {
                     {
                         <div>
                         <button className="hikingButton" onClick={() => navigate("/hikes")}>Hiking</button>
-                        <img onClick={() => navigate("/hikes")} 
+                        <img onClick={() => navigate("/hikeList")} 
                         className="meadows"
                         src="/images/hike.jpg"
                         alt="meadows"

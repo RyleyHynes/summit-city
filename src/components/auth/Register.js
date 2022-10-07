@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import { registerUser } from "../manager/AuthManager"
+import { registerUser } from "../managers/AuthManager"
 
 /*Register is a function that accepts two props to register new users*/
 export const Register = ({ setToken, setUserId }) => {

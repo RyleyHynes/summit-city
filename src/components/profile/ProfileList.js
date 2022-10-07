@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { checkDeactive, checkDemoted, createDeactive, createDemotion, editUserActive, editUserStatus, getProfiles, updateDeactive, updateDemotion } from "../managers/ProfileManager"
+import { checkDeactive, checkDemoted, createDeactive, createDemotion, editUserActive, editUserStatus, getAllProfiles, updateDeactive, updateDemotion } from "../managers/ProfileManager"
 
 
 //function that lists all the users profiles
@@ -16,7 +16,7 @@ export const ProfileList = (userId) => {
 
     //getting the profiles and setting them into state
     useEffect(() => {
-        getProfiles().then(data => setProfiles(data))
+        getAllProfiles().then(data => setProfiles(data))
     }, [])
 
     //function to return the type of user
@@ -54,7 +54,7 @@ export const ProfileList = (userId) => {
                 data[0].secondApproveUser = localStorage.getItem('user_id')
                 updateDemotion(data[0]).then(() => editUserStatus(profile, status).then(() => {
                     setUserType(0)
-                    getProfiles().then(data => setProfiles(data))
+                    getAllProfiles().then(data => setProfiles(data))
                 }))
             } else {
                 const demote = {
@@ -73,7 +73,7 @@ export const ProfileList = (userId) => {
                 updateDeactive(data[0]).then(() =>
                     editUserActive(profile).then(() => {
                         setInactive(false)
-                        getProfiles().then(data => setProfiles(data))
+                        getAllProfiles().then(data => setProfiles(data))
                     }))
             } else {
                 const deactive = {
@@ -96,7 +96,7 @@ export const ProfileList = (userId) => {
                                 <p className="profile_edit">Full Name: {p.user.first_name} {p.user.last_name}</p>
                                 <button onClick={(evt) => {
                                     evt.preventDefault()
-                                    editUserActive(p).then(() => setInactive(false)).then(() => getProfiles().then(data => setProfiles(data)))
+                                    editUserActive(p).then(() => setInactive(false)).then(() => getAllProfiles().then(data => setProfiles(data)))
                                 }}>Reactivate</button>
                             </section>
                         </div>

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { loginUser } from "../manager/AuthManager"
+import { loginUser } from "../managers/AuthManager"
 
 import "./Login.css"
 

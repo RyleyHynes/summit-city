@@ -18,15 +18,15 @@ export const getSingleClimbType = (climbTypeId) => {
         .then(response => response.json())
 }
 
-// export const getSearchClimbTypes = (search) => {
-//     return fetch(`http://localhost:8000/climb_types?search=${search}`, {
-//         method: "GET",
-//         headers: {
-//             'Authorization': `Token ${localStorage.getItem('summit_token')}`
-//         }
-//     })
-//         .then(res => res.json())
-// }
+export const getSearchClimbTypes = (search) => {
+    return fetch(`http://localhost:8000/climb_types?search=${search}`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('summit_token')}`
+        }
+    })
+        .then(res => res.json())
+}
 
 /* POST Function for creation of new climb type*/
 export const createNewClimbType = (climbType) => {

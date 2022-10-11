@@ -10,6 +10,9 @@ import { Register } from "../auth/Register"
 import { ClimbingGradeForm } from "../climbingGrades/ClimbingGradeForm"
 import { ClimbingGradeList } from "../climbingGrades/ClimbingGradeList"
 import { EditClimbingGrade } from "../climbingGrades/EditClimbingGrade"
+import { EditClimbingType } from "../climbingTypes/ClimbingTypeEdit"
+import { ClimbingTypeForm } from "../climbingTypes/ClimbingTypeForm"
+import { ClimbingTypeList } from "../climbingTypes/ClimbingTypeList"
 import { Links } from "../helpfulLinks/Links"
 import { Home } from "../homeScreen/home"
 import { EditProfile } from "../profile/EditProfileForm"
@@ -55,6 +58,10 @@ export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
                 <Route path="climbingGradeList" element={<ClimbingGradeList />} />
                 <Route path="climbingGrade/create" element={<ClimbingGradeForm />} />
                 <Route path="climbingGrade/:climbingGradeId/edit" element={<EditClimbingGrade />} />
+
+                <Route path="climbingTypeList" element={<ClimbingTypeList />} />
+                <Route path="climbingType/create" element={<ClimbingTypeForm />} />
+                <Route path="climbingType/:climbingTypeId/edit" element={<EditClimbingType />} />
                 </Route>
         </Routes>
     </>

@@ -43,6 +43,9 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                                     <Nav.Link href="/climbingGradeList" className="navbar-item"><b>Climbing Grades</b></Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
+                                    <Nav.Link href="/climbingTypeList" className="navbar-item"><b>Climbing Types</b></Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
                                     <Nav.Link href="/profiles" className="navbar-item"><b>User Profiles</b></Nav.Link>
                                 </Nav.Item>
                             </>

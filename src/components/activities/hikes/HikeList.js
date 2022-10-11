@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createMyHike } from "../../managers/MyHikeManager"
-import { deleteHike } from "../../managers/HikeManager"
+import { deleteHike, getSearchHikes } from "../../managers/HikeManager"
 import { getAllHikes } from "../../managers/HikeManager"
 
 
@@ -36,7 +36,7 @@ export const HikeList = ({ setStaff }) => {
     useEffect(
         () => {
             if (searchTerms !== "") {
-                getAllHikes(searchTerms).then(data => setFilteredHikes(data[0].hikes))
+                getSearchHikes(searchTerms).then(data => setFilteredHikes(data[0].hikes))
             }
             else {
                 setFilteredHikes(hikes)
@@ -87,7 +87,7 @@ export const HikeList = ({ setStaff }) => {
             <article>
                 <ul className="hikeContainer">
                     {/* mapping through each hike and displaying its information */}
-                    {filteredHikes.map((hike) => {
+                    {filteredHikes?.map((hike) => {
                         return (
                             <div className="individualHike" key={`hike-${hike.id}`}>
                                 <section className="hikeList" key={`hike-${hike.id}`}>
@@ -99,7 +99,7 @@ export const HikeList = ({ setStaff }) => {
                                         <div className="hikeInfo"><b>Distance:</b>{hike?.distance}</div>
                                         <div className="hikeInfo"><b>Estimated Length:</b>{hike?.estimated_length}</div>
                                         <div className="hikeInfo"><b>Description:</b>{hike?.description}</div>
-                                        <div className="hikeInfo"><b>Hike Skill Level:</b>{hike?.hike_skill_level.level}</div>
+                                        <div className="hikeInfo"><b>Hike Skill Level:</b>{hike?.hike_skill_level?.level}</div>
                                     </div>
                                 </section>
                                 <section className="bottomButtons">

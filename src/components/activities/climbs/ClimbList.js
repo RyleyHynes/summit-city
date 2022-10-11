@@ -1,186 +1,134 @@
-// import { useEffect, useState } from "react"
-// import { useNavigate } from "react-router"
-// import { Link } from "react-router-dom"
-// import "./Climb.css"
-
-// export const ClimbList = ({ searchTermState }) => {
-
-//     const [climbs, setClimbs] = useState([])
-//     //we do not want to modify the array of climbs from the api, but we still want to display a list of climbs. creating another variable of filteredClimbs
-//     const [filteredClimbs, setFilteredClimbs] = useState([])
-
-//     //completed button is a user interaction which will change the state of the component so we are going to track weather or not completed should be listed so that is why we have another state variable.
-//     const [completedClimbs, setCompletedClimbs] = useState([false])
-
-//     const [bucketListClimbs, setBucketListClimbs] = useState([false])
-
-//     useEffect(
-//         () => {
-//             if (completedClimbs) {
-//                 const completedClimbs = climbs.filter(climb => climb.completed === true)
-//                 setFilteredClimbs(completedClimbs)
-//             }
-//             else {
-//                 setFilteredClimbs(climbs)
-//             }
-//         },
-//         [completedClimbs]
-//     )
-
-//     useEffect(
-//         () => {
-//             if (bucketListClimbs) {
-//                 const bucketListClimbs = climbs.filter(climb => climb.bucketList === true)
-//                 setFilteredClimbs(bucketListClimbs)
-//             }
-//             else {
-//                 setFilteredClimbs(climbs)
-//             }
-//         },
-//         [bucketListClimbs]
-//     )
-
-//     //added the useNavigate hook for the user Added climb button 
-//     const navigate = useNavigate()
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { createMyClimb } from "../../managers/MyClimbManager"
+import { deleteClimb } from "../../managers/ClimbManager"
+import { getAllClimbs } from "../../managers/ClimbManager"
 
 
+export const ClimbList = ({ setStaff }) => {
+    //setting up initial state for climbs
+    const [climbs, setClimbs] = useState([])
+    //setting up initial state for addClimb and setting it to false
+    const [addClimb, setAddClimb] = useState(false)
+    //setting up initial state for staff
+    const [staff, setStaffState] = useState()
+    const [searchTerms, setSearchTerms] = useState("")
+    const [filteredClimbs, setFilteredClimbs] = useState([])
 
-//     // get summitUser out of local storage
-//     const localSummitUser = localStorage.getItem("summit_user")
-//     const summitUserObject = JSON.parse(localSummitUser)
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
+    const navigate = useNavigate()
 
+    //function to get the friday schedule and set it into climbs state
+    const getCurrentClimbList = () => {
+        getAllClimbs().then(data => setClimbs(data))
+    }
 
-//     const getAllClimbs = () => {
-//         fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type&userId=${summitUserObject.id}`)
-//             .then((response) => response.json())
-//             .then((climbsArray) => {
-//                 setClimbs(climbsArray);
-//             })
-//     }
+    //observing the user in local storage and the boolean on is_staff 
+    useEffect(() => {
+        setStaffState(localStorage.getItem("is_staff"))
+    }, [setStaff])
 
-//     useEffect(() => {
-//         getAllClimbs()
-//     },
-//         [],
-//     )
+    //observing and invoking the getCurrentFridaySchedule
+    useEffect(() => {
+        getCurrentClimbList()
+    }, [])
 
+    useEffect(
+        () => {
+            if (searchTerms !== "") {
+                getAllClimbs(searchTerms).then(data => setFilteredClimbs(data[0].climbs))
+            }
+            else {
+                setFilteredClimbs(climbs)
+            }
+        },
+        [searchTerms, climbs]
+    )
+    //function to add climb to users custom lineup
+    const handleAddClimb = (evt) => {
+        evt.preventDefault() //preventing browser reload/refresh
+        const climb = { climb_id: evt.target.id }
+        setAddClimb(evt.target.id)
+        createMyClimb(climb).then((data) => {
+            setAddClimb(data)
+        })
 
-//     useEffect(() => {
-//         fetch(`http://localhost:8088/climbs?_expand=grade&_expand=type&userId=${summitUserObject.id}`)
-//             .then((response) => response.json())
-//             .then((climbArray) => {
-//                 setFilteredClimbs(climbArray);
-//             })
-//     }, [climbs]);
-
-//     useEffect(() => {
-//         fetch(`http://localhost:8088/types`)
-//             .then((response) => response.json())
-//             .then((typeArray) => {
-//                 setFilteredClimbs(typeArray);
-//             })
-//     }, []);
-//     useEffect(() => {
-//         fetch(`http://localhost:8088/grades`)
-//             .then((response) => response.json())
-//             .then((gradeArray) => {
-//                 setFilteredClimbs(gradeArray);
-//             })
-//     }, []);
-
-//     useEffect(() => {
-//         const searchedClimbs = climbs.filter((climb) => {
-//             return (
-//                 climb.name
-//                     .toLowerCase()
-//                     .includes(searchTermState.toLowerCase()) ||
-//                 climb.location
-//                     .toLowerCase()
-//                     .includes(searchTermState.toLowerCase()) ||
-//                 climb.type.name
-//                     .toLowerCase()
-//                     .includes(searchTermState.toLowerCase()) ||
-//                 climb.description
-//                     .toLowerCase()
-//                     .includes(searchTermState.toLowerCase())
-//             );
-//         });
-//         setFilteredClimbs(searchedClimbs);
-//     }, [searchTermState]);
+    }
 
 
-//     return (
-//         <>
-//             <div className="climbButtons">
-//                 <button className="climbAlterButton" onClick={() => navigate("/climb/create")}>
-//                     Add New Climb
-//                 </button>
-//                 <button className="climbAlterButton" onClick={
-//                     () => {
-//                         setBucketListClimbs(false)
-//                         setCompletedClimbs(false)
-//                     }
-//                 }>Show All Climbs</button>
-//                 <button className="climbAlterButton" onClick={
-//                     () => {
-//                         setCompletedClimbs(true)
-//                     }
-//                 }>Completed Climbs</button>
-//                 <button className="climbAlterButton" onClick={
-//                     () => {
-//                         setBucketListClimbs(true)
-//                     }
-//                 }>Bucket List Climbs</button>
-//             </div>
+    return (
+        <>
+            <h2 className="climbForm_title">Climb List</h2>
+            {/* if the user is staff they will have the option to add a new climb*/}
+            <div className="topButtons">
+                {
+                    (staff === "true")
+                        ?
+                        <>
+                            <button className="dayButtons" onClick={() => navigate("/addClimbForm")}>Add Climb</button>
+                        </>
+                        :
+                        <>
 
-//             <h2 className="climbForm_title">Climbs in Grand Teton National Park</h2>
-//             <article className="climbs">
-//                 <ul>
-//                     {filteredClimbs.map((climb) => {
-//                         return (
-//                             <div className="individualClimb" key={`climb-${climb.id}`}>
-//                                 <section
-//                                     className="climb_list"
-//                                     key={`climb--${climb.id}`}
-//                                 >
-//                                     <div className="imageContainer">
-//                                         <img className="climbPicture" src={climb.url} alt='climb'></img></div>
-//                                     <div className="textContainer">
-//                                         <div className="name">
-//                                             <b>Climb Name:</b> {climb.name}
-//                                         </div>
-//                                         <div className="type"><b>Type:</b> {climb?.type?.name}</div>
-//                                         <div className="grade"><b>Grade:</b> {climb?.grade?.rating.toFixed(2)}</div>
-//                                         <div className="location">
-//                                             <b>Location:</b> {climb.location}
-//                                         </div>
-//                                         <div className="description"><b>Description:</b> {climb.description}</div>
-//                                     <div ><b>Completed:</b> {climb.completed ? "✅" : "No"}</div>
-//                                     <div ><b>Bucket List:</b> {climb.bucketList ? "✅" : "No"}</div>
-//                                     </div>
-//                                 </section>
-//                                 <section>
-//                                     <Link to={`/climbs/${climb.id}/edit`}>
-//                                         <button className="climbAlterButton">EDIT Climb</button>
-//                                     </Link>
-//                                     <button
-//                                         className="climbAlterButton"
-//                                         onClick={() => {
-//                                             fetch(`http://localhost:8088/climbs/${climb.id}`, {
-//                                                 method: "DELETE",
-//                                             }).then(() => {
-//                                                 getAllClimbs();
-//                                             });
-//                                         }}
-//                                     >
-//                                         DELETE
-//                                     </button>
-//                                 </section>
-//                             </div>
-//                         );
-//                     })}
-//                 </ul>
-//             </article>
-//         </>
-//     );
-// };
+                        </>
+                }
+                <input
+                    className="input search mx-4"
+                    type="text"
+                    placeholder="Search Items"
+                    onChange={
+                        (changeEvent) => {
+                            let search = changeEvent.target.value
+                            setSearchTerms(search)
+                        }
+                    }
+                />
+            </div>
+            <article>
+                <ul className="climbContainer">
+                    {/* mapping through each climb and displaying its information */}
+                    {filteredClimbs.map((climb) => {
+                        return (
+                            <div className="individualClimb" key={`climb-${climb.id}`}>
+                                <section className="climbList" key={`climb-${climb.id}`}>
+                                    <div className="imageContainer">
+                                        <img className="climbPicture" src={climb?.climb_image_url} alt='climb'></img>
+                                    </div>
+                                    <div className="textContainer">
+                                        <div className="climbInfo"><b>Name:</b>{climb?.name}</div>
+                                        <div className="climbInfo"><b>Description:</b>{climb?.description}</div>
+                                        <div className="climbInfo"><b>Location:</b>{climb?.location}</div>
+                                        <div className="climbInfo"><b>Type of Climb:</b>{climb?.climb_type?.type}</div>
+                                        <div className="climbInfo"><b>Grade:</b>{climb?.grade?.rating}</div>
+                                    </div>
+                                </section>
+                                <section className="bottomButtons">
+                                    <button className="alterButton" id={climb.id} onClick={handleAddClimb}>Add to My Climbs</button>
+
+                                    {/* if the user is staff they will have the option to edit or delete a climb */}
+
+                                    {
+                                        (staff === "true")
+                                            ?
+                                            <>
+                                                <button className="alterButton" onClick={() => navigate(`/climbs/${climb.id}/edit`)}>edit</button>
+                                                <button className="alterButton" onClick={(evt) => {
+                                                    evt.preventDefault()
+                                                    deleteClimb(climb.id).then(getCurrentClimbList)
+                                                }}>Delete</button>
+                                            </>
+                                            :
+                                            <>
+
+                                            </>
+                                    }
+                                </section>
+                            </div>
+                        )
+                    })}
+                </ul>
+            </article>
+        </>
+    )
+
+}

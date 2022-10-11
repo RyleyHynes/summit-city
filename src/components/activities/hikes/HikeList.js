@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { createMyHike } from "../managers/MyHikeManager"
-import { deleteHike } from "../managers/HikeManager"
-import { getAllHikes } from "../managers/HikeManager"
-import "./List.css"
+import { createMyHike } from "../../managers/MyHikeManager"
+import { deleteHike } from "../../managers/HikeManager"
+import { getAllHikes } from "../../managers/HikeManager"
+
 
 export const HikeList = ({ setStaff }) => {
     //setting up initial state for shows

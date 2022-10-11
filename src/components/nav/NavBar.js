@@ -9,7 +9,6 @@ export const NavBar = ({ token, setToken, setStaff }) => {
     const navigate = useNavigate()
     const [staff, setStaffState] = useState()
     
-console.log(token)
     //getting the is_staff property out of local storage for the current user and setting it to the staff state
     useEffect(() => {
         setStaffState(localStorage.getItem("is_staff"))
@@ -38,7 +37,10 @@ console.log(token)
                             ?
                             <>
                                 <Nav.Item>
-                                    <Nav.Link href="/artistList" className="navbar-item"><b>Artist List</b></Nav.Link>
+                                    <Nav.Link href="/skillLevelList" className="navbar-item"><b>Skill Levels</b></Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link href="/climbingGradeList" className="navbar-item"><b>Climbing Grades</b></Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
                                     <Nav.Link href="/profiles" className="navbar-item"><b>User Profiles</b></Nav.Link>

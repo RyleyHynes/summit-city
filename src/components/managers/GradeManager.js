@@ -18,15 +18,15 @@ export const getSingleGrade = (gradeId) => {
         .then(response => response.json())
 }
 
-// export const getSearchGrades = (search) => {
-//     return fetch(`http://localhost:8000/grades?search=${search}`, {
-//         method: "GET",
-//         headers: {
-//             'Authorization': `Token ${localStorage.getItem('summit_token')}`
-//         }
-//     })
-//         .then(res => res.json())
-// }
+export const getSearchGrades = (search) => {
+    return fetch(`http://localhost:8000/grades?search=${search}`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('summit_token')}`
+        }
+    })
+        .then(res => res.json())
+}
 
 /* POST Function for creation of new grade*/
 export const createNewGrade = (grade) => {

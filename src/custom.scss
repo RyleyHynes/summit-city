@@ -1,0 +1,12 @@
+/* The following line can be included in a src/App.scss */
+@import "~bootstrap/scss/bootstrap";
+
+
+
+
+
+// Override default variables before the import
+$body-bg: rgb(0, 0, 0);
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';

@@ -18,15 +18,15 @@ export const getSingleHikeSkillLevel = (skillLevelId) => {
         .then(response => response.json())
 }
 
-// export const getSearchHikeSkillLevels = (search) => {
-//     return fetch(`http://localhost:8000/hike_skill_levels?search=${search}`, {
-//         method: "GET",
-//         headers: {
-//             'Authorization': `Token ${localStorage.getItem('summit_token')}`
-//         }
-//     })
-//         .then(res => res.json())
-// }
+export const getSearchHikeSkillLevels = (search) => {
+    return fetch(`http://localhost:8000/hike_skill_levels?search=${search}`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Token ${localStorage.getItem('summit_token')}`
+        }
+    })
+        .then(res => res.json())
+}
 
 /* POST Function for creation of new hike skill level*/
 export const createNewHikeSkillLevel = (hikeSkillLevel) => {

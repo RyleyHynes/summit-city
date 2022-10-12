@@ -24,11 +24,11 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                             <Nav.Link href="/home"><b>Home</b></Nav.Link>
                         </Nav.Item>
 
-                        {/* <Nav.Item>
-                            <Nav.Link href="/fridaySchedule"><b>Groove Schedule</b></Nav.Link>
+                        <Nav.Item>
+                            <Nav.Link href="/hikeList"><b>Hikes</b></Nav.Link>
                         </Nav.Item>
 
-                        <Nav.Item>
+                        {/* <Nav.Item>
                             <Nav.Link href="/myFridaySchedule"><b>My Schedule</b></Nav.Link>
                         </Nav.Item> */}
 

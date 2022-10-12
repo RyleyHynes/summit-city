@@ -36,7 +36,7 @@ export const HikeList = ({ setStaff }) => {
     useEffect(
         () => {
             if (searchTerms !== "") {
-                getSearchHikes(searchTerms).then(data => setFilteredHikes(data[0].hikes))
+                getSearchHikes(searchTerms).then(data => setFilteredHikes(data))
             }
             else {
                 setFilteredHikes(hikes)
@@ -65,7 +65,7 @@ export const HikeList = ({ setStaff }) => {
                     (staff === "true")
                         ?
                         <>
-                            <button className="dayButtons" onClick={() => navigate("/addHikeForm")}>Add Hike</button>
+                            <button className="dayButtons" onClick={() => navigate("/hike/create")}>Add Hike</button>
                         </>
                         :
                         <>
@@ -87,7 +87,7 @@ export const HikeList = ({ setStaff }) => {
             <article>
                 <ul className="hikeContainer">
                     {/* mapping through each hike and displaying its information */}
-                    {filteredHikes?.map((hike) => {
+                    {filteredHikes.map((hike) => {
                         return (
                             <div className="individualHike" key={`hike-${hike.id}`}>
                                 <section className="hikeList" key={`hike-${hike.id}`}>
@@ -100,6 +100,14 @@ export const HikeList = ({ setStaff }) => {
                                         <div className="hikeInfo"><b>Estimated Length:</b>{hike?.estimated_length}</div>
                                         <div className="hikeInfo"><b>Description:</b>{hike?.description}</div>
                                         <div className="hikeInfo"><b>Hike Skill Level:</b>{hike?.hike_skill_level?.level}</div>
+                                        {hike?.tags?.map((tag)=>{
+                                        return(
+                                            <div className="individualHikeTag" key={`tag-${tag.id}`}>
+                                        <div className="hikeInfo"><b>Tags:</b>{tag?.label}</div>
+                                        </div>
+                                        )
+                                        })
+                                    }
                                     </div>
                                 </section>
                                 <section className="bottomButtons">

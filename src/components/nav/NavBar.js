@@ -36,6 +36,13 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                             </NavDropdown.Item>
                         </NavDropdown>
 
+                        <NavDropdown title="Activities" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="/hikeList">My Completed Hikes</NavDropdown.Item>
+                            <NavDropdown.Item href="/myCompletedClimbs">
+                                My Completed Climbs
+                            </NavDropdown.Item>
+                        </NavDropdown>
+
                         {/* if the user is staff they will also have the below nav bar options */}
                         {staff === "true"
                             ?

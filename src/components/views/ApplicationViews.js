@@ -6,6 +6,7 @@ import { ClimbList } from "../activities/climbs/ClimbList"
 import { HikeEdit } from "../activities/hikes/HikeEdit"
 import { HikeForm } from "../activities/hikes/HikeForm"
 import { HikeList } from "../activities/hikes/HikeList"
+import { MyCompletedClimbs } from "../activities/myClimbs.js/myCompletedClimbs"
 import { Login } from "../auth/Login"
 import { Register } from "../auth/Register"
 import { ClimbingGradeForm } from "../climbingGrades/ClimbingGradeForm"
@@ -64,6 +65,7 @@ export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
                 <Route path="climbingTypeList" element={<ClimbingTypeList />} />
                 <Route path="climbingType/create" element={<ClimbingTypeForm />} />
                 <Route path="climbingType/:climbingTypeId/edit" element={<EditClimbingType />} />
+                <Route path="myCompletedClimbs" element={<MyCompletedClimbs />} />
                 </Route>
         </Routes>
     </>

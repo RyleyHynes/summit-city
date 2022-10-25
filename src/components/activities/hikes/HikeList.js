@@ -9,7 +9,10 @@ export const HikeList = ({ setStaff }) => {
     //setting up initial state for hikes
     const [hikes, setHikes] = useState([])
     //setting up initial state for addHike and setting it to false
-    const [addHike, setAddHike] = useState(false)
+    const [addCompletedHike, setAddCompletedHike] = useState(false)
+
+    //setting up initial state for addHike and setting it to false
+    const [addBucketListHike, setAddBucketListHike] = useState(false)
     //setting up initial state for staff
     const [staff, setStaffState] = useState()
     const [searchTerms, setSearchTerms] = useState("")

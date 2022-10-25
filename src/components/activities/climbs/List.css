@@ -1,0 +1,120 @@
+.activityListTitle{
+    display: flex;
+    flex: wrap;
+    justify-content: center;
+    padding: 2rem;
+    margin: 2rem;
+    color: white;
+}
+
+
+.alterButton {
+    background: linear-gradient(315deg, #485461 0%, #28313b 74%);
+    border-radius: 12px;
+    border: 1px solid rgb(72, 86, 97);
+    color: rgb(208, 198, 198);
+    font-size: 18px;
+    padding: 0.2rem;
+    font-family: Copperplate, fantasy;
+    letter-spacing: 1px;
+    width: 12rem;
+    margin: .25rem;
+    margin-left: 2.5rem;
+}
+
+.staffButton{
+    background: linear-gradient(315deg, #443867 0%, #7b39d6 74%);
+    border-radius: 12px;
+    border: 1px solid rgb(72, 86, 97);
+    color: rgb(208, 198, 198);
+    font-size: 18px;
+    padding: 0.2rem;
+    font-family: Copperplate, fantasy;
+    letter-spacing: 1px;
+    width: 12rem;
+    margin: .25rem;
+    margin-left: 2.5rem; 
+}
+
+
+.activityContainer {
+    margin-bottom: 2rem;
+}
+
+.activityButtons {
+    display: flex;
+    justify-content: center;
+}
+
+.individualActivity{
+    margin-bottom:2rem;
+}
+.activityList {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    max-height: 60rem;
+    max-width: 80rem;
+
+}
+
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    text-align: justify;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 2rem;
+    color: white;
+    font-size: larger;
+}
+
+.activityInfo {
+    padding-top: 1rem;
+}
+
+.activityPicture {
+    border-radius: 2rem;
+    max-height: 35rem;
+    max-width: 45rem;
+}
+
+.topButtons{
+    padding-bottom: 2rem;
+    
+}
+
+.searchBar {
+    display: flex;
+    flex: wrap;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.form_group {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+.newHike{
+    margin-left: 2rem;
+    font-size: xx-large;
+}
+
+.updateHike{
+    margin-left: 2rem;
+    font-size: xx-large;
+}
+
+.bottomButtons {
+    padding-top: 1rem;
+}

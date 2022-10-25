@@ -46,6 +46,7 @@ export const ClimbingGradeList = ({ searchTermState }) => {
                     (staff === "true")
                         ?
                         <>
+                            <button className="dayButtons" onClick={() => navigate("/climbList")}>Back to Climbs</button>
                             <button className="dayButtons" onClick={() => navigate("/climbingGrade/create")}>Add Climbing Grade</button>
                         </>
                         :

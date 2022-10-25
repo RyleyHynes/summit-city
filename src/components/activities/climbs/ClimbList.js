@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { createMyClimb } from "../../managers/MyClimbManager"
 import { deleteClimb } from "../../managers/ClimbManager"
 import { getAllClimbs } from "../../managers/ClimbManager"
+import "./List.css"
+
 
 
 export const ClimbList = ({ setStaff }) => {
@@ -58,14 +60,16 @@ export const ClimbList = ({ setStaff }) => {
 
     return (
         <>
-            <h2 className="climbForm_title">Climb List</h2>
+            <h2 className="activityListTitle">Climb List</h2>
             {/* if the user is staff they will have the option to add a new climb*/}
             <div className="topButtons">
                 {
                     (staff === "true")
                         ?
                         <>
-                            <button className="dayButtons" onClick={() => navigate("/addClimbForm")}>Add Climb</button>
+                            <button className="staffButton" onClick={() => navigate("/climb/create")}>Add Climb</button>
+                            <button className="staffButton" onClick={() => navigate("/climbingTypeList")}>Climb Types</button>
+                            <button className="staffButton" onClick={() => navigate("/climbingGradeList")}>Climb Grades</button>
                         </>
                         :
                         <>
@@ -85,21 +89,29 @@ export const ClimbList = ({ setStaff }) => {
                 />
             </div>
             <article>
-                <ul className="climbContainer">
+                <ul className="activityContainer">
                     {/* mapping through each climb and displaying its information */}
                     {filteredClimbs.map((climb) => {
                         return (
-                            <div className="individualClimb" key={`climb-${climb.id}`}>
-                                <section className="climbList" key={`climb-${climb.id}`}>
+                            <div className="individualActivity" key={`climb-${climb.id}`}>
+                                <section className="activityList" key={`climb-${climb.id}`}>
                                     <div className="imageContainer">
-                                        <img className="climbPicture" src={climb?.climb_image_url} alt='climb'></img>
+                                        <img className="activityPicture" src={climb?.climb_image_url} alt='climb'></img>
                                     </div>
                                     <div className="textContainer">
-                                        <div className="climbInfo"><b>Name:</b>{climb?.name}</div>
-                                        <div className="climbInfo"><b>Description:</b>{climb?.description}</div>
-                                        <div className="climbInfo"><b>Location:</b>{climb?.location}</div>
-                                        <div className="climbInfo"><b>Type of Climb:</b>{climb?.climb_type?.type}</div>
-                                        <div className="climbInfo"><b>Grade:</b>{climb?.grade?.rating}</div>
+                                        <div className="activityInfo"><b>Name:</b>{climb?.name}</div>
+                                        <div className="activityInfo"><b>Description:</b>{climb?.description}</div>
+                                        <div className="activityInfo"><b>Location:</b>{climb?.location}</div>
+                                        <div className="activityInfo"><b>Type of Climb:</b>{climb?.climb_type?.name}</div>
+                                        <div className="activityInfo"><b>Grade:</b>{climb?.grade?.rating}</div>
+                                        {climb?.tags?.map((tag)=>{
+                                        return(
+                                            <div className="individualClimbTag" key={`tag-${tag.id}`}>
+                                        <div className="activityInfo"><b>Tags:</b>{tag?.label}</div>
+                                        </div>
+                                        )
+                                        })
+                                    }
                                     </div>
                                 </section>
                                 <section className="bottomButtons">

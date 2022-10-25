@@ -1,18 +1,35 @@
-.profile {
+.image {
+    max-height: 25rem;
+    max-width: 30rem;
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 18rem;
-    padding-top: 2rem;
+    padding-top: 3rem;
 }
 
-.saveProfile{
-    background: linear-gradient(315deg, #485461 0%, #28313b 74%);
-    border-radius: 12px;
-    border: 1px solid rgb(72, 86, 97);
-    color: rgb(208, 198, 198);
-    font-size: 18px;
-    padding: 0.2rem;
-    font-family: Copperplate, fantasy;
-    letter-spacing: 1px;
-    width: 13rem;
+.profile__info {
+    text-align: center;
+    color: white;
+}
+
+.profile_edit{
+    color: white;
+}
+
+.editProfileSection{
+    text-align: center;
+}
+.individualProfiles {
+    border: 1px solid white;
+    display: flex;
+    flex:1;
+}
+
+.profiles2 {
+    display: grid;
+    grid-template-columns:
+        "option option option"
+        "option option option"
+        "option option option";
+
 }

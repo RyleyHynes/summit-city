@@ -1,49 +1,29 @@
 import { useNavigate } from "react-router-dom"
 import "./home.css"
 import React from "react"
+import { Image } from "react-bootstrap"
 
 export const Home = () => {
 
-    const navigate = useNavigate()
-
-    return <>
-        <div className="home">
-
-            <h2 className="subTitle">Select Your Activity</h2>
-
-            <>
-            <section className="buttonsAndPictures">
-                <fieldset>
-                    {
-                        <div>
-                        <button className="hikingButton" onClick={() => navigate("/hikes")}>Hiking</button>
-                        <img onClick={() => navigate("/hikeList")} 
-                        className="meadows"
-                        src="/images/hike.jpg"
-                        alt="meadows"
+return(
+    <>
+    <h1 className="homePageTitle">Welcome to Summit City</h1>
+    <h2 className="summitCityDescription">Summit City is your one stop shop to find hiking 
+    and climbing activities in Grand Teton National Park. Please go to our activities page and select hikes and climbs that
+    you would like to add to your profile. You can either mark them as completed or bucket list for activities that you would 
+    like to try in the future.</h2>
+    <section>
+        <fieldset>
+            {
+                <div>
+                    <Image className="summitCityHomeImage"
+                    src="/images/ryleyProfilePicture.jpg"
+                    alt="ryleyProfilePicture"
                     />
-                    </div>
-                    }                    
-                </fieldset>
-                <fieldset>
-                    {
-                        <div>
-                        <button className="climbingButton" onClick={() => navigate("/climbs")}>Rock Climbing</button>
-                        <img
-                        onClick={() => navigate("/climbs")}
-                        className="bellyRoll"
-                        src="/images/climb.jpg"
-                        alt="bellyRoll" 
-                    />
-                    </div>
-                    }                  
-                </fieldset>
-                </section>
-            </>
-        </div>
-
-
+                </div>
+            }
+        </fieldset>
+    </section>
     </>
-
-
+)
 }

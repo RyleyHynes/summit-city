@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom"
-// import { ClimbEdit } from "../activities/climbs/ClimbEdit"
-// import { ClimbForm } from "../activities/climbs/ClimbForm"
+import { Activities } from "../activities/activityList"
+import { ClimbEdit } from "../activities/climbs/ClimbEdit"
+import { ClimbForm } from "../activities/climbs/ClimbForm"
 import { ClimbList } from "../activities/climbs/ClimbList"
 import { HikeEdit } from "../activities/hikes/HikeEdit"
 import { HikeForm } from "../activities/hikes/HikeForm"
@@ -21,7 +22,6 @@ import { ProfileList } from "../profile/ProfileList"
 import { EditSkillLevel } from "../skillLevels/skillLevelEdit"
 import { SkillLevelForm } from "../skillLevels/skillLevelForm"
 import { SkillLevelList } from "../skillLevels/skillLevelList"
-import "./ApplicationViews.css"
 import { Authorized } from "./Authorized"
 
 
@@ -36,6 +36,8 @@ export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
             <Route element={<Authorized token={token} />}>
 
                 <Route path="/home" element={<Home />} />
+                <Route path="/activities" element={<Activities />} />
+
 
                 <Route path="links" element={<Links />} />
 
@@ -47,9 +49,9 @@ export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
                 <Route path="hike/create" element={<HikeForm />} />
                 <Route path="hikes/:hikeId/edit" element={<HikeEdit />} />
 
-                <Route path="climbs" element={<ClimbList />} />
-                {/* <Route path="climb/create" element={<ClimbForm />} />
-                <Route path="climbs/:climbId/edit" element={<ClimbEdit />} /> */}
+                <Route path="climbList" element={<ClimbList />} />
+                <Route path="climb/create" element={<ClimbForm />} />
+                <Route path="climbs/:climbId/edit" element={<ClimbEdit />} />
 
                 <Route path="skillLevelList" element={<SkillLevelList />} />
                 <Route path="skillLevel/create" element={<SkillLevelForm />} />

@@ -1,258 +1,164 @@
-// import { useEffect, useState } from "react"
-// import { useNavigate } from "react-router-dom"
-
-// export const ClimbForm = () => {
-
-//     //set initial climb state (updateClimb is the function that changes the state.)
-//     const [climb, addClimb] = useState({
-//         name: "",
-//         location: "",
-//         typeId: 0,
-//         gradeId: 0,
-//         description: "",
-//         completed: false,
-//         bucketList: false,
-//         scheduleDate: "",
-//         userId: 0,
-//         url: ""
-//     })
-
-//     //invoking useNavigate and assigning its return value to a variable 
-//     const navigate = useNavigate()
-
-//     const [types, setTypes] = useState([])
-//     const [grades, setGrades] = useState([])
-
-
-//     // get summitUser out of local storage
-//     const localSummitUser = localStorage.getItem("summit_user")
-//     const summitUserObject = JSON.parse(localSummitUser)
-//     const userId = summitUserObject
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { getAllTags } from "../../managers/TagManager";
+import { getAllGrades } from "../../managers/GradeManager";
+import { createNewClimb } from "../../managers/ClimbManager";
+import { getAllClimbTypes } from "../../managers/ClimbTypeManager";
 
 
 
-//     useEffect(() => {
-//         fetch(`http://localhost:8088/types`)
-//             .then((response) => response.json())
-//             .then((typeArray) => {
-//                 setTypes(typeArray)
-//             })
-//     },
-//         []
-//     )
+export const ClimbForm = () => {
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
+    const navigate = useNavigate()
+    //setting up initial state for stages
+    const [grades, setGrades] = useState([])
+    //setting up initial state for stages
+    const [climbTypes, setClimbTypes] = useState([])
+    const [tags, setTags] = useState([])
+    const [tagsForClimb, setTagsForClimb] = useState([])
 
-//     useEffect(() => {
-//         fetch(`http://localhost:8088/grades`)
-//             .then((response) => response.json())
-//             .then((gradeArray) => {
-//                 setGrades(gradeArray)
-//             })
-//     },
-//         []
-//     )
+    //observes and invokes getter functions and sets them to their respective states
+    useEffect(() => {
+        getAllGrades().then(data => setGrades(data))
+        getAllClimbTypes().then(climbTypeData => setClimbTypes(climbTypeData))
+        getAllTags().then(tagsData => setTags(tagsData))
+    }, [])
 
-//     const handleSaveButtonClick = (event) => {
-//         event.preventDefault()
+    const updateTags = (tagId) => {
+        let tagsCopy = [...tagsForClimb]
+        const index = tagsCopy.indexOf(tagId)
+        if (index < 0) {
+            tagsCopy.push(tagId)
+        } else {
+            tagsCopy.splice(index, 1)
+        }
+        setTagsForClimb(tagsCopy)
+    }
 
-//         //create an object to be saved to the API 
-//         const climbToSendToAPI = {
-//             name: climb.name,
-//             location: climb.location,
-//             typeId: parseInt(climb.typeId),
-//             gradeId: parseInt(climb.gradeId),
-//             description: climb.description,
-//             completed: climb.completed,
-//             bucketList:climb.bucketList,
-//             scheduleDate: climb.scheduleDate,
-//             userId: userId.id,
-//             url: climb.url
-//         }
-//         //Perform the fetch() to POST the object to the API
-//         //copied the url of the climbs from the API, second argument is to fetch is options, that is in the {} after the url, added method of POST with the header, for body, turned the object climbToSendToApi into a string. When JSON serve response the user will be directed back to the ticket page via navigate("/climbs)")
-//         //Post request to JSON server, when completed, navigate user back to session list - route found in application views.js
+    //assigning the currentClimb state to an object of key value pairs 
+    const [currentClimb, setCurrentClimb] = useState({
+        name: "",
+        description: "",
+        location: "",
+        climb_image_url: "",
+        climb_type: 0,
+        grade:0,
+        tags: []
+    })
 
-//         return fetch(`http://localhost:8088/climbs`, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(climbToSendToAPI),
-//         })
-//             .then((response) => response.json())
-//             .then(() => {
-//                 navigate("/climbs"); //same as shown in application views
-//             })
-//     };
+    //function to change copy of the initial currentClimb state and set the new currentClimb value to the state
+    const changeClimbState = (domEvent) => {
+        const newClimb = { ...currentClimb } //creating a copy of the initial currentClimb state
+        newClimb[domEvent.target.name] = domEvent.target.value
+        setCurrentClimb(newClimb)
+    }
 
-//     // onChange event will update the climb properties when changed.  updating state each time it is changed and it will update the copy and property listed. in the callback function in the onChange, parameter of event, and set a target. 
-//     // Then calling the update function to change the new state
-//     // added onclick to the submit button, passed clickEvent into the argument for the handleSaveButtonFunction
-//     return (
-//         <>
-//             <form className="climbForm">
-//                 <h2 className="newClimb">New Climb</h2>
-//                 <fieldset>
-//                     <div className="form_group" key={climb.id}>
-//                         <label htmlFor="Name"><b>Name:</b></label>
-//                         <input
-//                             required autoFocus
-//                             type="text"
-//                             className="form-control"
-//                             placeholder="Climb Name"
-//                             value={climb.name}
-//                             onChange={
-//                                 (event) => {
-//                                     const copy = { ...climb }
-//                                     copy.name = event.target.value
-//                                     addClimb(copy)
-//                                 }}
-//                         />
-//                     </div>
-//                 </fieldset>
+    //HTML for the create new climb form
+    return (
+        <>
+            <Form>
+                <h2 className="climbForm_title">Create New Climb</h2>
 
-//                 <fieldset>
-//                     <div className="form_group" key={climb.id}>
-//                         <label htmlFor="Name"><b>Location:</b></label>
-//                         <input
-//                             required
-//                             type="text"
-//                             className="form-control"
-//                             placeholder="Climb Location"
-//                             value={climb.location}
-//                             onChange={
-//                                 (event) => {
-//                                     const copy = { ...climb }
-//                                     copy.location = event.target.value
-//                                     addClimb(copy)
-//                                 }}
-//                         />
-//                     </div>
-//                 </fieldset>
-//                 <fieldset>
-//                     <div className="form_group" key={climb.id}>
-//                         <label htmlFor="description"><b>Description:</b></label>
-//                         <input
-//                             required
-//                             type="text"
-//                             className="form-control"
-//                             placeholder="Climb Description"
-//                             value={climb.description}
-//                             onChange={
-//                                 (event) => {
-//                                     const copy = { ...climb }
-//                                     copy.description = event.target.value
-//                                     addClimb(copy)
-//                                 }
-//                             } />
-//                     </div>
-//                 </fieldset>
-//                 <fieldset>
-//                     <div className="form_group" key={climb.id}>
-//                         <label htmlFor="type"><b>Type:</b></label>
-//                         <select
-//                             onChange={(evt) => {
-//                                 const copy = { ...climb }; //created a copy of existing state
-//                                 copy.typeId = parseInt(evt.target.value) //to modify
-//                                 addClimb(copy)
-//                             }}
-//                         >
-//                             <option key={0}>Select Type of Climb</option>
-//                             {
-//                                 types.map((type) => {
-//                                     return <option key={type.id} value={type.id}>{type.name}</option>
-//                                 })}
-//                         </select>
-//                     </div>
-//                 </fieldset>
-//                 <fieldset>
-//                     <div className="form_group" key={climb.id}>
-//                         <label htmlFor="grade"><b>Grade:</b></label>
-//                         <select
-//                             onChange={(evt) => {
-//                                 const copy = { ...climb }; //created a copy of existing state
-//                                 copy.gradeId = parseFloat(evt.target.value, 2) //to modify
-//                                 addClimb(copy)
-//                             }}
-//                         >
-//                             <option key={0}>Select Climbing Grade: </option>
-//                             {
-//                                 grades.map((grade) => {
-//                                     return <option key={grade.id} value={grade.id}>{grade.rating}</option>
-//                                 })}
-//                         </select>
-//                     </div>
-//                 </fieldset>
-//                 <fieldset>
-//                     <div className="boolean" key={climb.id}>
-//                         <span><b>Completed:</b></span>
-//                         <input type="radio" className="boolean"
-//                             name="completed" value={true}
-//                             onChange={
-//                                 (event) => {
-//                                     const copy = { ...climb }
-//                                     copy.completed = true
-//                                     addClimb(copy)
-//                                 }} />
-//                         <label htmlFor="true">True</label>
-//                         <input type="radio" className="boolean"
-//                             name="completed" value={false} 
-//                             onChange={
-//                                 (event) => {
-//                                     const copy = { ...climb }
-//                                     copy.completed = false
-//                                     addClimb(copy)
-//                                 }} />
-//                         <label htmlFor="false">False</label>
-//                     </div>
-//                 </fieldset>
-//                 <fieldset>
-//                     <div className="boolean" key={climb.id}>
-//                         <span><b>Bucket List:</b></span>
-//                         <input type="radio" className="boolean"
-//                             name="bucketList" value={true}
-//                             onChange={
-//                                 (event) => {
-//                                     const copy = { ...climb }
-//                                     copy.bucketList = true
-//                                     addClimb(copy)
-//                                 }} />
-//                         <label  htmlFor="true">True</label>
-//                         <input type="radio" className="boolean"
-//                             name="bucketList" value={false} onChange={
-//                                 (event) => {
-//                                     const copy = { ...climb }
-//                                     copy.bucketList = false
-//                                     addClimb(copy)
-//                                 }} />
-//                         <label htmlFor="false">False</label>
-//                     </div>
-//                 </fieldset>
-//                 <fieldset>
-//                     <div className="form_group" key={climb.id}>
-//                         <label className="label" htmlFor="description"><b>Photo URL:</b></label>
-//                         <input
-//                             required
-//                             type="text"
-//                             className="form-control-site"
-//                             placeholder="Insert Photo of Hike"
-//                             value={climb.url}
-//                             onChange={
-//                                 (event) => {
-//                                     const copy = { ...climb }
-//                                     copy.url = event.target.value
-//                                     addClimb(copy)
-//                                 }
-//                             } />
-//                     </div>
-//                 </fieldset>
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Name: </Form.Label>
+                    <input type="text" name="name" required className="form-control" value={currentClimb.name}
+                        //When the value changes the changeClimbState function is triggered
+                        onChange={changeClimbState} />
+                </Form.Group>
 
-//                 <button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-//                     className="climbAlterButton">
-//                     Submit Climb
-//                 </button>
-//                 <button className="hikeAlterButton" onClick={() => navigate("/climbs")}>Cancel</button>
-//             </form >
-//         </>
-//     )
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Description: </Form.Label>
+                    <input type="text" name="description" required className="form-control" value={currentClimb.description}
+                        //When the value changes the changeClimbState function is triggered
+                        onChange={changeClimbState} />
+                </Form.Group>
 
-// }
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Location: </Form.Label>
+                    <input type="text" name="location" required className="form-control" value={currentClimb.location}
+                        //When the value changes the changeClimbState function is triggered
+                        onChange={changeClimbState} />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Climb Image(URL): </Form.Label>
+                    <input type="text" name="climb_image_url" required className="form-control" value={currentClimb.climb_image_url}
+                        //When the value changes the changeClimbState function is triggered
+                        onChange={changeClimbState} />
+                </Form.Group>
+
+
+                <Form.Group className="mb-3" controlId="formBasicStage">
+                    <Form.Label className="profile_edit">Climb Type: </Form.Label>
+                    <Form.Select className="form-control" name="climb_type" value={currentClimb.climb_type} required onChange={changeClimbState}>
+                        <option value="0">Choose Type</option>
+                        {/* mapping through the stages to display as a drop down menu */}
+                        {
+                            climbTypes.map(climbTypes => {
+                                return <option value={climbTypes.id} key={`climbTypes--${climbTypes.id}`}>{climbTypes.name}</option>
+                            })
+                        }
+                    </Form.Select>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicStage">
+                    <Form.Label className="profile_edit">Grade: </Form.Label>
+                    <Form.Select className="form-control" name="grade" value={currentClimb.grade} required onChange={changeClimbState}>
+                        <option value="0">Choose Grade</option>
+                        {/* mapping through the stages to display as a drop down menu */}
+                        {
+                            grades.map(grade => {
+                                return <option value={grade.id} key={`grade--${grade.id}`}>{grade.rating}</option>
+                            })
+                        }
+                    </Form.Select>
+                </Form.Group>
+
+                <div className="field">
+                    <label htmlFor="content" className="label">Tags: </label>
+                    {
+                        tags.map(tag => {
+                            return (
+                                <div className="field" key={`tag--${tag.id}`}>
+                                    <div className="control">
+                                        <label className="checkbox" htmlFor={tag.label}>
+                                            <input type="checkbox" name={tag.label}
+                                                checked={tagsForClimb.includes(tag.id)}
+                                                onChange={() => {
+                                                    updateTags(tag.id)
+                                                }} />
+                                            {tag.label}
+                                        </label>
+                                    </div>
+                                </div>
+                            )
+                        })
+
+                    }
+                </div>
+
+                <Button variant="primary" type="submit" onClick={event => {
+                    event.preventDefault() //preventing browser reload/refresh
+                    //climb object to be sent to the API
+                    const climb = {
+                        name: currentClimb.name,
+                        description: currentClimb.description,
+                        location: currentClimb.location,
+                        climb_image_url: currentClimb.climb_image_url,
+                        climb_type: parseInt(currentClimb.climb_type),
+                        grade: parseInt(currentClimb.grade),
+                        tags: tagsForClimb
+                    }
+                    /*Invoking the POST method with the climb object and then navigating to fridaysSchedule*/
+                    createNewClimb(climb)
+                        .then(() => navigate("/climbList"))
+                }}
+                    className="btn btn-primary">Create Climb</Button>
+                {/* when cancel is clicked it navigates the user back to the friday schedule */}
+                <Button onClick={() => navigate("/climbList")}>Cancel</Button>
+            </Form>
+        </>
+    )
+}

@@ -58,14 +58,15 @@ export const HikeList = ({ setStaff }) => {
 
     return (
         <>
-            <h2 className="hikeForm_title">Hike List</h2>
+            <h2 className="activityListTitle">Hike List</h2>
             {/* if the user is staff they will have the option to add a new hike*/}
             <div className="topButtons">
                 {
                     (staff === "true")
                         ?
                         <>
-                            <button className="dayButtons" onClick={() => navigate("/hike/create")}>Add Hike</button>
+                            <button className="staffButton" onClick={() => navigate("/hike/create")}>Add Hike</button>
+                            <button className="staffButton" onClick={()=> navigate("/skillLevelList")}>Hike Skill Levels</button>
                         </>
                         :
                         <>
@@ -85,25 +86,25 @@ export const HikeList = ({ setStaff }) => {
                 />
             </div>
             <article>
-                <ul className="hikeContainer">
+                <ul className="activityContainer">
                     {/* mapping through each hike and displaying its information */}
                     {filteredHikes.map((hike) => {
                         return (
-                            <div className="individualHike" key={`hike-${hike.id}`}>
-                                <section className="hikeList" key={`hike-${hike.id}`}>
+                            <div className="individualActivity" key={`hike-${hike.id}`}>
+                                <section className="activityList" key={`hike-${hike.id}`}>
                                     <div className="imageContainer">
-                                        <img className="hikePicture" src={hike?.hike_image_url} alt='hike'></img>
+                                        <img className="activityPicture" src={hike?.hike_image_url} alt='hike'></img>
                                     </div>
                                     <div className="textContainer">
-                                        <div className="hikeInfo"><b>Name:</b>{hike?.name}</div>
-                                        <div className="hikeInfo"><b>Distance:</b>{hike?.distance}</div>
-                                        <div className="hikeInfo"><b>Estimated Length:</b>{hike?.estimated_length}</div>
-                                        <div className="hikeInfo"><b>Description:</b>{hike?.description}</div>
-                                        <div className="hikeInfo"><b>Hike Skill Level:</b>{hike?.hike_skill_level?.level}</div>
+                                        <div className="activityInfo"><b>Name:</b>{hike?.name}</div>
+                                        <div className="activityInfo"><b>Distance:</b>{hike?.distance}</div>
+                                        <div className="activityInfo"><b>Estimated Length:</b>{hike?.estimated_length}</div>
+                                        <div className="activityInfo"><b>Description:</b>{hike?.description}</div>
+                                        <div className="activityInfo"><b>Hike Skill Level:</b>{hike?.hike_skill_level?.level}</div>
                                         {hike?.tags?.map((tag)=>{
                                         return(
                                             <div className="individualHikeTag" key={`tag-${tag.id}`}>
-                                        <div className="hikeInfo"><b>Tags:</b>{tag?.label}</div>
+                                        <div className="activityInfo"><b>Tags:</b>{tag?.label}</div>
                                         </div>
                                         )
                                         })

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getProfileShows, getSingleProfile } from "../managers/ProfileManager"
+import { getProfileHikes,getProfileClimbs, getSingleProfile } from "../managers/ProfileManager"
 import { FaUserCircle } from 'react-icons/fa';
 import Image from 'react-bootstrap/Image'
 import "./Profile.css"
@@ -10,7 +10,9 @@ export const ProfileDetails = (userId) => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
     const [profile, setProfile] = useState([])
-    const [shows, setShows] = useState([])
+    const [hikes, setHikes] = useState([])
+    const [climbs, setClimbs] = useState([])
+
 
     /*invoking useParams and assigning its return value to profileId. This hook returns an object of 
     key/value pairs of the dynamic params from the current URL that were matched by the <Route path>*/
@@ -20,14 +22,22 @@ export const ProfileDetails = (userId) => {
     const currentUserId = parseInt(localStorage.getItem('user_id'))
 
     //function to get a single profile and that profiles shows and set them both into respective states
-    const getProfileWithShows = () => {
+    const getProfileWithHikes = () => {
         getSingleProfile(profileId).then(data => setProfile(data))
-        getProfileShows(profileId).then(setShows)
+        getProfileHikes(profileId).then(setHikes)
     }
 
+    //function to get a single profile and that profiles shows and set them both into respective states
+    const getProfileWithClimbs = () => {
+        getSingleProfile(profileId).then(data => setProfile(data))
+        getProfileClimbs(profileId).then(setClimbs)
+    }
+
+    
     //use effect to invoke the getProfileWithShows while watching the profileId and re-rendering when it changes
     useEffect(() => {
-        getProfileWithShows()
+        getProfileWithHikes()
+        getProfileWithClimbs()
     }, [profileId])
 
 
@@ -53,10 +63,10 @@ export const ProfileDetails = (userId) => {
                         <div className="profile__info"><b>UserName</b>: {profile.user?.username}</div>
                         <div className="profile__info"><b>Email</b>: {profile.user?.email}</div>
                         {/* displays the number of shows they have added to their custom schedule */}
-                        {currentUserId === profile.user?.id
-                            ? <div><b>Show Count</b>: {shows[0]?.shows?.length}</div>
+                        {/* {currentUserId === profile.user?.id
+                            ? <div><b>Hike Count</b>: {shows[0]?.shows?.length}</div>
                             : <></>
-                        }
+                        } */}
 
                         <footer>
                             {/* displays type of user */}

@@ -7,6 +7,7 @@ import { HikeEdit } from "../activities/hikes/HikeEdit"
 import { HikeForm } from "../activities/hikes/HikeForm"
 import { HikeList } from "../activities/hikes/HikeList"
 import { MyCompletedClimbs } from "../activities/myClimbs.js/myCompletedClimbs"
+import { MyCompletedHikes } from "../activities/myHikes/myCompletedHikes"
 import { Login } from "../auth/Login"
 import { Register } from "../auth/Register"
 import { ClimbingGradeForm } from "../climbingGrades/ClimbingGradeForm"
@@ -32,7 +33,7 @@ import { Authorized } from "./Authorized"
 export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
     return <>
         <Routes>
-            <Route path="/login" element={<Login setToken={setToken} setUserId={setUserId} />} />
+            <Route path="/" element={<Login setToken={setToken} setUserId={setUserId} />} />
             <Route path="/register" element={<Register setToken={setToken} setUserId={setUserId} />} />
             <Route element={<Authorized token={token} />}>
 
@@ -65,6 +66,8 @@ export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
                 <Route path="climbingTypeList" element={<ClimbingTypeList />} />
                 <Route path="climbingType/create" element={<ClimbingTypeForm />} />
                 <Route path="climbingType/:climbingTypeId/edit" element={<EditClimbingType />} />
+                
+                <Route path="myCompletedHikes" element={<MyCompletedHikes />} />
                 <Route path="myCompletedClimbs" element={<MyCompletedClimbs />} />
                 </Route>
         </Routes>

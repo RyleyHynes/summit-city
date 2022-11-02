@@ -36,8 +36,8 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                             </NavDropdown.Item>
                         </NavDropdown>
 
-                        <NavDropdown title="Activities" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/hikeList">My Completed Hikes</NavDropdown.Item>
+                        <NavDropdown title="Completed Activities" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="/myCompletedHikes">My Completed Hikes</NavDropdown.Item>
                             <NavDropdown.Item href="/myCompletedClimbs">
                                 My Completed Climbs
                             </NavDropdown.Item>

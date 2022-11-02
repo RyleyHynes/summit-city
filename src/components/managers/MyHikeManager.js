@@ -33,8 +33,8 @@ export const createMyHike = (hike) => {
 }
 
 /*Delete Function for MyHike */
-export const deleteMyHike = (id) => {
-    return fetch(`http://localhost:8000/my_hikes/${id}`, {
+export const deleteMyHike = (hikeId) => {
+    return fetch(`http://localhost:8000/my_hikes/${hikeId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("summit_token")}`

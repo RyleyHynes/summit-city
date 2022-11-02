@@ -9,8 +9,8 @@ export const getAllProfiles = () => {
 }
 
 /*Getter function for profile with current users shows*/
-export const getProfileShows = (profileId) => {
-    return fetch(`http://localhost:8000/myshows?user=${profileId}`, {
+export const getProfileHikes = (profileId) => {
+    return fetch(`http://localhost:8000/my_hikes?user=${profileId}`, {
         headers: {
             "Authorization": `Token ${localStorage.getItem("summit_token")}`
         }
@@ -18,6 +18,15 @@ export const getProfileShows = (profileId) => {
         .then(response => response.json())
 }
 
+/*Getter function for profile with current users shows*/
+export const getProfileClimbs = (profileId) => {
+    return fetch(`http://localhost:8000/my_hikes?user=${profileId}`, {
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("summit_token")}`
+        }
+    })
+        .then(response => response.json())
+}
 
 /*Getter function for a single profile*/
 export const getSingleProfile = (profileId) => {

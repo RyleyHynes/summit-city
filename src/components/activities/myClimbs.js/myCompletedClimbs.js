@@ -10,13 +10,19 @@ export const MyCompletedClimbs = () => {
     const [searchTerms, setSearchTerms] = useState("")
     const [filteredClimb, setFilteredClimb] = useState([])
 
-const navigate = useNavigate()
-    
+    const navigate = useNavigate()
 
-//useEffect ot invoke the getShows function
+
+
+    const getUserClimbs = () => {
+        getMyClimbs().then(climbData => {
+            setMyCompletedClimbs(climbData[0])
+        })
+    }
+    //useEffect ot invoke the getShows function
     useEffect(() => {
 
-        getMyClimbs().then(climbData => setMyCompletedClimbs(climbData))
+        getUserClimbs()
     }, [])
 
     useEffect(
@@ -37,7 +43,7 @@ const navigate = useNavigate()
             <h2 className="showForm_title">Your Completed Climbs</h2>
             <article>
                 <div className="topButtons">
-                <button className="dayButtons" onClick={() => navigate("/climbList")}>Back to Climbs</button>
+                    <button className="dayButtons" onClick={() => navigate("/climbList")}>Back to Climbs</button>
                 </div>
                 <input
                     className="input search mx-4"
@@ -54,35 +60,45 @@ const navigate = useNavigate()
                     {/* mapping though the users saturday shows and listing off each shows image, 
                         artist name, genre, description, stage, and show time */}
                     {
-                        filteredClimb?.map((climb) => {
+                        [filteredClimb]?.map((climb) => {
                             return (
-                                <div className="individualShow" key={`saturdayShow-${climb.id}`}>
-                                    <section className="showList" key={`show-${climb.id}`}>
-                                        <div className="imageContainer">
-                                            <img className="showPicture" src={climb?.climb_image_url} alt='show'></img>
-                                        </div>
-                                        <div className="textContainer">
-                                            <div className="showInfo"><b>Name:</b> {climb?.name}</div>
-                                            <div className="showInfo"><b>Description:</b> {climb?.description}</div>
-                                            <div className="showInfo"><b>Location:</b> {climb?.location}</div>
-                                            <div className="showInfo"><b>Climb Type:</b> {climb?.climb_type?.name}</div>
-                                            <div className="showInfo"><b>Grade:</b> {climb.grade.rating}</div>
-                                            {climb?.tags?.map((tag)=>{
-                                        return(
-                                            <div className="individualHikeTag" key={`tag-${tag.id}`}>
-                                        <div className="activityInfo"><b>Tags:</b>{tag?.label}</div>
-                                        </div>
-                                        )
-                                        })
-                                    }
-                                        </div>
-                                    </section>
-                                    <section className="bottomButtons">
-                                        <button className="alterButton" onClick={(evt) => {
-                                            evt.preventDefault()
-                                            deleteMyClimb(climb.id).then(getMyClimbs)
-                                        }}>Delete</button>
-                                    </section>
+                                <div className="individualActivity" key={`climb-${climb.id}`}>
+                                    <section className="activity" key={`climb-${climb.id}`}>
+                                        {climb?.climbs?.map((singleClimb) => {
+                                            return (
+                                                <>
+                                                <div className="individualActivity" key={`singleClimb-${singleClimb.id}`}>
+                                                    <section className="activity" key={`singleClimb-${singleClimb.id}`}>
+                                                        <div className="imageContainer">
+                                                            <img className="activityPicture" src={singleClimb?.climb_image_url} alt='climb'></img>
+                                                        </div>
+                                                        <div className="textContainer">
+                                                            <div className="activityInfo"><b>Name:</b> {singleClimb?.name}</div>
+                                                            <div className="activityInfo"><b>Description:</b> {singleClimb?.description}</div>
+                                                            <div className="activityInfo"><b>Location:</b> {singleClimb?.location}</div>
+                                                            <div className="activityInfo"><b>Type of Climb:</b> {singleClimb?.climb_type?.name}</div>
+                                                            <div className="activityInfo"><b>Grade:</b> {singleClimb?.grade?.rating}</div>
+                                                            {singleClimb?.tags?.map((tag) => {
+                                                                return (
+                                                                    <div className="individualClimbTag" key={`tag-${tag.id}`}>
+                                                                        <div className="activityInfo"><b>Tags:</b>{tag?.label}</div>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                            }
+                                                        </div>
+                                                            <section className="bottomButtons">
+                                                                <button className="alterButton" onClick={(evt) => {
+                                                                    evt.preventDefault()
+                                                                    deleteMyClimb(singleClimb.id).then(getUserClimbs)
+                                                                }}>Delete</button>
+                                                            </section>
+                                                    </section>
+                                                </div>
+                                                </>
+                                    )
+                                        })}
+                                </section>
                                 </div>
                             )
                         })}

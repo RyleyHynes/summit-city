@@ -1,178 +1,111 @@
 import { useEffect, useState } from "react"
-import { deleteMyShow, getMyShows, getSearchMyShows } from "../managers/MyShowManager"
+import { useNavigate } from "react-router-dom"
+import { deleteMyHike, getMyHikes, getSearchMyHikes } from "../../managers/MyHikeManager"
+
 // import "./List.css"
 
-export const MyFridaySchedule = () => {
+export const MyCompletedHikes = () => {
     //setting initial state of mySaturdayShows 
-    const [mySaturdayShows, setMySaturdayShows] = useState([])
-    //setting initial state of myFridayShows 
-    const [myFridayShows, setMyFridayShows] = useState([])
-    //setting the initial day state to false for toggle purposes
-    const [day, setDay] = useState(false)
+    const [myCompletedHikes, setMyCompletedHikes] = useState([])
     const [searchTerms, setSearchTerms] = useState("")
-    const [filteredFridayShow, setFilteredFridayShow] = useState([])
-    const [filteredSaturdayShow, setFilteredSaturdayShow] = useState([])
+    const [filteredHikes, setFilteredHikes] = useState([])
 
+    const navigate = useNavigate()
 
-    //sorts the shows based on their date
-    const sortShows = (shows) => {
-        const fridayShows = []
-        const saturdayShows = []
-        let friShows = shows?.shows.map((show) => {
-            if (show.get_lineup_day === "2022-10-21") {
-                fridayShows.push(show)
-            } else {
-                saturdayShows.push(show)
-            }
-        })
-        let sortedFridayShows = fridayShows.sort((a, b) => { return a.start_time.localeCompare(b.start_time) })
-        let sortedSaturdayShows = saturdayShows.sort((a, b) => { return a.start_time.localeCompare(b.start_time) })
-        setMySaturdayShows(sortedSaturdayShows) //setting shows that are on saturday to mySaturdayShows state
-        setMyFridayShows(sortedFridayShows) //setting shows that are on friday to myFridayShows state
-    }
-
-    //function which gets users shows and sorts them by day
-    const getShows = () => {
-        getMyShows().then(data => {
-
-            sortShows(data[0])
+    const getUserHikes = () => {
+        getMyHikes().then(hikeData => {
+            setMyCompletedHikes(hikeData[0])
         })
     }
+
 
     //useEffect ot invoke the getShows function
     useEffect(() => {
 
-        getShows()
+        getUserHikes()
     }, [])
 
-    useEffect(
-        () => {
-            if (searchTerms !== "") {
-                getSearchMyShows(searchTerms).then(data => setFilteredFridayShow(data[0].shows))
-            }
-            else {
-                setFilteredFridayShow(myFridayShows)
-            }
-        },
-        [searchTerms, myFridayShows]
-    )
 
     useEffect(
         () => {
             if (searchTerms !== "") {
-                getSearchMyShows(searchTerms).then(data => setFilteredSaturdayShow(data[0].shows))
+                getSearchMyHikes(searchTerms).then(data => setFilteredHikes(data[0].hikes))
             }
             else {
-                setFilteredSaturdayShow(mySaturdayShows)
+                setFilteredHikes(myCompletedHikes)
             }
         },
-        [searchTerms, mySaturdayShows]
+        [searchTerms, myCompletedHikes]
     )
 
     //HTML for the users Schedule
     return (
         <>
-            {
-                day ? <><h2 className="showForm_title">Your Saturday Schedule</h2>
-                    <article>
-                        <div className="topButtons">
-                            <button className="dayButtons" onClick={() => setDay(false)}>Friday</button>
-                            <button className="dayButtons" onClick={() => setDay(true)}>Saturday</button>
-                        </div>
-                        <input
-                            className="input search mx-4"
-                            type="text"
-                            placeholder="Search Items"
-                            onChange={
-                                (changeEvent) => {
-                                    let search = changeEvent.target.value
-                                    setSearchTerms(search)
-                                }
-                            }
-                        />
-                        <ul className="showContainer">
-                            {/* mapping though the users saturday shows and listing off each shows image, 
+            <h2 className="activityListTitle">Your Completed Hikes</h2>
+            <article>
+                <div className="topButtons">
+                    <button className="dayButtons" onClick={() => navigate("/hikeList")}>Back to Hikes</button>
+                </div>
+                <input
+                    className="input search mx-4"
+                    type="text"
+                    placeholder="Search Items"
+                    onChange={
+                        (changeEvent) => {
+                            let search = changeEvent.target.value
+                            setSearchTerms(search)
+                        }
+                    }
+                />
+                <ul className="activityContainer">
+                    {/* mapping though the users saturday shows and listing off each shows image, 
                         artist name, genre, description, stage, and show time */}
-                            {
-                                filteredSaturdayShow?.map((show) => {
-                                    return (
-                                        <div className="individualShow" key={`saturdayShow-${show.id}`}>
-                                            <section className="showList" key={`show-${show.id}`}>
-                                                <div className="imageContainer">
-                                                    <img className="showPicture" src={show?.artist.artist_image} alt='show'></img>
+                    {
+                        [filteredHikes]?.map((hike) => {
+                            return (
+                                <div className="individualActivity" key={`hike-${hike.id}`}>
+                                    <section className="activity" key={`hike-${hike.id}`}>
+                                        {hike?.hikes?.map((singleHike) => {
+                                            return (
+                                                <>
+                                                <div className="individualActivity" key={`singleHike-${singleHike.id}`}>
+                                                    <section className="activity" key={`singleHike-${singleHike.id}`}>
+                                                        <div className="imageContainer">
+                                                            <img className="activityPicture" src={singleHike?.hike_image_url} alt='hike'></img>
+                                                        </div>
+                                                        <div className="textContainer">
+                                                            <div className="activityInfo"><b>Name:</b> {singleHike?.name}</div>
+                                                            <div className="activityInfo"><b>Distance:</b> {singleHike?.distance}</div>
+                                                            <div className="activityInfo"><b>Estimated Length:</b> {singleHike?.estimated_length}</div>
+                                                            <div className="activityInfo"><b>Description:</b> {singleHike?.description}</div>
+                                                            <div className="activityInfo"><b>Hike Skill Level:</b> {singleHike?.hike_skill_level?.level}</div>
+                                                            {singleHike?.tags?.map((tag) => {
+                                                                return (
+                                                                    <div className="individualHikeTag" key={`tag-${tag.id}`}>
+                                                                        <div className="activityInfo"><b>Tags:</b>{tag?.label}</div>
+                                                                    </div>
+                                                                )
+                                                            })
+                                                            }
+                                                        </div>
+                                                            <section className="bottomButtons">
+                                                                <button className="alterButton" onClick={(evt) => {
+                                                                    evt.preventDefault()
+                                                                    deleteMyHike(singleHike.id).then(getUserHikes)
+                                                                }}>Delete</button>
+                                                            </section>
+                                                    </section>
                                                 </div>
-                                                <div className="textContainer">
-                                                    <div className="showInfo"><b>Artist:</b> {show?.artist.artist_name}</div>
-                                                    <div className="showInfo"><b>Genre:</b> {show?.artist?.genre}</div>
-                                                    <div className="showInfo"><b>Description:</b> {show?.artist?.artist_description}</div>
-                                                    <div className="showInfo"><b>Stage:</b> {show?.stage?.stage_name}</div>
-                                                    <div className="showInfo"><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div>
-                                                </div>
-                                            </section>
-                                            <section className="bottomButtons">
-                                                <button className="alterButton" onClick={(evt) => {
-                                                    evt.preventDefault()
-                                                    deleteMyShow(show.id).then(getShows)
-                                                }}>Delete</button>
-                                            </section>
-                                        </div>
+                                                </>
                                     )
-                                })}
-                        </ul>
-                    </article>
-                </> :
-                    <>
-                        <h2 className="showForm_title">Your Friday Schedule</h2>
-                        <article>
-                            <div className="topButtons">
-                                <button className="dayButtons" onClick={() => setDay(false)}>Friday</button>
-                                <button className="dayButtons" onClick={() => setDay(true)}>Saturday</button>
-                            </div>
-                            <input
-                                className="input search mx-4"
-                                type="text"
-                                placeholder="Search Items"
-                                onChange={
-                                    (changeEvent) => {
-                                        let search = changeEvent.target.value
-                                        setSearchTerms(search)
-                                    }
-                                }
-                            />
-                            <ul className="showContainer">
-                                {/* mapping though the users friday shows and listing off each shows image, 
-                        artist name, genre, description, stage, and show time */}
-                                {
-                                    filteredFridayShow?.map((show) => {
-
-                                        return (
-                                            <div className="individualShow" key={`fridayShow-${show.id}`}>
-                                                <section className="showList" key={`show-${show.id}`}>
-                                                    <div className="imageContainer">
-                                                        <img className="showPicture" src={show?.artist?.artist_image} alt='show'></img>
-                                                    </div>
-                                                    <div className="textContainer">
-                                                        <div className="showInfo"><b>Artist:</b> {show?.artist?.artist_name}</div>
-                                                        <div className="showInfo"><b>Genre:</b> {show?.artist?.genre}</div>
-                                                        <div className="showInfo"><b>Description:</b> {show?.artist?.artist_description}</div>
-                                                        <div className="showInfo"><b>Stage:</b> {show?.stage?.stage_name}</div>
-                                                        <div className="showInfo"><b>Show Time:</b> {show.readable_start_time}-{show.readable_end_time}</div>
-                                                    </div>
-                                                </section>
-                                                <section className="bottomButtons">
-                                                    {/* user has the option to delete this show from their lineup */}
-                                                    <button className="alterButton" onClick={(evt) => {
-                                                        evt.preventDefault()
-                                                        deleteMyShow(show.id).then(getShows)
-                                                    }}>Delete</button>
-                                                </section>
-
-                                            </div>
-                                        )
-                                    })}
-                            </ul>
-                        </article>
-                    </>}
+                                        })}
+                                </section>
+                                </div>
+                )
+                        })
+                    }
+            </ul>
+        </article>
         </>
     )
 }

@@ -39,7 +39,7 @@ export const SkillLevelList = ({ searchTermState }) => {
     //Displaying the HTML for the skillLevels that will be listed out
     return (
         <>
-            <h2 className="showForm_title">SkillLevels</h2>
+            <h2 className="activityForm_title">SkillLevels</h2>
             {/* if the user is staff they will be able to see a button that will bring them to the add skillLevel form */}
             <div className="topButtons">
                 {
@@ -66,14 +66,14 @@ export const SkillLevelList = ({ searchTermState }) => {
                 />
             </div>
             <article>
-                <ul className="showContainer">
+                <ul className="activityContainer">
                     {/* mapping through each skillLevel to get their image, name, genre, and description */}
                     {filteredSkillLevels.map((skillLevel) => {
                         return (
-                            <div className="individualShow" key={`skillLevel-${skillLevel.id}`}>
-                                <section className="showList" key={`skillLevel-${skillLevel.id}`}>
+                            <div className="individualActivity" key={`skillLevel-${skillLevel.id}`}>
+                                <section className="activityList" key={`skillLevel-${skillLevel.id}`}>
                                     <div className="textContainer">
-                                        <div className="showInfo"><b>Level: </b>{skillLevel.level}</div>
+                                        <div className="activityInfo"><b>Level: </b>{skillLevel.level}</div>
                                     </div>
                                 </section>
                                 <section className="bottomButtons">

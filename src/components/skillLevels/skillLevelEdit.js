@@ -41,7 +41,7 @@ export const EditSkillLevel = () => {
     //HTML form the user will see to update the skillLevel
     return <>
         <Form>
-            <h2 className="showForm_title">Update Skill Level</h2>
+            <h2 className="activityForm_title">Update Skill Level</h2>
             <Form.Group className="mb-3" controlId="formBasicSkillLevel">
                 <Form.Label className="profile_edit">Skill Level:</Form.Label>
                 <Form.Control className="input" required autoFocus

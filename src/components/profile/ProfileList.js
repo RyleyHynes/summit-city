@@ -108,7 +108,7 @@ export const ProfileList = (userId) => {
 
             : <></>
         }
-            <h2 className="showForm_title"><b>Active Users</b></h2>
+            <h2 className="activityForm_title"><b>Active Users</b></h2>
         <article className="profiles2">
         <br />
             {

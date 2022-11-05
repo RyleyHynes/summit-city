@@ -21,20 +21,20 @@ export const ProfileDetails = (userId) => {
     /*Get current user from local storage*/
     const currentUserId = parseInt(localStorage.getItem('user_id'))
 
-    //function to get a single profile and that profiles shows and set them both into respective states
+    //function to get a single profile and that profiles hikes and set them both into respective states
     const getProfileWithHikes = () => {
         getSingleProfile(profileId).then(data => setProfile(data))
         getProfileHikes(profileId).then(setHikes)
     }
 
-    //function to get a single profile and that profiles shows and set them both into respective states
+    //function to get a single profile and that profiles climbs and set them both into respective states
     const getProfileWithClimbs = () => {
         getSingleProfile(profileId).then(data => setProfile(data))
         getProfileClimbs(profileId).then(setClimbs)
     }
 
     
-    //use effect to invoke the getProfileWithShows while watching the profileId and re-rendering when it changes
+    //use effect to invoke the getProfileWithHikes and getProfileWithClimbs while watching the profileId and re-rendering when it changes
     useEffect(() => {
         getProfileWithHikes()
         getProfileWithClimbs()
@@ -62,7 +62,7 @@ export const ProfileDetails = (userId) => {
                         <div className="profile__info"><b>Name</b>: {profile.user?.first_name} {profile.user?.last_name}</div>
                         <div className="profile__info"><b>UserName</b>: {profile.user?.username}</div>
                         <div className="profile__info"><b>Email</b>: {profile.user?.email}</div>
-                        {/* displays the number of shows they have added to their custom schedule */}
+                        {/* displays the number of hikes and climbs they have added to their custom activity list */}
                         {/* {currentUserId === profile.user?.id
                             ? <div><b>Hike Count</b>: {shows[0]?.shows?.length}</div>
                             : <></>

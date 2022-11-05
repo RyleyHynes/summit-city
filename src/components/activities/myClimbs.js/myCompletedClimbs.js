@@ -5,7 +5,7 @@ import { deleteMyClimb, getMyClimbs, getSearchMyClimbs } from "../../managers/My
 // import "./List.css"
 
 export const MyCompletedClimbs = () => {
-    //setting initial state of mySaturdayShows 
+    //setting initial state of myCompletedClimbs 
     const [myCompletedClimbs, setMyCompletedClimbs] = useState([])
     const [searchTerms, setSearchTerms] = useState("")
     const [filteredClimb, setFilteredClimb] = useState([])
@@ -19,7 +19,7 @@ export const MyCompletedClimbs = () => {
             setMyCompletedClimbs(climbData[0])
         })
     }
-    //useEffect ot invoke the getShows function
+    //useEffect ot invoke the getUserClimbs function
     useEffect(() => {
 
         getUserClimbs()
@@ -37,10 +37,10 @@ export const MyCompletedClimbs = () => {
         [searchTerms, myCompletedClimbs]
     )
 
-    //HTML for the users Schedule
+    //HTML for the users completed climbs
     return (
         <>
-            <h2 className="showForm_title">Your Completed Climbs</h2>
+            <h2 className="activityForm_title">Your Completed Climbs</h2>
             <article>
                 <div className="topButtons">
                     <button className="dayButtons" onClick={() => navigate("/climbList")}>Back to Climbs</button>
@@ -56,9 +56,9 @@ export const MyCompletedClimbs = () => {
                         }
                     }
                 />
-                <ul className="showContainer">
-                    {/* mapping though the users saturday shows and listing off each shows image, 
-                        artist name, genre, description, stage, and show time */}
+                <ul className="activityContainer">
+                    {/* mapping though the users filtered climbs and listing off each climbs image, 
+                        name, description, location, type of climb, grade and tags */}
                     {
                         [filteredClimb]?.map((climb) => {
                             return (

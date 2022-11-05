@@ -18,7 +18,7 @@ export const HikeList = ({ setStaff }) => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
-    //function to get the friday schedule and set it into hikes state
+    //function to get the hike list and set it into hikes state
     const getCurrentHikeList = () => {
         getAllHikes().then(data => setHikes(data))
     }
@@ -28,7 +28,7 @@ export const HikeList = ({ setStaff }) => {
         setStaffState(localStorage.getItem("is_staff"))
     }, [setStaff])
 
-    //observing and invoking the getCurrentFridaySchedule
+    //observing and invoking the getCurrentHikeList
     useEffect(() => {
         getCurrentHikeList()
     }, [])
@@ -44,7 +44,7 @@ export const HikeList = ({ setStaff }) => {
         },
         [searchTerms, hikes]
     )
-    //function to add hike to users custom lineup
+    //function to add hike to users custom completed hikes
     const handleAddHike = (evt) => {
         evt.preventDefault() //preventing browser reload/refresh
         const hike = { hike_id: evt.target.id }

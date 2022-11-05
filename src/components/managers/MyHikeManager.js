@@ -10,7 +10,7 @@ export const getMyHikes = () => {
 
 
 export const getSearchMyHikes = (search) => {
-    return fetch(`http://localhost:8000/my_hikes?user=${localStorage.getItem('summit_user')}&search=${search}`, {
+    return fetch(`http://localhost:8000/my_hikes?search=${search}`, {
         method: "GET",
         headers: {
             'Authorization': `Token ${localStorage.getItem('summit_token')}`

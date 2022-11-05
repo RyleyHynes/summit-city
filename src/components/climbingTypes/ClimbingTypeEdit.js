@@ -42,7 +42,7 @@ export const EditClimbingType = () => {
     //HTML form the user will see to update the climbingType
     return <>
         <Form>
-            <h2 className="showForm_title">Update Climbing Type</h2>
+            <h2 className="activityForm_title">Update Climbing Type</h2>
             <Form.Group className="mb-3" controlId="formBasicClimbingType">
                 <Form.Label className="profile_edit">Name:</Form.Label>
                 <Form.Control className="input" required autoFocus
@@ -58,7 +58,7 @@ export const EditClimbingType = () => {
                 <Form.Control className="input" required autoFocus
                     type="text"
                     value={climbingType.climb_type_image}
-                    name="artist_image"
+                    name="climb_type_image"
                     onChange={changeClimbingTypeState} />
             </Form.Group>
 

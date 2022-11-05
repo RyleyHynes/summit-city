@@ -20,7 +20,7 @@ export const ClimbList = ({ setStaff }) => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
-    //function to get the friday schedule and set it into climbs state
+    //function to get the climb list and set it into climbs state
     const getCurrentClimbList = () => {
         getAllClimbs().then(data => setClimbs(data))
     }
@@ -30,7 +30,7 @@ export const ClimbList = ({ setStaff }) => {
         setStaffState(localStorage.getItem("is_staff"))
     }, [setStaff])
 
-    //observing and invoking the getCurrentFridaySchedule
+    //observing and invoking the getCurrentClimbList
     useEffect(() => {
         getCurrentClimbList()
     }, [])
@@ -46,7 +46,7 @@ export const ClimbList = ({ setStaff }) => {
         },
         [searchTerms, climbs]
     )
-    //function to add climb to users custom lineup
+    //function to add climb to users custom completed climbs 
     const handleAddClimb = (evt) => {
         evt.preventDefault() //preventing browser reload/refresh
         const climb = { climb_id: evt.target.id }

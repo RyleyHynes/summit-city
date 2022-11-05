@@ -41,7 +41,7 @@ export const EditClimbingGrade = () => {
     //HTML form the user will see to update the climbingGrade
     return <>
         <Form>
-            <h2 className="showForm_title">Update Climbing Grade</h2>
+            <h2 className="activityForm_title">Update Climbing Grade</h2>
             <Form.Group className="mb-3" controlId="formBasicClimbingGrade">
                 <Form.Label className="profile_edit">Rating:</Form.Label>
                 <Form.Control className="input" required autoFocus

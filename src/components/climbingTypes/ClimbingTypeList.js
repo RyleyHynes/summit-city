@@ -39,7 +39,7 @@ export const ClimbingTypeList = ({ searchTermState }) => {
     //Displaying the HTML for the climbingTypes that will be listed out
     return (
         <>
-            <h2 className="showForm_title">Climbing Types</h2>
+            <h2 className="activityForm_title">Climbing Types</h2>
             {/* if the user is staff they will be able to see a button that will bring them to the add climbingType form */}
             <div className="topButtons">
                 {
@@ -67,18 +67,18 @@ export const ClimbingTypeList = ({ searchTermState }) => {
                 />
             </div>
             <article>
-                <ul className="showContainer">
+                <ul className="activityContainer">
                     {/* mapping through each climbingType to get their image, name, genre, and description */}
                     {filteredClimbingTypes.map((climbingType) => {
                         return (
-                            <div className="individualShow" key={`climbingType-${climbingType.id}`}>
-                                <section className="showList" key={`climbingType-${climbingType.id}`}>
+                            <div className="individualActivity" key={`climbingType-${climbingType.id}`}>
+                                <section className="activityList" key={`climbingType-${climbingType.id}`}>
 
                                     <div className="imageContainer">
-                                        <img className="showPicture" src={climbingType?.climb_type_image} alt='show'></img>
+                                        <img className="activityPicture" src={climbingType?.climb_type_image} alt='climb'></img>
                                     </div>
                                     <div className="textContainer">
-                                        <div className="showInfo"><b>Name: </b>{climbingType.name}</div>
+                                        <div className="activityInfo"><b>Name: </b>{climbingType.name}</div>
                                     </div>
                                 </section>
                                 <section className="bottomButtons">

@@ -39,7 +39,7 @@ export const ClimbingGradeList = ({ searchTermState }) => {
     //Displaying the HTML for the climbingGrades that will be listed out
     return (
         <>
-            <h2 className="showForm_title">Climbing Grades</h2>
+            <h2 className="activityForm_title">Climbing Grades</h2>
             {/* if the user is staff they will be able to see a button that will bring them to the add climbingGrade form */}
             <div className="topButtons">
                 {
@@ -67,14 +67,14 @@ export const ClimbingGradeList = ({ searchTermState }) => {
                 />
             </div>
             <article>
-                <ul className="showContainer">
+                <ul className="activityContainer">
                     {/* mapping through each climbingGrade to get their image, name, genre, and description */}
                     {filteredClimbingGrades.map((climbingGrade) => {
                         return (
-                            <div className="individualShow" key={`climbingGrade-${climbingGrade.id}`}>
-                                <section className="showList" key={`climbingGrade-${climbingGrade.id}`}>
+                            <div className="individualActivity" key={`climbingGrade-${climbingGrade.id}`}>
+                                <section className="activityList" key={`climbingGrade-${climbingGrade.id}`}>
                                     <div className="textContainer">
-                                        <div className="showInfo"><b>Rating: </b>{climbingGrade.rating}</div>
+                                        <div className="activityInfo"><b>Rating: </b>{climbingGrade.rating}</div>
                                     </div>
                                 </section>
                                 <section className="bottomButtons">

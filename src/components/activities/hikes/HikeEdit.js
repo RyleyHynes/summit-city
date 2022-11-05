@@ -73,7 +73,7 @@ export const HikeEdit = () => {
     return <>
         <Form>
             <h2 className="hikeForm_title">Update Hike</h2>
-            <Form.Group className="mb-3" controlId="formBasicArtist">
+            <Form.Group className="mb-3" controlId="formBasicClimb">
                 <Form.Label className="profile_edit">Name:</Form.Label>
                 <Form.Control className="input" required autoFocus
                     type="text"
@@ -127,11 +127,11 @@ export const HikeEdit = () => {
                     onChange={changeHikeState} />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicStage">
+            <Form.Group className="mb-3" controlId="formBasicSkillLevel">
                     <Form.Label className="profile_edit">Skill Level: </Form.Label>
                     <Form.Select className="form-control" name="hike_skill_level" value={hike?.hike_skill_level?.id} required onChange={changeHikeState}>
                         <option value="0">Choose Skill Level</option>
-                        {/* mapping through the stages to display as a drop down menu */}
+                        {/* mapping through the skill level to display as a drop down menu */}
                         {
                             skillLevels.map(skillLevel => {
                                 return <option value={skillLevel.id} key={`skillLevel--${skillLevel.id}`}>{skillLevel.level}</option>
@@ -168,7 +168,7 @@ export const HikeEdit = () => {
                 className="button is-success">
                 Save
             </Button>
-            {/* when cancel is clicked it navigates the user back to the artist list */}
+            {/* when cancel is clicked it navigates the user back to the Hike list */}
             <Button onClick={() => navigate("/hikeList")}>Cancel</Button>
         </Form>
     </>

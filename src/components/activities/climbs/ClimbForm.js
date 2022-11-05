@@ -12,9 +12,9 @@ import { getAllClimbTypes } from "../../managers/ClimbTypeManager";
 export const ClimbForm = () => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
-    //setting up initial state for stages
+    //setting up initial state for grades
     const [grades, setGrades] = useState([])
-    //setting up initial state for stages
+    //setting up initial state for grades
     const [climbTypes, setClimbTypes] = useState([])
     const [tags, setTags] = useState([])
     const [tagsForClimb, setTagsForClimb] = useState([])
@@ -90,11 +90,11 @@ export const ClimbForm = () => {
                 </Form.Group>
 
 
-                <Form.Group className="mb-3" controlId="formBasicStage">
+                <Form.Group className="mb-3" controlId="formBasicClimbType">
                     <Form.Label className="profile_edit">Climb Type: </Form.Label>
                     <Form.Select className="form-control" name="climb_type" value={currentClimb.climb_type} required onChange={changeClimbState}>
                         <option value="0">Choose Type</option>
-                        {/* mapping through the stages to display as a drop down menu */}
+                        {/* mapping through the climb types to display as a drop down menu */}
                         {
                             climbTypes.map(climbTypes => {
                                 return <option value={climbTypes.id} key={`climbTypes--${climbTypes.id}`}>{climbTypes.name}</option>
@@ -103,11 +103,11 @@ export const ClimbForm = () => {
                     </Form.Select>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicStage">
+                <Form.Group className="mb-3" controlId="formBasicGrade">
                     <Form.Label className="profile_edit">Grade: </Form.Label>
                     <Form.Select className="form-control" name="grade" value={currentClimb.grade} required onChange={changeClimbState}>
                         <option value="0">Choose Grade</option>
-                        {/* mapping through the stages to display as a drop down menu */}
+                        {/* mapping through the grades to display as a drop down menu */}
                         {
                             grades.map(grade => {
                                 return <option value={grade.id} key={`grade--${grade.id}`}>{grade.rating}</option>
@@ -151,12 +151,12 @@ export const ClimbForm = () => {
                         grade: parseInt(currentClimb.grade),
                         tags: tagsForClimb
                     }
-                    /*Invoking the POST method with the climb object and then navigating to fridaysSchedule*/
+                    /*Invoking the POST method with the climb object and then navigating to climb list*/
                     createNewClimb(climb)
                         .then(() => navigate("/climbList"))
                 }}
                     className="btn btn-primary">Create Climb</Button>
-                {/* when cancel is clicked it navigates the user back to the friday schedule */}
+                {/* when cancel is clicked it navigates the user back to the climb list */}
                 <Button onClick={() => navigate("/climbList")}>Cancel</Button>
             </Form>
         </>

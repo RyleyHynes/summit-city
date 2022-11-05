@@ -11,7 +11,7 @@ import { getAllTags } from "../../managers/TagManager";
 export const HikeForm = () => {
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
-    //setting up initial state for stages
+    //setting up initial state for skill levels
     const [skillLevels, setSkillLevels] = useState([])
     const [tags, setTags] = useState([])
     const [tagsForHike, setTagsForHike] = useState([])
@@ -97,11 +97,11 @@ export const HikeForm = () => {
                         onChange={changeHikeState} />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicStage">
+                <Form.Group className="mb-3" controlId="formBasicSkillLevel">
                     <Form.Label className="profile_edit">Skill Level: </Form.Label>
                     <Form.Select className="form-control" name="hike_skill_level" value={currentHike.hike_skill_level} required onChange={changeHikeState}>
                         <option value="0">Choose Skill Level</option>
-                        {/* mapping through the stages to display as a drop down menu */}
+                        {/* mapping through the skill levels to display as a drop down menu */}
                         {
                             skillLevels.map(skillLevel => {
                                 return <option value={skillLevel.id} key={`skillLevel--${skillLevel.id}`}>{skillLevel.level}</option>
@@ -146,12 +146,12 @@ export const HikeForm = () => {
                         hike_skill_level: parseInt(currentHike.hike_skill_level),
                         tags: tagsForHike
                     }
-                    /*Invoking the POST method with the hike object and then navigating to fridaysSchedule*/
+                    /*Invoking the POST method with the hike object and then navigating to hikeList*/
                     createNewHike(hike)
                         .then(() => navigate("/hikeList"))
                 }}
                     className="btn btn-primary">Create Hike</Button>
-                {/* when cancel is clicked it navigates the user back to the friday schedule */}
+                {/* when cancel is clicked it navigates the user back to the hikeList */}
                 <Button onClick={() => navigate("/hikeList")}>Cancel</Button>
             </Form>
         </>

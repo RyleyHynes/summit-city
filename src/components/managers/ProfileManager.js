@@ -8,7 +8,7 @@ export const getAllProfiles = () => {
         .then(response => response.json())
 }
 
-/*Getter function for profile with current users shows*/
+/*Getter function for profile with current users hikes*/
 export const getProfileHikes = (profileId) => {
     return fetch(`http://localhost:8000/my_hikes?user=${profileId}`, {
         headers: {
@@ -18,7 +18,7 @@ export const getProfileHikes = (profileId) => {
         .then(response => response.json())
 }
 
-/*Getter function for profile with current users shows*/
+/*Getter function for profile with current users hikes*/
 export const getProfileClimbs = (profileId) => {
     return fetch(`http://localhost:8000/my_hikes?user=${profileId}`, {
         headers: {

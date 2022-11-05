@@ -64,9 +64,9 @@ export const EditProfile = () => {
 
         //HTML for the edit profile form 
         return <>
-            <form className="showForm">
+            <form className="activityForm">
                 <section className="editProfileSection">
-                <h2 className="showForm_title"><b>Edit Profile</b></h2>
+                <h2 className="activityForm_title"><b>Edit Profile</b></h2>
                 <fieldset>
                     <div className="form-group">
                         <label htmlFor="first_name" className="profile_edit"><b>First Name: </b></label>

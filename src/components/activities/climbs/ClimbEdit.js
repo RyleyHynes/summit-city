@@ -77,7 +77,7 @@ export const ClimbEdit = () => {
     return <>
         <Form>
             <h2 className="climbForm_title">Update Climb</h2>
-            <Form.Group className="mb-3" controlId="formBasicArtist">
+            <Form.Group className="mb-3" controlId="formBasicClimb">
                 <Form.Label className="profile_edit">Name:</Form.Label>
                 <Form.Control className="input" required autoFocus
                     type="text"
@@ -114,11 +114,11 @@ export const ClimbEdit = () => {
                     onChange={changeClimbState} />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicStage">
+            <Form.Group className="mb-3" controlId="formBasicClimbType">
                     <Form.Label className="profile_edit">Climb Type: </Form.Label>
                     <Form.Select className="form-control" name="climb_type" value={climb?.climb_type?.id} required onChange={changeClimbState}>
                         <option value="0">Choose Type</option>
-                        {/* mapping through the stages to display as a drop down menu */}
+                        {/* mapping through the climb types to display as a drop down menu */}
                         {
                             climbTypes.map(climbType => {
                                 return <option value={climbType.id} key={`climbType--${climbType.id}`}>{climbType.name}</option>
@@ -127,11 +127,11 @@ export const ClimbEdit = () => {
                     </Form.Select>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicStage">
+                <Form.Group className="mb-3" controlId="formBasicGrade">
                     <Form.Label className="profile_edit">Grade: </Form.Label>
                     <Form.Select className="form-control" name="grade" value={climb?.grade?.id} required onChange={changeClimbState}>
                         <option value="0">Choose grade</option>
-                        {/* mapping through the stages to display as a drop down menu */}
+                        {/* mapping through the grades to display as a drop down menu */}
                         {
                             grades.map(grade => {
                                 return <option value={grade.id} key={`grade--${grade.id}`}>{grade.rating}</option>
@@ -168,7 +168,7 @@ export const ClimbEdit = () => {
                 className="button is-success">
                 Save
             </Button>
-            {/* when cancel is clicked it navigates the user back to the artist list */}
+            {/* when cancel is clicked it navigates the user back to the climb list */}
             <Button onClick={() => navigate("/climbList")}>Cancel</Button>
         </Form>
     </>

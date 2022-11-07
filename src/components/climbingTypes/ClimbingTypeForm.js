@@ -26,15 +26,15 @@ export const ClimbingTypeForm = () => {
         <Form>
             <h2>Create a New Climbing Type</h2>
             <Form.Group className="mb-3" controlId="formBasicName">
-                    <Form.Label className="profile_edit">Type: </Form.Label>
+                    <Form.Label className="edit">Type: </Form.Label>
                     <Form.Control type="text" name="name" required autoFocus className="form-control" value={currentClimbingType.name}
                         // when the value of the Form.Control changes we trigger the changeClimbingTypeState Function
                         onChange={changeClimbingTypeState} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicClimbingTypeImage">
-                    <Form.Label className="profile_edit">Climbing Type Image(URL): </Form.Label>
-                    <Form.Control type="text" name="climbing_type_image" required className="form-control" value={currentClimbingType.climb_type_image}
+                    <Form.Label className="edit">Climbing Type Image(URL): </Form.Label>
+                    <Form.Control type="text" name="climb_type_image" required className="form-control" value={currentClimbingType.climb_type_image}
                         onChange={changeClimbingTypeState} />
                 </Form.Group>
 

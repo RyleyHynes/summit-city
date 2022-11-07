@@ -72,3 +72,8 @@ body {
     width: 500px;
     border-radius: 1rem;
 }
+
+.summitCityDescription{
+    margin-left: 2rem;
+    margin-right: 2rem;
+}

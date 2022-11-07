@@ -9,8 +9,6 @@ export const ClimbingTypeList = ({ searchTermState }) => {
     const [climbingTypes, setClimbingTypes] = useState([])
     //setting initial state of staff
     const [staff, setStaffState] = useState()
-    const [searchTerms, setSearchTerms] = useState("")
-    const [filteredClimbingTypes, setFilteredClimbingTypes] = useState([])
     /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
@@ -24,52 +22,31 @@ export const ClimbingTypeList = ({ searchTermState }) => {
         getAllClimbTypes().then(data => setClimbingTypes(data))
     }, [])
 
-    useEffect(
-        () => {
-            if (searchTerms !== "") {
-                getSearchClimbTypes(searchTerms).then(data => setFilteredClimbingTypes(data))
-            }
-            else {
-                setFilteredClimbingTypes(climbingTypes)
-            }
-        },
-        [searchTerms, climbingTypes]
-    )
+
 
     //Displaying the HTML for the climbingTypes that will be listed out
     return (
         <>
-            <h2 className="activityForm_title">Climbing Types</h2>
+            <h2 className="activityListTitle">Climbing Types</h2>
             {/* if the user is staff they will be able to see a button that will bring them to the add climbingType form */}
             <div className="topButtons">
                 {
                     (staff === "true")
                         ?
                         <>
-                            <button className="dayButtons" onClick={() => navigate("/climbList")}>Back to Climbs</button>
-                            <button className="dayButtons" onClick={() => navigate("/climbingType/create")}>Add Climbing Type</button>
+                            <button className="staffButton" onClick={() => navigate("/climbList")}>Back to Climbs</button>
+                            <button className="staffButton" onClick={() => navigate("/climbingType/create")}>Add Climbing Type</button>
                         </>
                         :
                         <>
 
                         </>
                 }
-                <input
-                    className="input search mx-4"
-                    type="text"
-                    placeholder="Search Items"
-                    onChange={
-                        (changeEvent) => {
-                            let search = changeEvent.target.value
-                            setSearchTerms(search)
-                        }
-                    }
-                />
             </div>
             <article>
                 <ul className="activityContainer">
                     {/* mapping through each climbingType to get their image, name, genre, and description */}
-                    {filteredClimbingTypes.map((climbingType) => {
+                    {climbingTypes.map((climbingType) => {
                         return (
                             <div className="individualActivity" key={`climbingType-${climbingType.id}`}>
                                 <section className="activityList" key={`climbingType-${climbingType.id}`}>

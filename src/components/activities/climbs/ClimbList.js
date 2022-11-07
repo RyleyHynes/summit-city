@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createMyClimb } from "../../managers/MyClimbManager"
-import { deleteClimb } from "../../managers/ClimbManager"
+import { deleteClimb, getSearchClimbs } from "../../managers/ClimbManager"
 import { getAllClimbs } from "../../managers/ClimbManager"
 import "./List.css"
 
@@ -38,7 +38,7 @@ export const ClimbList = ({ setStaff }) => {
     useEffect(
         () => {
             if (searchTerms !== "") {
-                getAllClimbs(searchTerms).then(data => setFilteredClimbs(data[0].climbs))
+                getSearchClimbs(searchTerms).then(data => setFilteredClimbs(data))
             }
             else {
                 setFilteredClimbs(climbs)

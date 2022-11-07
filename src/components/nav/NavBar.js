@@ -43,6 +43,10 @@ export const NavBar = ({ token, setToken, setStaff }) => {
                             </NavDropdown.Item>
                         </NavDropdown>
 
+                        <Nav.Item>
+                            <Nav.Link href="/links"><b>Helpful Links</b></Nav.Link>
+                        </Nav.Item>
+
                         {/* if the user is staff they will also have the below nav bar options */}
                         {staff === "true"
                             ?

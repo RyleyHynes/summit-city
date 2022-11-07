@@ -8,10 +8,8 @@ export const Home = () => {
 return(
     <>
     <h1 className="homePageTitle">Welcome to Summit City</h1>
-    <h2 className="summitCityDescription">Summit City is your one stop shop to find hiking 
-    and climbing activities in Grand Teton National Park. Please go to our activities page and select hikes and climbs that
-    you would like to add to your profile. You can either mark them as completed or bucket list for activities that you would 
-    like to try in the future.</h2>
+    <h2 className="summitCityDescription">Summit City is your one stop shop to find hikes 
+    and climbs in Grand Teton National Park. Once you have completed an activity you can add it to your list of completed hikes or climbs. Send it!</h2>
     <section>
         <fieldset>
             {

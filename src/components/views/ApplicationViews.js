@@ -1,44 +1,75 @@
-import { Outlet, Route, Routes, useNavigate } from "react-router-dom"
-import { ClimbContainer } from "../activities/climbs/ClimbContainer"
+import { Route, Routes } from "react-router-dom"
+import { Activities } from "../activities/activityList"
 import { ClimbEdit } from "../activities/climbs/ClimbEdit"
 import { ClimbForm } from "../activities/climbs/ClimbForm"
 import { ClimbList } from "../activities/climbs/ClimbList"
-import { ClimbSearch } from "../activities/climbs/ClimbSearch"
-import { HikeContainer } from "../activities/hikes/HikeContainer"
 import { HikeEdit } from "../activities/hikes/HikeEdit"
 import { HikeForm } from "../activities/hikes/HikeForm"
-import { HikeSearch } from "../activities/hikes/HikeSearch"
+import { HikeList } from "../activities/hikes/HikeList"
+import { MyCompletedClimbs } from "../activities/myClimbs.js/myCompletedClimbs"
+import { MyCompletedHikes } from "../activities/myHikes/myCompletedHikes"
+import { Login } from "../auth/Login"
+import { Register } from "../auth/Register"
+import { ClimbingGradeForm } from "../climbingGrades/ClimbingGradeForm"
+import { ClimbingGradeList } from "../climbingGrades/ClimbingGradeList"
+import { EditClimbingGrade } from "../climbingGrades/EditClimbingGrade"
+import { EditClimbingType } from "../climbingTypes/ClimbingTypeEdit"
+import { ClimbingTypeForm } from "../climbingTypes/ClimbingTypeForm"
+import { ClimbingTypeList } from "../climbingTypes/ClimbingTypeList"
 import { Links } from "../helpfulLinks/Links"
 import { Home } from "../homeScreen/home"
-import { Profile } from "../profile/Profile"
-import "./ApplicationViews.css"
+import { EditProfile } from "../profile/EditProfileForm"
+import { ProfileDetails } from "../profile/Profile"
+import { ProfileList } from "../profile/ProfileList"
+import { EditSkillLevel } from "../skillLevels/skillLevelEdit"
+import { SkillLevelForm } from "../skillLevels/skillLevelForm"
+import { SkillLevelList } from "../skillLevels/skillLevelList"
+import { Authorized } from "./Authorized"
 
 
 
 
 
-export const ApplicationViews = () => {
-    const navigate = useNavigate()
-    return <Routes>
-        <Route path="/" element={
-            <>
-                <h1 className="title--main" onClick={() => navigate("/home")}>Summit City</h1>
-    
-                <Outlet />
-            </>
-        }>
-            <Route path="home" element={<Home />} />
-            <Route path="Links" element={<Links />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="hike/create" element={<HikeForm />} />
-            <Route path="hikes" element={<HikeContainer />} />
-            <Route path="hikes" element={<HikeSearch />} />
-            <Route path="hikes/:hikeId/edit" element={<HikeEdit />} />
-            <Route path="climb/create" element={<ClimbForm />} />
-            <Route path="climbs" element={<ClimbContainer />} />
-            <Route path="climbs" element={<ClimbSearch />} />
-            <Route path="climbs/:climbId/edit" element={<ClimbEdit />} />
-            <Route path="climbs" element={<ClimbList />} />
-        </Route>
-    </Routes>
+export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
+    return <>
+        <Routes>
+            <Route path="/" element={<Login setToken={setToken} setUserId={setUserId} />} />
+            <Route path="/register" element={<Register setToken={setToken} setUserId={setUserId} />} />
+            <Route element={<Authorized token={token} />}>
+
+                <Route path="/home" element={<Home />} />
+                <Route path="/activities" element={<Activities />} />
+
+
+                <Route path="links" element={<Links />} />
+
+                <Route path="/profiles" element={<ProfileList />} />
+                <Route path="/profiles/:profileId" element={<ProfileDetails />} />
+                <Route path="/profiles/:profileId/edit" element={<EditProfile />} />
+
+                <Route path="hikeList" element={<HikeList />} />
+                <Route path="hike/create" element={<HikeForm />} />
+                <Route path="hikes/:hikeId/edit" element={<HikeEdit />} />
+
+                <Route path="climbList" element={<ClimbList />} />
+                <Route path="climb/create" element={<ClimbForm />} />
+                <Route path="climbs/:climbId/edit" element={<ClimbEdit />} />
+
+                <Route path="skillLevelList" element={<SkillLevelList />} />
+                <Route path="skillLevel/create" element={<SkillLevelForm />} />
+                <Route path="skillLevel/:skillLevelId/edit" element={<EditSkillLevel />} />
+
+                <Route path="climbingGradeList" element={<ClimbingGradeList />} />
+                <Route path="climbingGrade/create" element={<ClimbingGradeForm />} />
+                <Route path="climbingGrade/:climbingGradeId/edit" element={<EditClimbingGrade />} />
+
+                <Route path="climbingTypeList" element={<ClimbingTypeList />} />
+                <Route path="climbingType/create" element={<ClimbingTypeForm />} />
+                <Route path="climbingType/:climbingTypeId/edit" element={<EditClimbingType />} />
+                
+                <Route path="myCompletedHikes" element={<MyCompletedHikes />} />
+                <Route path="myCompletedClimbs" element={<MyCompletedClimbs />} />
+                </Route>
+        </Routes>
+    </>
 }

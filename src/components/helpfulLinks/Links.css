@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
-    /* justify-content: space-evenly; */
+    justify-content: space-evenly;
     margin: 2rem;
 }
 
@@ -10,6 +10,7 @@
 /* flipcards */
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect, removed border */
 .card {
+    border: none;
     background-color: transparent;
     width: 400px;
     height: 300px;
@@ -22,7 +23,7 @@
     position: relative;
     width: 400px;
     height: 300px;
-    /* text-align: center; */
+    text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
     border-radius: .25rem;

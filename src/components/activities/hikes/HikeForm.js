@@ -1,267 +1,161 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { getAllHikeSkillLevels } from "../../managers/SkillLevelManager";
+import { createNewHike } from "../../managers/HikeManager";
+import { getAllTags } from "../../managers/TagManager";
+
+
 
 export const HikeForm = () => {
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
+    const navigate = useNavigate()
+    //setting up initial state for skill levels
+    const [skillLevels, setSkillLevels] = useState([])
+    const [tags, setTags] = useState([])
+    const [tagsForHike, setTagsForHike] = useState([])
 
-    //set initial hike state (updateHike is the function that changes the state.)
-    const [hike, addHike] = useState({
+    //observes and invokes getter functions and sets them to their respective states
+    useEffect(() => {
+        getAllHikeSkillLevels().then(data => setSkillLevels(data))
+        getAllTags().then(tagsData => setTags(tagsData))
+    }, [])
+
+    const updateTags = (tagId) => {
+        let tagsCopy = [...tagsForHike]
+        const index = tagsCopy.indexOf(tagId)
+        if (index < 0) {
+            tagsCopy.push(tagId)
+        } else {
+            tagsCopy.splice(index, 1)
+        }
+        setTagsForHike(tagsCopy)
+    }
+
+    //assigning the currentHike state to an object of key value pairs 
+    const [currentHike, setCurrentHike] = useState({
         name: "",
-        location: "",
-        skillLevelId: 0,
         distance: "",
+        location: "",
+        estimated_length: "",
         description: "",
-        attractions: "",
-        completed: false,
-        bucketList: false,
-        scheduleDate: "",
-        userId: 0,
-        url:""
+        hike_image_url: "",
+        hike_skill_level: 0,
+        tags: []
     })
 
-    //invoking useNavigate and assigning its return value to a variable 
-    const navigate = useNavigate()
+    //function to change copy of the initial currentHike state and set the new currentHike value to the state
+    const changeHikeState = (domEvent) => {
+        const newHike = { ...currentHike } //creating a copy of the initial currentHike state
+        newHike[domEvent.target.name] = domEvent.target.value
+        setCurrentHike(newHike)
+    }
 
-    const [skillLevels, setSkillLevels] = useState([])
-
-
-    // get summitUser out of local storage
-    const localSummitUser = localStorage.getItem("summit_user")
-    const summitUserObject = JSON.parse(localSummitUser)
-    const userId = summitUserObject
-
-
-
-    useEffect(() => {
-        fetch(`http://localhost:8088/skillLevels`)
-            .then((response) => response.json())
-            .then((skillLevelArray) => {
-                setSkillLevels(skillLevelArray)
-            })
-    },
-        []
-    )
-
-    const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-
-        //create an object to be saved to the API 
-        const hikeToSendToAPI = {
-            name: hike.name,
-            location: hike.location,
-            distance: parseFloat(hike.distance, 2),
-            description: hike.description,
-            attractions: hike.attractions,
-            skillLevelId: parseInt(hike.skillLevelId),
-            completed: hike.completed,
-            bucketList: hike.bucketList,
-            scheduleDate: hike.scheduleDate,
-            userId: userId.id,
-            url: hike.url
-        }
-        //Perform the fetch() to POST the object to the API
-        //copied the url of the hikes from the API, second argument is to fetch is options, that is in the {} after the url, added method of POST with the header, for body, turned the object hikeToSendToApi into a string. When JSON serve response the user will be directed back to the ticket page via navigate("/hikes)")
-        //Post request to JSON server, when completed, navigate user back to session list - route found in application views.js
-
-        return fetch(`http://localhost:8088/hikes`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(hikeToSendToAPI),
-        })
-            .then((response) => response.json())
-            .then(() => {
-                navigate("/hikes"); //same as shown in application views
-            })
-    };
-
-    // onChange event will update the hike properties when changed.  updating state each time it is changed and it will update the copy and property listed. in the callback function in the onChange, parameter of event, and set a target. 
-    // Then calling the update function to change the new state
-    // added onclick to the submit button, passed clickEvent into the argument for the handleSaveButtonFunction
+    //HTML for the create new hike form
     return (
-        <form className="hikeForm">
-            <h2 className="newHike">New Hike</h2>
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="Name"><b>Name:</b></label>
-                    <input
-                        required autoFocus
-                        type="text"
-                        className="form-control"
-                        placeholder="Hike Name"
-                        value={hike.name}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.name = event.target.value
-                                addHike(copy)
-                            }}
-                    />
-                </div>
-            </fieldset>
+        <>
+            <Form>
+                <h2 className="hikeForm_title">Create New Hike</h2>
 
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="Name"><b>Location:</b></label>
-                    <input
-                        required 
-                        type="text"
-                        className="form-control"
-                        placeholder="Hike Location"
-                        value={hike.location}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.location = event.target.value
-                                addHike(copy)
-                            }}
-                    />
-                </div>
-            </fieldset>
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Name: </Form.Label>
+                    <input type="text" name="name" required className="form-control" value={currentHike.name}
+                        //When the value changes the changeHikeState function is triggered
+                        onChange={changeHikeState} />
+                </Form.Group>
 
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="Name"><b>Distance(miles):</b></label>
-                    <input
-                        required 
-                        type="number"
-                        className="form-control"
-                        placeholder="Hike Distance"
-                        value={hike.distance}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.distance = parseFloat(event.target.value, 2)
-                                addHike(copy)
-                            }}
-                    />
-                </div>
-            </fieldset>
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Distance: </Form.Label>
+                    <input type="number" name="distance" required className="form-control" value={currentHike.distance}
+                        //When the value changes the changeHikeState function is triggered
+                        onChange={changeHikeState} />
+                </Form.Group>
 
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="description"><b>Description:</b></label>
-                    <input
-                        required 
-                        type="text"
-                        className="form-control"
-                        placeholder="Hike Description"
-                        value={hike.description}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.description = event.target.value
-                                addHike(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="attractions"><b>Attractions:</b></label>
-                    <input
-                        required 
-                        type="text"
-                        className="form-control"
-                        placeholder="Hike Attractions"
-                        value={hike.attractions}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.attractions = event.target.value
-                                addHike(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="skillLevel"><b>Skill Level:</b></label>
-                    <select
-                        onChange={(evt) => {
-                            const copy = { ...hike }; //created a copy of existing state
-                            copy.skillLevelId = parseInt(evt.target.value) //to modify
-                            addHike(copy)
-                        }}
-                    >
-                        <option key={0}>Select Skill Level</option>
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Location: </Form.Label>
+                    <input type="text" name="location" required className="form-control" value={currentHike.location}
+                        //When the value changes the changeHikeState function is triggered
+                        onChange={changeHikeState} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Estimate Length: </Form.Label>
+                    <input type="number" name="estimated_length" required className="form-control" value={currentHike.estimated_length}
+                        //When the value changes the changeHikeState function is triggered
+                        onChange={changeHikeState} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Description: </Form.Label>
+                    <input type="text" name="description" required className="form-control" value={currentHike.description}
+                        //When the value changes the changeHikeState function is triggered
+                        onChange={changeHikeState} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicDate">
+                    <Form.Label className="profile_edit">Hike Image(URL): </Form.Label>
+                    <input type="text" name="hike_image_url" required className="form-control" value={currentHike.hike_image_url}
+                        //When the value changes the changeHikeState function is triggered
+                        onChange={changeHikeState} />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicSkillLevel">
+                    <Form.Label className="profile_edit">Skill Level: </Form.Label>
+                    <Form.Select className="form-control" name="hike_skill_level" value={currentHike.hike_skill_level} required onChange={changeHikeState}>
+                        <option value="0">Choose Skill Level</option>
+                        {/* mapping through the skill levels to display as a drop down menu */}
                         {
-                            skillLevels.map((skillLevel) => {
-                                return <option key={skillLevel.id} value={skillLevel.id}>{skillLevel.level}</option>
-                            })}
-                    </select>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="boolean" key={hike.id}>
-                    <span><b>Completed:</b></span>
-                    <input type="radio" className="boolean"
-                        name="completed" value={true}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.completed = true
-                                addHike(copy)
-                            }} />
-                    <label htmlFor="yes">True</label>
-                    <input type="radio" className="boolean"
-                        name="completed" value={false} 
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.completed = false
-                                addHike(copy)
-                            }} />
-                    <label htmlFor="false">False</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="boolean" key={hike.id}>
-                    <span><b>Bucket List:</b></span>
-                    <input type="radio" className="boolean"
-                        name="bucketList" value={true}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.bucketList = true
-                                addHike(copy)
-                            }} />
-                    <label htmlFor="true">True</label>
-                    <input type="radio" className="boolean"
-                        name="bucketList" value={false} onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.bucketList = false
-                                addHike(copy)
-                            }} />
-                    <label htmlFor="false">False</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label className="label" htmlFor="description"><b>Photo URL:</b></label>
-                    <input
-                        required 
-                        type="text"
-                        className="form-control-site"
-                        placeholder="Insert Photo of Hike"
-                        value={hike.url}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.url = event.target.value
-                                addHike(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
-            <button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
-                className="hikeAlterButton">
-                Submit Hike
-            </button>
+                            skillLevels.map(skillLevel => {
+                                return <option value={skillLevel.id} key={`skillLevel--${skillLevel.id}`}>{skillLevel.level}</option>
+                            })
+                        }
+                    </Form.Select>
+                </Form.Group>
 
-            <button className="hikeAlterButton" onClick={() => navigate("/hikes")}>Cancel</button>
-        </form >
+                <div className="field">
+                    <label htmlFor="content" className="label">Tags: </label>
+                    {
+                        tags.map(tag => {
+                            return (
+                                <div className="field" key={`tag--${tag.id}`}>
+                                    <div className="control">
+                                        <label className="checkbox" htmlFor={tag.label}>
+                                            <input type="checkbox" name={tag.label}
+                                                checked={tagsForHike.includes(tag.id)}
+                                                onChange={() => {
+                                                    updateTags(tag.id)
+                                                }} />
+                                            {tag.label}
+                                        </label>
+                                    </div>
+                                </div>
+                            )
+                        })
+
+                    }
+                </div>
+
+                <Button variant="primary" type="submit" onClick={event => {
+                    event.preventDefault() //preventing browser reload/refresh
+                    //hike object to be sent to the API
+                    const hike = {
+                        name: currentHike.name,
+                        distance: currentHike.distance,
+                        location: currentHike.location,
+                        estimated_length: currentHike.estimated_length,
+                        description: currentHike.description,
+                        hike_image_url: currentHike.hike_image_url,
+                        hike_skill_level: parseInt(currentHike.hike_skill_level),
+                        tags: tagsForHike
+                    }
+                    /*Invoking the POST method with the hike object and then navigating to hikeList*/
+                    createNewHike(hike)
+                        .then(() => navigate("/hikeList"))
+                }}
+                    className="btn btn-primary">Create Hike</Button>
+                {/* when cancel is clicked it navigates the user back to the hikeList */}
+                <Button onClick={() => navigate("/hikeList")}>Cancel</Button>
+            </Form>
+        </>
     )
-
 }
+
+

@@ -1,49 +1,27 @@
 import { useNavigate } from "react-router-dom"
 import "./home.css"
 import React from "react"
+import { Image } from "react-bootstrap"
 
 export const Home = () => {
 
-    const navigate = useNavigate()
-
-    return <>
-        <div className="home">
-
-            <h2 className="subTitle">Select Your Activity</h2>
-
-            <>
-            <section className="buttonsAndPictures">
-                <fieldset>
-                    {
-                        <div>
-                        <button className="hikingButton" onClick={() => navigate("/hikes")}>Hiking</button>
-                        <img onClick={() => navigate("/hikes")} 
-                        className="meadows"
-                        src="/images/hike.jpg"
-                        alt="meadows"
+return(
+    <>
+    <h1 className="homePageTitle">Welcome to Summit City</h1>
+    <h2 className="summitCityDescription">Summit City is your one stop shop to find hikes 
+    and climbs in Grand Teton National Park. Once you have completed an activity you can add it to your list of completed hikes or climbs. Send it!</h2>
+    <section>
+        <fieldset>
+            {
+                <div>
+                    <Image className="summitCityHomeImage"
+                    src="/images/ryleyProfilePicture.jpg"
+                    alt="ryleyProfilePicture"
                     />
-                    </div>
-                    }                    
-                </fieldset>
-                <fieldset>
-                    {
-                        <div>
-                        <button className="climbingButton" onClick={() => navigate("/climbs")}>Rock Climbing</button>
-                        <img
-                        onClick={() => navigate("/climbs")}
-                        className="bellyRoll"
-                        src="/images/climb.jpg"
-                        alt="bellyRoll" 
-                    />
-                    </div>
-                    }                  
-                </fieldset>
-                </section>
-            </>
-        </div>
-
-
+                </div>
+            }
+        </fieldset>
+    </section>
     </>
-
-
+)
 }

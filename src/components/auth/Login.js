@@ -1,79 +1,92 @@
-import React, { useState } from "react"
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"
+import { useRef, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { loginUser } from "../managers/AuthManager"
+
 import "./Login.css"
 
-export const Login = () => {
-    /*login has an initial state of email which is set to "ryleyhynes@gmail.com"*/
-    const [email, setEmail] = useState("ryleyhynes@gmail.com")
-    /*invoking useNavigate and assigning it to navigate*/
+/*Login is a function that accepts two props to register new users*/
+export const Login = ({ setToken, setUserId }) => {
+    /*invoking useRef and assigning its return value to several variables
+    useRef( ) allows you to persist values between rerenders.It can be used 
+    to store a mutable value that does not cause a re-render when updated */
+    const username = useRef()
+    const password = useRef()
+
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
-    /*function that handles clicking on the login button*/
-    const handleLogin = (e) => {
-        e.preventDefault()
-        /*making a fetch call to JSON server looking at the users collection to find 
-        anybody who matches that email*/
-        return fetch(`http://localhost:8088/users?email=${email}`)
-            .then(res => res.json())
-            .then(foundUsers => {
-                if (foundUsers.length === 1) {
-                    const user = foundUsers[0]
-                    /*if it is a valid login and a valid email in localStorage then 
-                    I am setting the item of summit_user*/
-                    localStorage.setItem("summit_user", JSON.stringify({
-                        /*honey_user has two properties ID Staff*/
-                        id: user.id
-                    }))
+    const [isUnsuccessful, setIsUnsuccessful] = useState(false) //setting initial state of isUnsuccessful to false
 
-                    navigate("/home")
-                }
-                else {
-                    window.alert("Invalid login")
-                }
-            })
+    //This function handles the login of a user
+    const handleLogin = (e) => {
+        e.preventDefault() //preventing browser reload/refresh
+
+        //user object to be checked for login
+        const user = {
+            username: username.current.value,
+            password: password.current.value
+        }
+
+        //handling validation for login and if it is unsuccessful we change the state to true
+        loginUser(user).then(res => {
+            if ("valid" in res && res.valid) {
+
+                setToken(res.token)
+                setUserId(res.user_id)
+                localStorage.setItem('is_staff', res.is_staff)
+                navigate("/home")
+
+            }
+            else {
+                setIsUnsuccessful(true)
+            }
+        })
     }
 
+    //HTML that user sees on the login page
     return (
-        <>
-            <img
-                className="tetonBarn"
-                src={"/images/tetonBarn.PNG"}
-                alt="tetonBarn"
-            />
-            <main >
-                <div> <img
-                    className="logo"
-                    src={"/images/Summit.png"}
-                    alt="logo"
-                />
-                    <section>
-                        <form className="form--login" onSubmit={handleLogin}>
-                            <h1>Summit City</h1>
-                            <h2>Please sign in</h2>
-                            <fieldset>
-                                <label className="emailAddress" htmlFor="inputEmail"> Email address: </label>
-                                <input type="email"
-                                    value={email}
-                                    onChange={evt => setEmail(evt.target.value)}
-                                    className="form-control"
-                                    placeholder="Email address"
-                                    required autoFocus />
-                            </fieldset>
-                            <fieldset>
-                                <button className="signInButton" type="submit">
-                                    Sign in
-                                </button>
-                            </fieldset>
-                            <fieldset>
-                                <Link className="registerLink" to="/register">Not a member yet?</Link>
-                            </fieldset>
-                        </form>
-                    </section>
-                </div>
-            </main>
-        </>
+        <section>
+            <div className="Auth-form-container">
+                {/* When the form is submitted, the handleLogin function is triggered */}
+                <form className="Auth-form" onSubmit={handleLogin}>
+                    <div className="Auth-form-content">
 
+
+                        <h1 className="Auth-form-title">Summit City</h1>
+                        <h2 className="Auth-form-title">Please sign in</h2>
+
+                        <div className="form-group mt-3">
+                            <label>Username</label>
+                            <div >
+                                {/* ref attribute = element to access it directly in the DOM. */}
+                                <input className="form-control mt-1" type="text" ref={username} />
+                            </div>
+                        </div>
+
+                        <div className="form-group mt-3">
+                            <label>Password</label>
+                            <div className="control">
+                                <input className="form-control mt-1" type="password" ref={password} />
+                            </div>
+                        </div>
+
+
+                        <div className="d-grid gap-2 mt-3">
+                            <button className="btn btn-primary" type="submit" >Submit</button>
+                        </div>
+                        <div className="control">
+                            {/* cancels registration and brings you back to login */}
+                            <Link to="/register" className="forgot-password text-right mt-2">New User? Register Here</Link>
+                        </div>
+
+                        {/* if the state of isUnsuccessful changes to true we have a pop up saying invalid, otherwise it shows an empty string aka nothing */}
+                        {
+                            isUnsuccessful ? <p className="help is-danger">Username or password not valid</p> : ''
+                        }
+                    </div>
+                </form>
+            </div>
+        </section>
     )
 }
 

@@ -1,8 +1,12 @@
-import {React} from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import './custom.scss';
+// Put any other imports below so that CSS from your
+// components takes precedence over default styles.
 import { createRoot } from 'react-dom/client';
-import { SummitCity } from './components/SummitCity';
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
+import { SummitCity } from './SummitCity';
+import "./index.css"
+
 
 const container = document.getElementById("root")
 const root = createRoot(container)
@@ -12,8 +16,3 @@ root.render(
   </BrowserRouter>
 );
 
-
-//Pass a function if you want to measure performance in your app
-//For example to log results use (reportWebVitals(console.log))
-//you can also send to an analytics endpoint. learn more: https://bit.lyCRA-vitals
-//reportWebVitals()

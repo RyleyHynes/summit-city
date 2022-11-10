@@ -1,247 +1,176 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
+import { getAllHikeSkillLevels } from "../../managers/SkillLevelManager"
+import { getSingleHike, updateHike } from "../../managers/HikeManager"
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { getAllTags } from "../../managers/TagManager";
 
 export const HikeEdit = () => {
-    const [hike, editHike] = useState({
+
+    const [tags, setTags] = useState([])
+    const [tagsForHike, setTagsForHike] = useState([])
+    //setting up initial state for skillLevels
+    const [skillLevels, setHikeSkillLevel] = useState([])
+    //assigning the currentHike state to an object of key value pairs 
+    const [hike, setEditHike] = useState({
         name: "",
-        location: "",
-        skillLevelId: "",
         distance: "",
+        location: "",
+        estimated_length: "",
         description: "",
-        attractions: "",
-        completed: false,
-        bucketList: false
+        hike_image_url: "",
+        hike_skill_level: 0,
+        tags: []
     })
 
+
+        const updateTags = (tagId) => {
+            const tagsCopy = [...tagsForHike]
+            const index = hike.tags.indexOf(tagId)
+            if (index < 0) {
+            tagsCopy.push(tagId)
+            } else {
+            tagsCopy.splice(index, 1)
+            }
+            setTagsForHike(tagsCopy)
+        }
+
+    /*invoking useParams and assigning its return value to hikeId. This hook returns an object of 
+    key/value pairs of the dynamic params from the current URL that were matched by the <Route path>*/
     const { hikeId } = useParams()
+    /*Invoking useNavigate and assigning it to navigate so that we can navigate our application programmatically*/
     const navigate = useNavigate()
 
-    const [skillLevels, setSkillLevels] = useState([])
 
+    //observes and invokes getSingleHike by the hikeId param and sets it into the editHike state 
     useEffect(() => {
-        fetch(`http://localhost:8088/hikes/${hikeId}`)
-            .then(response => response.json())
-            .then((data) => {
-                editHike(data)
-            })
-    },
-        [hikeId]
-    )
-
-    useEffect(() => {
-        fetch(`http://localhost:8088/skillLevels`)
-            .then((response) => response.json())
-            .then((skillLevelArray) => {
-                setSkillLevels(skillLevelArray)
-            })
-    },
-        []
-    )
-
-    const editButtonClick = (event) => {
-        event.preventDefault()
-
-        return fetch(`http://localhost:8088/hikes/${hikeId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(hike)
+        getSingleHike(hikeId).then(data => {setEditHike(data) 
+            const tagIds = data.tags?.map(t => t.id) 
+            setTagsForHike(tagIds)
         })
-            .then(response => response.json())
-            .then(() => {
-                navigate("/hikes")
-            })
+        getAllTags().then(data => setTags(data))
+        getAllHikeSkillLevels().then(data => setHikeSkillLevel(data))
+        }, [hikeId])
 
+    //function to submit the updated hike 
+    const handleSubmit = (evt) => {
+        evt.preventDefault() //preventing browser reload/refresh
+        hike.tags = tagsForHike
+        updateHike(hikeId, hike).then((data) => {
+            navigate("/hikeList")
+        })
     }
 
+    //function to change copy of the initial hike state and set the new hike value to the state
+    const changeHikeState = (event) => {
+        const hikeCopy = { ...hike } //creating a copy of the initial hike state
+        hikeCopy[event.target.name] = event.target.value
+        setEditHike(hikeCopy)
+    }
+
+    //HTML for the edit hike form
     return <>
-        <form className="hikeForm">
-            <h2 className="updateHike">Update Hike</h2>
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="name"><b>Name:</b></label>
-                    <input
-                        required 
-                        type="text"
-                        className="form-control"
-                        placeholder="Hike Name"
-                        value={hike.name}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.name = event.target.value
-                                editHike(copy)
-                            }}
-                    />
-                </div>
-            </fieldset>
+        <Form>
+            <h2 className="hikeForm_title">Update Hike</h2>
+            <Form.Group className="mb-3" controlId="formBasicClimb">
+                <Form.Label className="profile_edit">Name:</Form.Label>
+                <Form.Control className="input" required autoFocus
+                    type="text"
+                    value={hike.name}
+                    name="name"
+                    //When the value changes the changeHikeState function is triggered
+                    onChange={changeHikeState} />
+            </Form.Group>
 
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="location"><b>Location:</b></label>
-                    <input
-                        required 
-                        type="text"
-                        className="form-control"
-                        placeholder="Hike Location"
-                        value={hike.location}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.location = event.target.value
-                                editHike(copy)
-                            }}
-                    />
-                </div>
-            </fieldset>
+            <Form.Group className="mb-3" controlId="formBasicGenre">
+                <Form.Label className="profile_edit">Distance:</Form.Label>
+                <Form.Control className="input" required autoFocus
+                    type="text"
+                    value={hike.distance}
+                    name="distance"
+                    onChange={changeHikeState} />
+            </Form.Group>
 
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="skillLevel"><b>Skill Level:</b></label>
-                    <select
-                        value={hike.skillLevelId}
-                        onChange={(evt) => {
-                            const copy = { ...hike }; //created a copy of existing state
-                            copy.skillLevelId = parseInt(evt.target.value) //to modify
-                            editHike(copy)
-                        }}
-                    >
-                        <option value="0">Select Skill Level</option>
+            <Form.Group className="mb-3" controlId="formBasicDescription">
+                <Form.Label className="profile_edit">Location:</Form.Label>
+                <Form.Control required autoFocus
+                    as="textarea" rows={2}
+                    value={hike.location}
+                    name="location"
+                    onChange={changeHikeState} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicDescription">
+                <Form.Label className="profile_edit">Estimated Length:</Form.Label>
+                <Form.Control required autoFocus
+                    as="textarea" rows={2}
+                    value={hike.estimated_length}
+                    name="estimated_length"
+                    onChange={changeHikeState} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicDescription">
+                <Form.Label className="profile_edit">Description:</Form.Label>
+                <Form.Control required autoFocus
+                    as="textarea" rows={2}
+                    value={hike.description}
+                    name="description"
+                    onChange={changeHikeState} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicURL">
+                <Form.Label className="profile_edit">Hike Image (URL):</Form.Label>
+                <Form.Control className="input" required autoFocus
+                    type="text"
+                    value={hike.hike_image_url}
+                    name="hike_image_url"
+                    onChange={changeHikeState} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicSkillLevel">
+                    <Form.Label className="profile_edit">Skill Level: </Form.Label>
+                    <Form.Select className="form-control" name="hike_skill_level" value={hike?.hike_skill_level?.id} required onChange={changeHikeState}>
+                        <option value="0">Choose Skill Level</option>
+                        {/* mapping through the skill level to display as a drop down menu */}
                         {
-                            skillLevels.map((skillLevel) => {
-                                return <option key={skillLevel.id} value={skillLevel.id}>{skillLevel.level}</option>
-                            })}
-                    </select>
-                </div>
-            </fieldset>
+                            skillLevels.map(skillLevel => {
+                                return <option value={skillLevel.id} key={`skillLevel--${skillLevel.id}`}>{skillLevel.level}</option>
+                            })
+                        }
+                    </Form.Select>
+                </Form.Group>
 
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="distance"><b>Distance:</b></label>
-                    <input
-                        required 
-                        type="number"
-                        className="form-control"
-                        placeholder="Hike Distance"
-                        value={hike.distance}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.distance = parseFloat(event.target.value,2)
-                                editHike(copy)
-                            }}
-                    />
-                </div>
-            </fieldset>
+                <div className="field">
+                    <label htmlFor="content" className="label">Tags: </label>
+                    {
+                        tags.map(tag => {
+                            return (
+                                <div className="field" key={`tag--${tag.id}`}>
+                                    <div className="control">
+                                        <label className="checkbox" htmlFor={tag.label}>
+                                            <input type="checkbox" name={tag.label}
+                                                checked={tagsForHike.includes(tag.id)}
+                                                onChange={() => {
+                                                    updateTags(tag.id)
+                                                }} />
+                                            {tag.label}
+                                        </label>
+                                    </div>
+                                </div>
+                            )
+                        })
 
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="description"><b>Description:</b></label>
-                    <input
-                        required 
-                        type="text"
-                        className="form-control"
-                        placeholder="Hike Description"
-                        value={hike.description}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.description = event.target.value
-                                editHike(copy)
-                            }
-                        } />
+                    }
                 </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label htmlFor="attractions"><b>Attractions:</b></label>
-                    <input
-                        required 
-                        type="text"
-                        className="form-control"
-                        placeholder="Hike Attractions"
-                        value={hike.attractions}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.attractions = event.target.value
-                                editHike(copy)
-                            }}
-                    />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <span><b>Completed:</b></span>
-                    <input  type="radio" className="req-form-control"
-                        name="completed" value={true}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.completed = true
-                                editHike(copy)
-                            }} />
-                    <label htmlFor="yes">True</label>
-                    <input  type="radio" className="req-form-control"
-                        name="completed" value={false}  onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.completed = false
-                                editHike(copy)
-                            }} />
-                    <label htmlFor="false">False</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <span><b>Bucket List:</b></span>
-                    <input  type="radio" className="req-form-control"
-                        name="bucketList" value={true}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.bucketList = true
-                                editHike(copy)
-                            }} />
-                    <label htmlFor="true">True</label>
-                    <input  type="radio" className="req-form-control"
-                        name="bucketList" value={false}  onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.bucketList = false
-                                editHike(copy)
-                            }} />
-                    <label htmlFor="false">False</label>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form_group" key={hike.id}>
-                    <label className="label" htmlFor="description"><b>Photo URL:</b></label>
-                    <input
-                        required 
-                        type="text"
-                        className="form-control-site"
-                        placeholder="Insert Photo of Hike"
-                        value={hike.url}
-                        onChange={
-                            (event) => {
-                                const copy = { ...hike }
-                                copy.url = event.target.value
-                                editHike(copy)
-                            }
-                        } />
-                </div>
-            </fieldset>
 
-            <button
-                onClick={(clickEvent) => editButtonClick(clickEvent)}
-                className="hikeAlterButton">
+            <Button type="submit"
+                onClick={handleSubmit} //when save is clicked the handleSubmit function is triggered
+                className="button is-success">
                 Save
-            </button>
-
-            <button className="hikeAlterButton" onClick={() => navigate("/hikes")}>Cancel</button>
-        </form>
+            </Button>
+            {/* when cancel is clicked it navigates the user back to the Hike list */}
+            <Button onClick={() => navigate("/hikeList")}>Cancel</Button>
+        </Form>
     </>
-
 }
+

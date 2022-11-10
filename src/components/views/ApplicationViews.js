@@ -33,7 +33,7 @@ import { Authorized } from "./Authorized"
 export const ApplicationViews = ({ token, setToken, setUserId, userId }) => {
     return <>
         <Routes>
-            <Route path="/" element={<Login setToken={setToken} setUserId={setUserId} />} />
+            <Route path="/login" element={<Login setToken={setToken} setUserId={setUserId} />} />
             <Route path="/register" element={<Register setToken={setToken} setUserId={setUserId} />} />
             <Route element={<Authorized token={token} />}>
 

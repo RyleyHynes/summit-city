@@ -42,10 +42,8 @@ export const MyCompletedHikes = () => {
     return (
         <>
             <h2 className="activityListTitle">Your Completed Hikes</h2>
-            <article>
                 <div className="topButtons">
-                    <button className="dayButtons" onClick={() => navigate("/hikeList")}>Back to Hikes</button>
-                </div>
+                    <button className="staffButton" onClick={() => navigate("/hikeList")}>Back to Hikes</button>
                 <input
                     className="input search mx-4"
                     type="text"
@@ -56,7 +54,9 @@ export const MyCompletedHikes = () => {
                             setSearchTerms(search)
                         }
                     }
-                />
+                    />
+                    </div>
+                    <article>
                 <ul className="activityContainer">
                     {/* mapping though the users filtered hikes and listing off each hikes image, 
                         name, distance, estimated length, description, skil level, and tags */}

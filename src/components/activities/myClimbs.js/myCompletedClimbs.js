@@ -40,11 +40,10 @@ export const MyCompletedClimbs = () => {
     //HTML for the users completed climbs
     return (
         <>
-            <h2 className="activityForm_title">Your Completed Climbs</h2>
+            <h2 className="activityListTitle">Your Completed Climbs</h2>
             <article>
                 <div className="topButtons">
-                    <button className="dayButtons" onClick={() => navigate("/climbList")}>Back to Climbs</button>
-                </div>
+                    <button className="staffButton" onClick={() => navigate("/climbList")}>Back to Climbs</button>
                 <input
                     className="input search mx-4"
                     type="text"
@@ -55,7 +54,8 @@ export const MyCompletedClimbs = () => {
                             setSearchTerms(search)
                         }
                     }
-                />
+                    />
+                    </div>
                 <ul className="activityContainer">
                     {/* mapping though the users filtered climbs and listing off each climbs image, 
                         name, description, location, type of climb, grade and tags */}

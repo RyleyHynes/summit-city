@@ -84,7 +84,7 @@ export const HikeEdit = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicGenre">
-                <Form.Label className="profile_edit">Distance:</Form.Label>
+                <Form.Label className="profile_edit">Distance (Miles):</Form.Label>
                 <Form.Control className="input" required autoFocus
                     type="text"
                     value={hike.distance}
@@ -102,7 +102,7 @@ export const HikeEdit = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicDescription">
-                <Form.Label className="profile_edit">Estimated Length:</Form.Label>
+                <Form.Label className="profile_edit">Estimated Length (Minutes):</Form.Label>
                 <Form.Control required autoFocus
                     as="textarea" rows={2}
                     value={hike.estimated_length}

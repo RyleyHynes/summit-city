@@ -97,8 +97,8 @@ export const HikeList = ({ setStaff }) => {
                                     </div>
                                     <div className="textContainer">
                                         <div className="activityInfo"><b>Name:</b>{hike?.name}</div>
-                                        <div className="activityInfo"><b>Distance:</b>{hike?.distance}</div>
-                                        <div className="activityInfo"><b>Estimated Length:</b>{hike?.estimated_length}</div>
+                                        <div className="activityInfo"><b>Distance (Miles):</b>{hike?.distance}</div>
+                                        <div className="activityInfo"><b>Estimated Length (Minutes):</b>{hike?.estimated_length}</div>
                                         <div className="activityInfo"><b>Description:</b>{hike?.description}</div>
                                         <div className="activityInfo"><b>Hike Skill Level:</b>{hike?.hike_skill_level?.level}</div>
                                         {hike?.tags?.map((tag)=>{

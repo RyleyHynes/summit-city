@@ -66,7 +66,7 @@ export const HikeForm = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicDate">
-                    <Form.Label className="profile_edit">Distance: </Form.Label>
+                    <Form.Label className="profile_edit">Distance (Miles): </Form.Label>
                     <input type="number" name="distance" required className="form-control" value={currentHike.distance}
                         //When the value changes the changeHikeState function is triggered
                         onChange={changeHikeState} />
@@ -79,7 +79,7 @@ export const HikeForm = () => {
                         onChange={changeHikeState} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicDate">
-                    <Form.Label className="profile_edit">Estimate Length: </Form.Label>
+                    <Form.Label className="profile_edit">Estimate Length (Minutes): </Form.Label>
                     <input type="number" name="estimated_length" required className="form-control" value={currentHike.estimated_length}
                         //When the value changes the changeHikeState function is triggered
                         onChange={changeHikeState} />
